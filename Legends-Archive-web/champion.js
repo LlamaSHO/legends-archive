@@ -1,2 +1,270 @@
-const DD='https://ddragon.leagueoflegends.com',id=new URLSearchParams(location.search).get('id'),page=document.querySelector('#page');
-async function init(){if(!id)return page.innerHTML='<div class="loading">Campeón no indicado.</div>';let v=(await fetch(DD+'/api/versions.json').then(r=>r.json()))[0];let c=(await fetch(`${DD}/cdn/${v}/data/es_ES/champion/${id}.json`).then(r=>r.json())).data[id];document.title=c.name+' — Legends Archive';page.innerHTML=`<section class="champHero" style="background-image:url('${DD}/cdn/img/champion/splash/${c.id}_0.jpg')"><div><p class="eyebrow">${c.tags.join(' · ')}</p><h1>${c.name}</h1><p>${c.title}</p></div></section><section class="details"><article><p class="eyebrow">PERFIL</p><h2>${c.name}</h2><p>${c.blurb}</p><div class="stats"><b>${c.info.attack}<small>ATAQUE</small></b><b>${c.info.defense}<small>DEFENSA</small></b><b>${c.info.magic}<small>MAGIA</small></b></div></article><article><p class="eyebrow">BUILD</p><h2>Build recomendada</h2><p>Esta primera versión muestra datos estáticos. La build estadística por parche se añadirá después con nuestro backend.</p></article><article class="wide"><p class="eyebrow">HABILIDADES</p><h2>Kit</h2><div class="abilities"><div><img src="${DD}/cdn/${v}/img/passive/${c.passive.image.full}"><small>PASIVA · ${c.passive.name}</small></div>${c.spells.map((s,i)=>`<div><img src="${DD}/cdn/${v}/img/spell/${s.image.full}"><small>${'QWER'[i]} · ${s.name}</small></div>`).join('')}</div></article><article><p class="eyebrow">META</p><h2>Próximamente</h2><p>Win rate, pick rate, ban rate, counters y rendimiento por rango/posición se conectarán cuando tengamos el backend.</p></article></section>`}init().catch(()=>page.innerHTML='<div class="loading">No se pudo cargar el campeón.</div>')
+const DD = 'https://ddragon.leagueoflegends.com';
+const id = new URLSearchParams(location.search).get('id');
+const page = document.querySelector('#page');
+
+async function getChampion() {
+    if (!id) {
+        throw new Error('No se ha indicado ningún campeón');
+    }
+
+    const versions = await fetch(`${DD}/api/versions.json`).then(r => r.json());
+    const version = versions[0];
+
+    const response = await fetch(
+        `${DD}/cdn/${version}/data/es_ES/champion/${id}.json`
+    );
+
+    if (!response.ok) {
+        throw new Error('Campeón no encontrado');
+    }
+
+    const data = await response.json();
+
+    if (!data.data[id]) {
+        throw new Error('Campeón no encontrado');
+    }
+
+    return {
+        champion: data.data[id],
+        version
+    };
+}
+
+function escapeHTML(text) {
+    const div = document.createElement('div');
+    div.textContent = text ?? '';
+    return div.innerHTML;
+}
+
+function renderAbilities(champion, version) {
+    const passive = `
+        <div class="ability">
+            <img
+                src="${DD}/cdn/${version}/img/passive/${champion.passive.image.full}"
+                alt="${escapeHTML(champion.passive.name)}"
+            >
+            <div>
+                <strong>PASIVA</strong>
+                <h3>${escapeHTML(champion.passive.name)}</h3>
+                <p>${escapeHTML(champion.passive.description)}</p>
+            </div>
+        </div>
+    `;
+
+    const spells = champion.spells.map((spell, index) => `
+        <div class="ability">
+            <img
+                src="${DD}/cdn/${version}/img/spell/${spell.image.full}"
+                alt="${escapeHTML(spell.name)}"
+            >
+            <div>
+                <strong>${'QWER'[index]}</strong>
+                <h3>${escapeHTML(spell.name)}</h3>
+                <p>${escapeHTML(spell.description)}</p>
+            </div>
+        </div>
+    `).join('');
+
+    return passive + spells;
+}
+
+function renderItems(version) {
+    const items = [
+        ['Inicio', '1055', 'Espada de Doran'],
+        ['Botas', '3006', 'Botas'],
+        ['Objeto principal', '3078', 'Trinidad'],
+        ['Defensivo', '3053', 'Calibrador de Sterak'],
+        ['Situacional', '6333', 'Armadura'],
+        ['Final', '3156', 'Velo del hada de la muerte']
+    ];
+
+    return items.map(([type, id, name]) => `
+        <div class="item">
+            <img
+                src="${DD}/cdn/${version}/img/item/${id}.png"
+                alt="${name}"
+            >
+            <div>
+                <small>${type}</small>
+                <strong>${name}</strong>
+            </div>
+        </div>
+    `).join('');
+}
+
+async function init() {
+    try {
+        const { champion, version } = await getChampion();
+
+        document.title = `${champion.name} — Legends Archive`;
+
+        page.innerHTML = `
+            <section
+                class="champHero"
+                style="
+                    background-image:
+                    linear-gradient(90deg, rgba(5,10,18,.98), rgba(5,10,18,.45)),
+                    url('${DD}/cdn/img/champion/splash/${champion.id}_0.jpg')
+                "
+            >
+                <div class="champHeroContent">
+                    <p class="eyebrow">
+                        ${escapeHTML(champion.tags.join(' · '))}
+                    </p>
+
+                    <h1>${escapeHTML(champion.name)}</h1>
+
+                    <p class="champTitle">
+                        ${escapeHTML(champion.title)}
+                    </p>
+
+                    <p class="champDescription">
+                        ${escapeHTML(champion.blurb)}
+                    </p>
+                </div>
+            </section>
+
+            <section class="details">
+
+                <article>
+                    <p class="eyebrow">PERFIL</p>
+                    <h2>${escapeHTML(champion.name)}</h2>
+
+                    <p>
+                        ${escapeHTML(champion.blurb)}
+                    </p>
+
+                    <div class="stats">
+                        <b>
+                            ${champion.info.attack}
+                            <small>ATAQUE</small>
+                        </b>
+
+                        <b>
+                            ${champion.info.defense}
+                            <small>DEFENSA</small>
+                        </b>
+
+                        <b>
+                            ${champion.info.magic}
+                            <small>MAGIA</small>
+                        </b>
+
+                        <b>
+                            ${champion.info.difficulty}
+                            <small>DIFICULTAD</small>
+                        </b>
+                    </div>
+                </article>
+
+                <article>
+                    <p class="eyebrow">META</p>
+
+                    <h2>Resumen</h2>
+
+                    <div class="metaGrid">
+                        <div>
+                            <span>PARCHE</span>
+                            <strong>${version}</strong>
+                        </div>
+
+                        <div>
+                            <span>ROL</span>
+                            <strong>${escapeHTML(champion.tags[0] || '—')}</strong>
+                        </div>
+
+                        <div>
+                            <span>WIN RATE</span>
+                            <strong>—</strong>
+                        </div>
+
+                        <div>
+                            <span>PICK RATE</span>
+                            <strong>—</strong>
+                        </div>
+                    </div>
+
+                    <p class="notice">
+                        Las estadísticas competitivas se añadirán
+                        posteriormente mediante nuestro sistema de datos.
+                    </p>
+                </article>
+
+                <article class="wide">
+                    <p class="eyebrow">BUILD</p>
+
+                    <h2>Build recomendada</h2>
+
+                    <p class="buildIntro">
+                        Configuración de ejemplo. Las builds estadísticas
+                        por posición, rango y parche se conectarán después.
+                    </p>
+
+                    <div class="items">
+                        ${renderItems(version)}
+                    </div>
+                </article>
+
+                <article class="wide">
+                    <p class="eyebrow">HABILIDADES</p>
+
+                    <h2>Kit de ${escapeHTML(champion.name)}</h2>
+
+                    <div class="abilities">
+                        ${renderAbilities(champion, version)}
+                    </div>
+                </article>
+
+                <article>
+                    <p class="eyebrow">RUNAS</p>
+
+                    <h2>Runas</h2>
+
+                    <div class="runePlaceholder">
+                        <strong>Configuración recomendada</strong>
+                        <p>
+                            Conquistador · Triunfo · Tenacidad · Último esfuerzo
+                        </p>
+                    </div>
+                </article>
+
+                <article>
+                    <p class="eyebrow">COUNTERS</p>
+
+                    <h2>Matchups</h2>
+
+                    <div class="counterPlaceholder">
+                        <div>
+                            <span>MEJORES MATCHUPS</span>
+                            <strong>Próximamente</strong>
+                        </div>
+
+                        <div>
+                            <span>COUNTERS</span>
+                            <strong>Próximamente</strong>
+                        </div>
+                    </div>
+                </article>
+
+            </section>
+        `;
+
+    } catch (error) {
+        console.error(error);
+
+        page.innerHTML = `
+            <div class="loading">
+                <h2>No se pudo cargar el campeón</h2>
+                <p>
+                    Comprueba que el nombre del campeón sea correcto.
+                </p>
+
+                <a href="index.html">
+                    Volver a campeones
+                </a>
+            </div>
+        `;
+    }
+}
+
+init();
