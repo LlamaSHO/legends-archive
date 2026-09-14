@@ -322,6 +322,322 @@ try {
                     rgba(5,10,18,.45)
                 ),
                 url(
-                    '${DD}/cdn/img/champion/splas
+                    '${DD}/cdn/img/champion/splash/${champion.id}_0.jpg'
+                )
+            "
+        >
+
+            <div class="champHeroContent">
+
+                <p class="eyebrow">
+                    ${escapeHTML(champion.tags.join(' · '))}
+                </p>
+
+                <h1>
+                    ${escapeHTML(champion.name)}
+                </h1>
+
+                <p class="champTitle">
+                    ${escapeHTML(champion.title)}
+                </p>
+
+                <p class="champDescription">
+                    ${escapeHTML(champion.blurb)}
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="details">
+
+
+            <!-- PERFIL -->
+
+            <article>
+
+                <p class="eyebrow">
+                    PERFIL
+                </p>
+
+                <h2>
+                    ${escapeHTML(champion.name)}
+                </h2>
+
+                <p>
+                    ${escapeHTML(champion.blurb)}
+                </p>
+
+
+                <div class="stats">
+
+                    <b>
+                        ${champion.info.attack}
+                        <small>ATAQUE</small>
+                    </b>
+
+                    <b>
+                        ${champion.info.defense}
+                        <small>DEFENSA</small>
+                    </b>
+
+                    <b>
+                        ${champion.info.magic}
+                        <small>MAGIA</small>
+                    </b>
+
+                    <b>
+                        ${champion.info.difficulty}
+                        <small>DIFICULTAD</small>
+                    </b>
+
+                </div>
+
+            </article>
+
+
+            <!-- META -->
+
+            <article>
+
+                <p class="eyebrow">
+                    META
+                </p>
+
+                <h2>
+                    Resumen
+                </h2>
+
+
+                <div class="metaGrid">
+
+                    <div>
+
+                        <span>
+                            PARCHE
+                        </span>
+
+                        <strong>
+                            ${version}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            POSICIÓN
+                        </span>
+
+                        <strong>
+                            ${escapeHTML(
+                                build?.role ||
+                                champion.tags[0] ||
+                                '—'
+                            )}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            WIN RATE
+                        </span>
+
+                        <strong>
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            PICK RATE
+                        </span>
+
+                        <strong>
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <p class="notice">
+
+                    Las estadísticas competitivas se añadirán
+                    posteriormente mediante nuestro sistema de datos.
+
+                </p>
+
+            </article>
+
+
+            <!-- BUILD -->
+
+            <article class="wide">
+
+                <p class="eyebrow">
+                    BUILD
+                </p>
+
+                <h2>
+                    Build recomendada
+                </h2>
+
+                <p class="buildIntro">
+
+                    Configuración recomendada para
+                    ${escapeHTML(champion.name)}.
+
+                </p>
+
+
+                <div class="items">
+
+                    ${renderItems(version, champion)}
+
+                </div>
+
+            </article>
+
+
+            <!-- HABILIDADES -->
+
+            <article class="wide">
+
+                <p class="eyebrow">
+                    HABILIDADES
+                </p>
+
+                <h2>
+                    Kit de ${escapeHTML(champion.name)}
+                </h2>
+
+
+                <div class="abilities">
+
+                    ${renderAbilities(champion, version)}
+
+                </div>
+
+            </article>
+
+
+            <!-- RUNAS -->
+
+            <article>
+
+                <p class="eyebrow">
+                    RUNAS
+                </p>
+
+                <h2>
+                    Runas
+                </h2>
+
+
+                <div class="runePlaceholder">
+
+                    <strong>
+                        Configuración recomendada
+                    </strong>
+
+                    <p>
+                        ${escapeHTML(
+                            build?.runes ||
+                            'Configuración próximamente'
+                        )}
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- COUNTERS -->
+
+            <article>
+
+                <p class="eyebrow">
+                    COUNTERS
+                </p>
+
+                <h2>
+                    Matchups
+                </h2>
+
+
+                <div class="counterPlaceholder">
+
+                    <div>
+
+                        <span>
+                            MEJORES MATCHUPS
+                        </span>
+
+                        <strong>
+                            Próximamente
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            COUNTERS
+                        </span>
+
+                        <strong>
+                            Próximamente
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+        </section>
+
+    `;
+
+} catch (error) {
+
+    console.error(error);
+
+    page.innerHTML = `
+
+        <div class="loading">
+
+            <h2>
+                No se pudo cargar el campeón
+            </h2>
+
+            <p>
+                Comprueba que el nombre del campeón sea correcto.
+            </p>
+
+            <a href="index.html">
+                Volver a campeones
+            </a>
+
+        </div>
+
+    `;
+
+}
 ```
 
+}
+
+init();
