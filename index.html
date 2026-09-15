@@ -1,6 +1,155 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Legends Archive</title><link rel="stylesheet" href="style.css"></head><body>
-<header><a class="brand" href="index.html">LEGENDS <span>//</span> ARCHIVE</a><nav><a href="#champions">CAMPEONES</a><a href="#tier">TIER LIST</a></nav></header>
-<main><section class="hero"><div><p class="eyebrow">LEAGUE OF LEGENDS · META</p><h1>Juega mejor.<br><em>Decide con datos.</em></h1><p class="lead">Explora todos los campeones, builds y nuestra tier list.</p><a class="btn" href="#champions">Explorar campeones</a></div><div id="featured" class="featured"></div></section>
-<section id="champions"><div class="head"><div><p class="eyebrow">ROSTER</p><h2>Campeones</h2></div><span id="count"></span></div><div class="controls"><label class="search">⌕ <input id="search" placeholder="Buscar campeón…"></label><div id="filters"><button class="active" data-role="all">TODOS</button><button data-role="ASESINO">ASESINO</button><button data-role="MAGO">MAGO</button><button data-role="LUCHADOR">LUCHADOR</button><button data-role="TIRADOR">TIRADOR</button><button data-role="TANQUE">TANQUE</button><button data-role="SOPORTE">SOPORTE</button></div></div><div id="grid" class="grid"></div></section>
-<section id="tier" class="panel"><div class="head"><div><p class="eyebrow">META ACTUAL</p><h2>Tier List</h2></div><span id="patch" class="patch"></span></div><p class="note">Tier list editorial de demostración. Después añadiremos estadísticas agregadas reales por parche, posición y rango.</p><div id="tiers" class="tiers"></div></section></main>
-<footer><b>LEGENDS // ARCHIVE</b><p>Legends Archive isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p></footer><script src="app.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Legends // Archive</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="nav-container">
+
+      <a href="index.html" class="logo">
+        LEGENDS <span>//</span> ARCHIVE
+      </a>
+
+      <nav>
+        <a href="#champions-section">CAMPEONES</a>
+        <a href="#tier">TIER LIST</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <main class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+
+      <div class="eyebrow">
+        LEAGUE OF LEGENDS · META
+      </div>
+
+      <h1>
+        Juega mejor.<br>
+        <em>Decide con datos.</em>
+      </h1>
+
+      <p>
+        Explora todos los campeones, builds y nuestra tier list.
+      </p>
+
+      <a href="#champions-section" class="hero-button">
+        Explorar campeones
+      </a>
+
+    </section>
+
+
+    <!-- CAMPEONES -->
+    <section id="champions-section" class="champions-section">
+
+      <div class="eyebrow">
+        ROSTER
+      </div>
+
+      <h2>Campeones</h2>
+
+      <div class="search-box">
+        <span>⌕</span>
+
+        <input
+          id="search"
+          type="text"
+          placeholder="Buscar campeón..."
+          autocomplete="off"
+        >
+      </div>
+
+
+      <div class="filters">
+
+        <button data-role="TODOS">
+          TODOS
+        </button>
+
+        <button data-role="ASSASSIN">
+          ASESINO
+        </button>
+
+        <button data-role="MAGE">
+          MAGO
+        </button>
+
+        <button data-role="FIGHTER">
+          LUCHADOR
+        </button>
+
+        <button data-role="MARKSMAN">
+          TIRADOR
+        </button>
+
+        <button data-role="TANK">
+          TANQUE
+        </button>
+
+        <button data-role="SUPPORT">
+          SOPORTE
+        </button>
+
+      </div>
+
+
+      <!-- AQUÍ APARECERÁN LOS 170+ CAMPEONES -->
+      <div id="champions" class="champion-grid">
+      </div>
+
+    </section>
+
+
+    <!-- TIER LIST -->
+    <section id="tier" class="tier-section">
+
+      <div class="eyebrow">
+        META ACTUAL
+      </div>
+
+      <h2>Tier List</h2>
+
+      <p>
+        Tier list editorial de demostración.
+        Después añadiremos estadísticas agregadas reales
+        por parche, posición y rango.
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+
+    <div class="footer-title">
+      LEGENDS // ARCHIVE
+    </div>
+
+    <p>
+      Legends Archive isn't endorsed by Riot Games and doesn't reflect
+      the views or opinions of Riot Games or anyone officially involved
+      in producing or managing Riot Games properties.
+    </p>
+
+  </footer>
+
+
+  <!-- IMPORTANTE: CARGAR app.js -->
+  <script src="app.js"></script>
+
+</body>
+</html>
