@@ -620,3 +620,41 @@ main.container {
     font-size: 30px;
   }
 }
+/* FIX DEFINITIVO PARA SPLASH ARTS */
+
+.champion-hero {
+  position: relative !important;
+  width: min(1100px, calc(100% - 40px)) !important;
+  height: 390px !important;
+  margin: 32px auto !important;
+  overflow: hidden !important;
+  border-radius: 18px !important;
+}
+
+.champion-hero-bg {
+  position: absolute !important;
+  inset: 0 !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  max-width: none !important;
+  max-height: none !important;
+
+  background-size: cover !important;
+  background-position: center 25% !important;
+  background-repeat: no-repeat !important;
+
+  opacity: 0.65 !important;
+
+  z-index: 0 !important;
+}
+
+.champion-hero-content {
+  position: absolute !important;
+  z-index: 3 !important;
+}
+
+.champion-hero::after {
+  z-index: 1 !important;
+}
