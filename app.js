@@ -1,7 +1,151 @@
-const DD='https://ddragon.leagueoflegends.com';let v='',cs=[],role='all';
-const map={Assassin:'ASESINO',Mage:'MAGO',Fighter:'LUCHADOR',Marksman:'TIRADOR',Tank:'TANQUE',Support:'SOPORTE'};
-async function init(){v=(await fetch(DD+'/api/versions.json').then(r=>r.json()))[0];document.querySelector('#patch').textContent='PARCHE '+v;cs=Object.values((await fetch(`${DD}/cdn/${v}/data/es_ES/champion.json`).then(r=>r.json())).data);render();featured();tiers()}
-function render(){let q=document.querySelector('#search').value.toLowerCase();let a=cs.filter(c=>(role==='all'||c.tags.map(x=>map[x]).includes(role))&&(!q||`${c.name} ${c.id} ${c.title}`.toLowerCase().includes(q)));document.querySelector('#count').textContent=a.length+' campeones';document.querySelector('#grid').innerHTML=a.map(c=>`<a class="card" href="champion.html?id=${encodeURIComponent(c.id)}"><img loading="lazy" src="${DD}/cdn/${v}/img/champion/${c.image.full}"><div><strong>${c.name}</strong><small>${c.title}</small><i>${c.tags.slice(0,2).map(x=>map[x]||x).join(' · ')}</i></div></a>`).join('')}
-function featured(){let c=cs.find(x=>x.id==='Aatrox')||cs[0];document.querySelector('#featured').style.backgroundImage=`url(${DD}/cdn/img/champion/splash/${c.id}_0.jpg)`;document.querySelector('#featured').innerHTML=`<a href="champion.html?id=${c.id}"><small>CAMPEÓN DESTACADO</small><h2>${c.name}</h2><span>${c.title}</span></a>`}
-function tiers(){let d={TOP:['Aatrox','Camille','Fiora','Garen'],JUNGLE:['LeeSin','Vi','JarvanIV','Nocturne'],MID:['Ahri','Azir','Orianna','Syndra'],ADC:['Jinx','KaiSa','Caitlyn','Ezreal'],SUPPORT:['Thresh','Nautilus','Leona','Lulu']};document.querySelector('#tiers').innerHTML=Object.entries(d).map(([p,n])=>`<div><h3>S <span>${p}</span></h3><section>${n.map(id=>{let c=cs.find(x=>x.id===id);return c?`<a href="champion.html?id=${c.id}"><img src="${DD}/cdn/${v}/img/champion/${c.image.full}">${c.name}</a>`:''}).join('')}</section></div>`).join('')}
-document.querySelector('#search').addEventListener('input',render);document.querySelector('#filters').addEventListener('click',e=>{if(e.target.tagName!='BUTTON')return;document.querySelectorAll('#filters button').forEach(x=>x.classList.remove('active'));e.target.classList.add('active');role=e.target.dataset.role;render()});init().catch(e=>{document.querySelector('#grid').innerHTML='<p>Problema al cargar los campeones. Recarga la página.</p>';console.error(e)})
+const DD = 'https://ddragon.leagueoflegends.com';
+
+const grid = document.querySelector('#grid');
+const search = document.querySelector('#search');
+const filters = document.querySelectorAll('[data-role]');
+
+let champions = [];
+let currentRole = 'all';
+
+async function init() {
+    try {
+        const versions = await fetch(
+            `${DD}/api/versions.json`
+        ).then(r => r.json());
+
+        const version = versions[0];
+
+        const response = await fetch(
+            `${DD}/cdn/${version}/data/es_ES/champion.json`
+        );
+
+        if (!response.ok) {
+            throw new Error('No se pudieron cargar los campeones');
+        }
+
+        const data = await response.json();
+
+        champions = Object.values(data.data);
+
+        render();
+
+    } catch (error) {
+
+        console.error(error);
+
+        grid.innerHTML = `
+            <div class="loading">
+                <h2>No se pudieron cargar los campeones</h2>
+                <p>Inténtalo de nuevo en unos segundos.</p>
+            </div>
+        `;
+    }
+}
+
+
+function render() {
+
+    const text =
+        search?.value
+            .trim()
+            .toLowerCase() || '';
+
+    const filtered = champions.filter(champion => {
+
+        const matchesSearch =
+            champion.name
+                .toLowerCase()
+                .includes(text) ||
+
+            champion.title
+                .toLowerCase()
+                .includes(text);
+
+        const matchesRole =
+            currentRole === 'all' ||
+            champion.tags.includes(currentRole);
+
+        return matchesSearch && matchesRole;
+    });
+
+
+    if (!filtered.length) {
+
+        grid.innerHTML = `
+            <div class="loading">
+                <h2>No encontramos campeones</h2>
+                <p>Prueba con otro nombre o filtro.</p>
+            </div>
+        `;
+
+        return;
+    }
+
+
+    grid.innerHTML = filtered.map(champion => `
+
+        <a
+            class="championCard"
+            href="champion.html?id=${encodeURIComponent(champion.id)}"
+        >
+
+            <img
+                src="${DD}/cdn/img/champion/loading/${champion.id}_0.jpg"
+                alt="${champion.name}"
+            >
+
+            <div class="championCardContent">
+
+                <span>
+                    ${champion.tags.join(' · ')}
+                </span>
+
+                <h3>
+                    ${champion.name}
+                </h3>
+
+                <p>
+                    ${champion.title}
+                </p>
+
+            </div>
+
+        </a>
+
+    `).join('');
+}
+
+
+if (search) {
+
+    search.addEventListener(
+        'input',
+        render
+    );
+
+}
+
+
+filters.forEach(button => {
+
+    button.addEventListener(
+        'click',
+        () => {
+
+            currentRole =
+                button.dataset.role;
+
+            filters.forEach(
+                b => b.classList.remove('active')
+            );
+
+            button.classList.add('active');
+
+            render();
+        }
+    );
+
+});
+
+
+init();
