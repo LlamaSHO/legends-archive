@@ -1,644 +1,456 @@
-/* =========================================================
+/* ================================
    LEGENDS // ARCHIVE
-   ESTILO GENERAL
-   ========================================================= */
+   ================================ */
 
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 body {
-    background:
-        radial-gradient(
-            circle at 50% 0%,
-            #172235 0%,
-            #0b111c 45%,
-            #070b12 100%
-        );
-
-    color: #e8edf5;
-    font-family: Arial, Helvetica, sans-serif;
-    min-height: 100vh;
+  margin: 0;
+  background: #080d16;
+  color: #f3f5f8;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-/* =========================================================
+/* ================================
    HEADER
-   ========================================================= */
+   ================================ */
 
-header {
-    width: 100%;
-    height: 72px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0 6%;
-
-    background: rgba(5, 9, 16, 0.96);
-
-    border-bottom: 1px solid #263449;
-
-    position: sticky;
-    top: 0;
-    z-index: 100;
+.site-header {
+  height: 68px;
+  border-bottom: 1px solid #263142;
+  background: #070b12;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.brand {
-    font-family: Georgia, serif;
-    font-size: 22px;
-    font-weight: bold;
-    letter-spacing: 3px;
-    color: #f0d58a;
+.nav-container {
+  max-width: 1320px;
+  height: 100%;
+  margin: auto;
+  padding: 0 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.brand span {
-    color: #728096;
+.logo {
+  color: #f0d27a;
+  text-decoration: none;
+  font-family: Georgia, serif;
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.logo span {
+  color: #758198;
 }
 
 nav {
-    display: flex;
-    align-items: center;
-    gap: 34px;
+  display: flex;
+  gap: 35px;
 }
 
 nav a {
-    color: #9ba7b8;
-
-    font-size: 12px;
-    font-weight: bold;
-
-    letter-spacing: 1.5px;
-
-    transition:
-        color 0.2s ease,
-        transform 0.2s ease;
+  color: #9da8ba;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
 }
 
 nav a:hover {
-    color: #f0d58a;
-    transform: translateY(-1px);
+  color: #f0d27a;
 }
 
-/* =========================================================
+/* ================================
    CONTENEDOR
-   ========================================================= */
+   ================================ */
 
-main,
-#page {
-    width: min(1200px, 92%);
-    margin: 0 auto;
+.container {
+  width: min(1320px, calc(100% - 56px));
+  margin: auto;
 }
 
-section {
-    padding-top: 48px;
-    padding-bottom: 70px;
+/* ================================
+   HERO
+   ================================ */
+
+.hero {
+  padding: 70px 0 90px;
 }
 
-/* =========================================================
-   TITULOS
-   ========================================================= */
-
-.section-label {
-    color: #e8c968;
-
-    font-size: 11px;
-    font-weight: bold;
-
-    letter-spacing: 3px;
-
-    margin-bottom: 14px;
+.eyebrow {
+  color: #e8c75f;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  margin-bottom: 14px;
 }
 
-h1 {
-    font-family: Georgia, serif;
+.hero h1 {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: clamp(48px, 6vw, 82px);
+  line-height: 0.98;
+  letter-spacing: -2px;
+}
 
-    font-size: clamp(38px, 5vw, 62px);
+.hero h1 em {
+  color: #f1f2f4;
+}
 
-    line-height: 1;
+.hero p {
+  max-width: 650px;
+  margin: 25px 0 18px;
+  color: #aab4c5;
+  font-size: 16px;
+  line-height: 1.6;
+}
 
-    color: #f3f5f8;
+.hero-button {
+  display: inline-block;
+  color: #e8c75f;
+  text-decoration: none;
+  font-weight: bold;
+}
 
-    margin-bottom: 16px;
+/* ================================
+   SECCIONES
+   ================================ */
+
+.champions-section,
+.tier-section {
+  padding: 30px 0 90px;
 }
 
 h2 {
-    font-family: Georgia, serif;
-
-    color: #f0d58a;
-
-    font-size: 30px;
-
-    margin-bottom: 12px;
+  margin: 0 0 20px;
+  color: #f0d27a;
+  font-family: Georgia, serif;
+  font-size: 36px;
 }
 
-.description {
-    color: #8794a8;
-
-    font-size: 15px;
-
-    line-height: 1.7;
-
-    margin-bottom: 28px;
-}
-
-/* =========================================================
+/* ================================
    BUSCADOR
-   ========================================================= */
+   ================================ */
 
-.champion-controls {
-    display: flex;
-    align-items: center;
-    gap: 18px;
+.search-box {
+  height: 52px;
+  border: 1px solid #273347;
+  border-radius: 8px;
+  background: #0c1320;
 
-    margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+
+  padding: 0 16px;
+  margin-bottom: 18px;
 }
 
-#champion-search {
-    width: 100%;
-
-    height: 52px;
-
-    padding: 0 18px;
-
-    border-radius: 6px;
-
-    border: 1px solid #2b3a50;
-
-    background: #0d1522;
-
-    color: #ffffff;
-
-    outline: none;
-
-    font-size: 14px;
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+.search-box span {
+  color: #8794a8;
+  font-size: 22px;
+  margin-right: 10px;
 }
 
-#champion-search::placeholder {
-    color: #66758a;
+.search-box input {
+  width: 100%;
+  height: 100%;
+
+  border: 0;
+  outline: none;
+  background: transparent;
+
+  color: white;
+  font-size: 15px;
 }
 
-#champion-search:focus {
-    border-color: #c9a95d;
-
-    background: #101a2a;
-
-    box-shadow:
-        0 0 0 3px rgba(201, 169, 93, 0.08);
+.search-box input::placeholder {
+  color: #6f7b8e;
 }
 
-#champion-count {
-    flex-shrink: 0;
-
-    color: #7d8ca2;
-
-    font-size: 12px;
-
-    white-space: nowrap;
-}
-
-/* =========================================================
+/* ================================
    FILTROS
-   ========================================================= */
+   ================================ */
 
-.role-filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-
-    margin-bottom: 30px;
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 30px;
 }
 
-.role-filters button,
-.champion-controls button,
-button {
-    border: 1px solid #34435a;
+.filters button {
+  border: 1px solid #314057;
+  border-radius: 6px;
 
-    background: #111b2a;
+  background: #101a2a;
+  color: #aeb9ca;
 
-    color: #aab5c5;
+  padding: 10px 16px;
 
-    padding: 9px 15px;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1px;
 
-    border-radius: 4px;
-
-    font-size: 11px;
-    font-weight: bold;
-
-    letter-spacing: 1px;
-
-    cursor: pointer;
-
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s ease;
+  cursor: pointer;
 }
 
-.role-filters button:hover,
-.champion-controls button:hover,
-button:hover {
-    background: #1a2739;
-
-    border-color: #c9a95d;
-
-    color: #f0d58a;
-
-    transform: translateY(-1px);
+.filters button:hover {
+  background: #172338;
+  color: #f0d27a;
+  border-color: #d1ad4c;
 }
 
-.role-filters button.active {
-    background: #c9a95d;
-
-    color: #080c13;
-
-    border-color: #c9a95d;
-}
-
-/* =========================================================
+/* ================================
    GRID DE CAMPEONES
-   ========================================================= */
+   ================================ */
 
 .champion-grid {
-    display: grid;
+  display: grid;
 
-    grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(190px, 1fr)
+  );
 
-    gap: 18px;
+  gap: 18px;
 }
 
-/* =========================================================
-   TARJETA DE CAMPEON
-   ========================================================= */
+/* ================================
+   TARJETA
+   ================================ */
 
 .champion-card {
-    display: block;
+  display: block;
 
-    overflow: hidden;
+  min-width: 0;
 
-    background:
-        linear-gradient(
-            180deg,
-            #121d2d 0%,
-            #0c1421 100%
-        );
+  overflow: hidden;
 
-    border: 1px solid #27364b;
+  background: #0d1522;
+  border: 1px solid #253147;
+  border-radius: 10px;
 
-    border-radius: 6px;
+  text-decoration: none;
+  color: white;
 
-    transition:
-        transform 0.25s ease,
-        border-color 0.25s ease,
-        box-shadow 0.25s ease;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .champion-card:hover {
-    transform: translateY(-6px);
+  transform: translateY(-5px);
 
-    border-color: #c9a95d;
+  border-color: #d2ae50;
 
-    box-shadow:
-        0 14px 35px rgba(0, 0, 0, 0.45),
-        0 0 25px rgba(201, 169, 93, 0.08);
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.45);
 }
 
+/* ================================
+   IMAGEN DEL CAMPEÓN
+   ================================ */
+
 .champion-card img {
-    display: block;
+  display: block;
 
-    width: 100%;
+  width: 100%;
 
-    aspect-ratio: 1 / 1.18;
+  /* ESTA ES LA PARTE IMPORTANTE */
+  height: 245px;
 
-    object-fit: cover;
+  object-fit: cover;
+  object-position: top center;
 
-    transition: transform 0.45s ease;
+  transition: transform 0.35s ease;
 }
 
 .champion-card:hover img {
-    transform: scale(1.045);
+  transform: scale(1.04);
 }
 
-.champion-card-info {
-    padding: 15px 15px 17px;
+/* ================================
+   INFORMACIÓN
+   ================================ */
+
+.champion-info {
+  padding: 15px 16px 18px;
 }
 
-.champion-card-info h3 {
-    color: #f3f4f6;
+.champion-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
 
-    font-family: Georgia, serif;
-
-    font-size: 20px;
-
-    margin-bottom: 7px;
+  margin-bottom: 9px;
 }
 
-.champion-card-info p {
-    color: #738197;
+.champion-tags span {
+  color: #d6b84f;
 
-    font-size: 11px;
+  font-size: 9px;
+  font-weight: bold;
 
-    line-height: 1.4;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
-/* =========================================================
-   TAGS
-   ========================================================= */
+.champion-info h3 {
+  margin: 0;
 
-.champion-tag {
-    display: inline-block;
+  font-family: Georgia, serif;
 
-    color: #d7b967;
-
-    font-size: 9px;
-
-    font-weight: bold;
-
-    letter-spacing: 1.5px;
-
-    text-transform: uppercase;
-
-    margin-bottom: 7px;
+  font-size: 22px;
+  line-height: 1.1;
 }
 
-/* =========================================================
-   LOADING
-   ========================================================= */
+.champion-info p {
+  margin: 6px 0 0;
 
-.loading {
-    min-height: 500px;
+  color: #718097;
 
-    display: flex;
+  font-size: 12px;
 
-    align-items: center;
-
-    justify-content: center;
-
-    color: #9aa7ba;
-
-    font-size: 14px;
-
-    letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.loading::after {
-    content: "";
+/* ================================
+   SIN RESULTADOS
+   ================================ */
 
-    width: 18px;
-    height: 18px;
+.empty {
+  grid-column: 1 / -1;
 
-    margin-left: 12px;
+  padding: 50px;
 
-    border: 2px solid #34435a;
+  text-align: center;
 
-    border-top-color: #d2b565;
+  border: 1px dashed #344157;
 
-    border-radius: 50%;
-
-    animation: spin 0.8s linear infinite;
+  color: #8995a8;
 }
 
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* =========================================================
-   ERROR
-   ========================================================= */
-
-.error {
-    margin-top: 80px;
-
-    padding: 35px;
-
-    background: #111925;
-
-    border: 1px solid #3a4658;
-
-    border-radius: 6px;
-
-    text-align: center;
-}
-
-.error h2 {
-    color: #e8edf5;
-
-    margin-bottom: 12px;
-}
-
-.error p {
-    color: #8794a8;
-
-    line-height: 1.6;
-}
-
-/* =========================================================
+/* ================================
    TIER LIST
-   ========================================================= */
+   ================================ */
 
-.tier-list {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 14px;
-
-    margin-top: 30px;
+.tier-section {
+  border-top: 1px solid #263142;
 }
 
-.tier-row {
-    display: grid;
-
-    grid-template-columns: 75px 1fr;
-
-    min-height: 110px;
-
-    background: #0e1725;
-
-    border: 1px solid #27364b;
-
-    border-radius: 6px;
-
-    overflow: hidden;
+.tier-section p {
+  color: #9aa6b8;
+  line-height: 1.6;
 }
 
-.tier-rank {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background: #151f2e;
-
-    color: #f0d58a;
-
-    font-family: Georgia, serif;
-
-    font-size: 32px;
-
-    font-weight: bold;
-}
-
-.tier-champions {
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 12px;
-
-    padding: 15px;
-}
-
-.tier-champion {
-    width: 80px;
-
-    text-align: center;
-}
-
-.tier-champion img {
-    width: 64px;
-    height: 64px;
-
-    object-fit: cover;
-
-    border-radius: 4px;
-
-    border: 1px solid #34435a;
-}
-
-.tier-champion span {
-    display: block;
-
-    margin-top: 5px;
-
-    color: #aab5c5;
-
-    font-size: 10px;
-}
-
-/* =========================================================
+/* ================================
    FOOTER
-   ========================================================= */
+   ================================ */
 
 footer {
-    width: min(1200px, 92%);
+  max-width: 1320px;
 
-    margin: 0 auto;
+  margin: auto;
 
-    padding: 40px 0 55px;
+  padding: 40px 28px 60px;
 
-    border-top: 1px solid #263449;
+  border-top: 1px solid #263142;
 
-    color: #66758a;
-
-    font-size: 11px;
-
-    line-height: 1.7;
+  color: #657289;
 }
 
-footer b {
-    color: #d8bc70;
+.footer-title {
+  color: #e8c75f;
 
-    letter-spacing: 2px;
+  font-family: Georgia, serif;
+
+  font-size: 12px;
+  font-weight: bold;
+
+  letter-spacing: 2px;
+
+  margin-bottom: 12px;
 }
 
-/* =========================================================
+footer p {
+  max-width: 1100px;
+
+  margin: 0;
+
+  font-size: 11px;
+
+  line-height: 1.6;
+}
+
+/* ================================
    RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 1050px) {
-
-    .champion-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-
-}
+   ================================ */
 
 @media (max-width: 800px) {
 
-    header {
-        height: auto;
+  .container {
+    width: min(100% - 30px, 1320px);
+  }
 
-        padding: 20px 5%;
+  .nav-container {
+    padding: 0 15px;
+  }
 
-        flex-direction: column;
+  nav {
+    gap: 15px;
+  }
 
-        gap: 18px;
-    }
+  .logo {
+    font-size: 18px;
+  }
 
-    nav {
-        gap: 20px;
-    }
+  .hero {
+    padding: 50px 0 60px;
+  }
 
-    .champion-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+  .hero h1 {
+    font-size: 48px;
+  }
 
-    .champion-controls {
-        flex-direction: column;
+  .champion-grid {
+    grid-template-columns: repeat(
+      2,
+      minmax(0, 1fr)
+    );
 
-        align-items: stretch;
-    }
+    gap: 12px;
+  }
 
-    #champion-count {
-        text-align: right;
-    }
-
+  .champion-card img {
+    height: 220px;
+  }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 480px) {
 
-    main,
-    #page {
-        width: 94%;
-    }
+  nav {
+    display: none;
+  }
 
-    section {
-        padding-top: 30px;
-    }
+  .champion-grid {
+    grid-template-columns: 1fr;
+  }
 
-    .champion-grid {
-        grid-template-columns: repeat(2, 1fr);
-
-        gap: 12px;
-    }
-
-    .champion-card-info {
-        padding: 11px;
-    }
-
-    .champion-card-info h3 {
-        font-size: 17px;
-    }
-
-    h1 {
-        font-size: 38px;
-    }
-
-    nav {
-        width: 100%;
-
-        justify-content: center;
-    }
-
+  .champion-card img {
+    height: 300px;
+  }
 }
