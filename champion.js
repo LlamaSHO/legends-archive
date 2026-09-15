@@ -1,644 +1,714 @@
-const DD = "https://ddragon.leagueoflegends.com";
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+  <title>Aatrox // Legends Archive</title>
 
-const page = document.querySelector("#page");
+  <link rel="stylesheet" href="style.css">
 
-/* =========================================================
-   BUILDS
-========================================================= */
+  <style>
+    /* =========================
+       CHAMPION PAGE
+       ========================= */
 
-const builds = {
-
-    Aatrox: {
-        role: "TOP",
-        items: [
-            ["Inicio", "1055", "Espada de Doran"],
-            ["Botas", "3047", "Placas de Acero"],
-            ["Principal", "6692", "Eclipse"],
-            ["Segundo", "3748", "Hidra Titánica"],
-            ["Defensivo", "3053", "Calibrador de Sterak"],
-            ["Final", "3071", "Cuchilla Negra"]
-        ],
-        runes:
-            "Conquistador · Triunfo · Tenacidad · Último esfuerzo"
-    },
-
-    Ahri: {
-        role: "MID",
-        items: [
-            ["Inicio", "1056", "Anillo de Doran"],
-            ["Botas", "3020", "Botas de hechicero"],
-            ["Principal", "6655", "Compañera de Luden"],
-            ["Segundo", "4645", "Tormento de Liandry"],
-            ["Poder", "3089", "Sombrero mortal de Rabadon"],
-            ["Final", "3135", "Bastón del Vacío"]
-        ],
-        runes:
-            "Electrocutar · Impacto repentino · Colección de globos oculares · Cazador definitivo"
-    },
-
-    Akali: {
-        role: "MID",
-        items: [
-            ["Inicio", "1056", "Anillo de Doran"],
-            ["Botas", "3020", "Botas de hechicero"],
-            ["Principal", "3115", "Nashor's Tooth"],
-            ["Segundo", "3157", "Reloj de arena de Zhonya"],
-            ["Poder", "3089", "Sombrero mortal de Rabadon"],
-            ["Final", "3135", "Bastón del Vacío"]
-        ],
-        runes:
-            "Electrocutar · Impacto repentino · Colección de globos oculares · Cazador definitivo"
-    },
-
-    Ashe: {
-        role: "ADC",
-        items: [
-            ["Inicio", "1055", "Espada de Doran"],
-            ["Botas", "3006", "Grebas de berserker"],
-            ["Principal", "6672", "Kraken Slayer"],
-            ["Segundo", "3031", "Filo infinito"],
-            ["Crítico", "3036", "Recuerdos de Lord Dominik"],
-            ["Final", "6673", "Arcoescudo inmortal"]
-        ],
-        runes:
-            "Compás letal · Presencia de ánimo · Leyenda: Linaje · Golpe de gracia"
-    },
-
-    Garen: {
-        role: "TOP",
-        items: [
-            ["Inicio", "1055", "Espada de Doran"],
-            ["Botas", "3047", "Placas de Acero"],
-            ["Principal", "6631", "Stridebreaker"],
-            ["Segundo", "3748", "Hidra Titánica"],
-            ["Defensivo", "3053", "Calibrador de Sterak"],
-            ["Final", "3071", "Cuchilla Negra"]
-        ],
-        runes:
-            "Conquistador · Triunfo · Tenacidad · Último esfuerzo"
-    },
-
-    Jinx: {
-        role: "ADC",
-        items: [
-            ["Inicio", "1055", "Espada de Doran"],
-            ["Botas", "3006", "Grebas de berserker"],
-            ["Principal", "6672", "Kraken Slayer"],
-            ["Crítico", "3031", "Filo infinito"],
-            ["Velocidad", "3085", "Huracán de Runaan"],
-            ["Final", "3036", "Recuerdos de Lord Dominik"]
-        ],
-        runes:
-            "Compás letal · Presencia de ánimo · Leyenda: Linaje · Golpe de gracia"
-    },
-
-    Lux: {
-        role: "MID",
-        items: [
-            ["Inicio", "1056", "Anillo de Doran"],
-            ["Botas", "3020", "Botas de hechicero"],
-            ["Principal", "6655", "Compañera de Luden"],
-            ["Segundo", "3089", "Sombrero mortal de Rabadon"],
-            ["Poder", "3135", "Bastón del Vacío"],
-            ["Final", "3157", "Reloj de arena de Zhonya"]
-        ],
-        runes:
-            "Cometa arcano · Banda de maná · Trascendencia · Piroláser"
-    },
-
-    Yasuo: {
-        role: "MID",
-        items: [
-            ["Inicio", "1055", "Espada de Doran"],
-            ["Botas", "3006", "Grebas de berserker"],
-            ["Principal", "6673", "Arcoescudo inmortal"],
-            ["Segundo", "3031", "Filo infinito"],
-            ["Crítico", "3085", "Huracán de Runaan"],
-            ["Final", "3072", "Bloodthirster"]
-        ],
-        runes:
-            "Compás letal · Triunfo · Leyenda: Alacridad · Último esfuerzo"
-    },
-
-    Yone: {
-        role: "MID",
-        items: [
-            ["Inicio", "1055", "Espada de Doran"],
-            ["Botas", "3006", "Grebas de berserker"],
-            ["Principal", "6673", "Arcoescudo inmortal"],
-            ["Segundo", "3031", "Filo infinito"],
-            ["Crítico", "3085", "Huracán de Runaan"],
-            ["Final", "3072", "Bloodthirster"]
-        ],
-        runes:
-            "Compás letal · Triunfo · Leyenda: Alacridad · Último esfuerzo"
+    .champion-page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 55px 24px 100px;
     }
 
-};
+    /* HERO */
 
-
-/* =========================================================
-   SEGURIDAD
-========================================================= */
-
-function escapeHTML(value) {
-
-    const div = document.createElement("div");
-
-    div.textContent = value ?? "";
-
-    return div.innerHTML;
-}
-
-
-/* =========================================================
-   DATOS DEL CAMPEÓN
-========================================================= */
-
-async function getChampion() {
-
-    if (!id) {
-        throw new Error("No se ha indicado ningún campeón.");
+    .champion-hero {
+      position: relative;
+      min-height: 430px;
+      overflow: hidden;
+      border: 1px solid #263650;
+      border-radius: 14px;
+      background: #080e17;
+      box-shadow: 0 25px 70px rgba(0,0,0,.35);
+      margin-bottom: 70px;
     }
 
-    const versionsResponse =
-        await fetch(`${DD}/api/versions.json`);
-
-    if (!versionsResponse.ok) {
-        throw new Error("No se pudieron obtener las versiones.");
+    .champion-hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+      opacity: .55;
     }
 
-    const versions =
-        await versionsResponse.json();
-
-    const version = versions[0];
-
-    const response = await fetch(
-        `${DD}/cdn/${version}/data/es_ES/champion/${id}.json`
-    );
-
-    if (!response.ok) {
-        throw new Error("Campeón no encontrado.");
+    .champion-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(5,10,18,.98) 0%,
+          rgba(5,10,18,.82) 38%,
+          rgba(5,10,18,.25) 75%,
+          rgba(5,10,18,.45) 100%
+        ),
+        linear-gradient(
+          0deg,
+          rgba(5,10,18,.95) 0%,
+          transparent 55%
+        );
     }
 
-    const data = await response.json();
-
-    const champion = data.data[id];
-
-    if (!champion) {
-        throw new Error("Campeón no encontrado.");
+    .champion-hero-content {
+      position: relative;
+      z-index: 2;
+      min-height: 430px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 48px;
     }
 
-    return {
-        champion,
-        version
-    };
-}
-
-
-/* =========================================================
-   BUILD
-========================================================= */
-
-function renderBuild(champion, version) {
-
-    const build = builds[champion.name];
-
-    if (!build) {
-
-        return `
-            <div class="build-section">
-
-                <div class="section-heading">
-
-                    <span class="eyebrow">
-                        BUILD
-                    </span>
-
-                    <h2>
-                        Build recomendada
-                    </h2>
-
-                    <p>
-                        Estamos preparando la build específica
-                        para ${escapeHTML(champion.name)}.
-                    </p>
-
-                </div>
-
-            </div>
-        `;
+    .champion-role {
+      color: #e7bd61;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
     }
 
-    const items = build.items.map(item => {
+    .champion-name {
+      margin: 0;
+      color: #f5f3ee;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(48px, 7vw, 82px);
+      line-height: .95;
+      letter-spacing: -2px;
+    }
 
-        const [type, itemId, name] = item;
+    .champion-title {
+      margin: 18px 0 10px;
+      color: #d5d9e1;
+      font-size: 18px;
+    }
 
-        return `
-            <div class="build-item">
+    .champion-position {
+      color: #8f9db2;
+      font-size: 14px;
+    }
 
-                <img
-                    src="${DD}/cdn/${version}/img/item/${itemId}.png"
-                    alt="${escapeHTML(name)}"
-                    loading="lazy"
-                >
+    /* SECTIONS */
 
-                <div>
+    .section {
+      margin-bottom: 65px;
+    }
 
-                    <span>
-                        ${escapeHTML(type)}
-                    </span>
+    .section-label {
+      color: #e7bd61;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
 
-                    <strong>
-                        ${escapeHTML(name)}
-                    </strong>
+    .section-title {
+      margin: 0 0 12px;
+      color: #f3f1ec;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 38px;
+    }
 
-                </div>
+    .section-description {
+      margin: 0 0 28px;
+      color: #8998ae;
+      line-height: 1.7;
+    }
 
-            </div>
-        `;
+    /* INFO */
 
-    }).join("");
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .info-card {
+      padding: 22px;
+      border: 1px solid #263650;
+      border-radius: 10px;
+      background: linear-gradient(
+        145deg,
+        #0c1625,
+        #09111d
+      );
+    }
+
+    .info-card span {
+      display: block;
+      color: #718198;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .info-card strong {
+      color: #f0eee9;
+      font-size: 16px;
+    }
+
+    /* BUILD */
+
+    .build-container {
+      padding: 26px;
+      border: 1px solid #263650;
+      border-radius: 14px;
+      background: linear-gradient(
+        145deg,
+        #0c1625,
+        #080f19
+      );
+    }
+
+    .build-path {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+
+    .item-card {
+      min-width: 0;
+      text-align: center;
+      padding: 16px 10px 14px;
+      border: 1px solid #263650;
+      border-radius: 10px;
+      background: #091321;
+      transition:
+        transform .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
+    }
+
+    .item-card:hover {
+      transform: translateY(-4px);
+      border-color: #cba85b;
+      box-shadow: 0 12px 30px rgba(0,0,0,.3);
+    }
+
+    /* OBJETO */
+
+    .item-image {
+      display: block;
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 12px;
+
+      object-fit: cover;
+
+      border-radius: 8px;
+      border: 1px solid #3b4a62;
+
+      box-shadow:
+        0 5px 18px rgba(0,0,0,.4);
+    }
+
+    .item-number {
+      color: #687990;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+
+    .item-name {
+      color: #e9e7e2;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .item-type {
+      margin-top: 5px;
+      color: #718198;
+      font-size: 10px;
+    }
+
+    /* BOOTS */
+
+    .boots-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #1d2b40;
+    }
+
+    .boots-image {
+      width: 56px;
+      height: 56px;
+      object-fit: cover;
+      border-radius: 7px;
+      border: 1px solid #3b4a62;
+    }
+
+    .boots-info strong {
+      display: block;
+      color: #eeeae3;
+      margin-bottom: 4px;
+    }
+
+    .boots-info span {
+      color: #718198;
+      font-size: 12px;
+    }
+
+    /* RUNES */
+
+    .runes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .rune-card {
+      padding: 20px;
+      border: 1px solid #263650;
+      border-radius: 10px;
+      background: #091321;
+    }
+
+    .rune-card span {
+      display: block;
+      color: #718198;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 7px;
+    }
+
+    .rune-card strong {
+      color: #e9e6df;
+    }
+
+    /* DESCRIPTION */
+
+    .lore {
+      max-width: 850px;
+      color: #a5afbd;
+      font-size: 15px;
+      line-height: 1.9;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 800px) {
+
+      .champion-page {
+        padding: 35px 16px 70px;
+      }
+
+      .champion-hero-content {
+        padding: 30px;
+      }
+
+      .info-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .build-path {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .runes-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 500px) {
+
+      .champion-hero {
+        min-height: 500px;
+      }
+
+      .champion-hero-content {
+        min-height: 500px;
+        padding: 24px;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .build-path {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
 
 
-    return `
+<body>
 
-        <div class="build-section">
+  <!-- =========================
+       HEADER
+       ========================= -->
 
-            <div class="section-heading">
+  <header class="site-header">
 
-                <span class="eyebrow">
-                    BUILD
-                </span>
+    <div class="header-inner">
 
-                <h2>
-                    Build recomendada
-                </h2>
+      <a href="index.html" class="logo">
+        LEGENDS <span>//</span> ARCHIVE
+      </a>
 
-                <p>
-                    Configuración recomendada para
-                    ${escapeHTML(champion.name)}.
-                </p>
+      <nav>
+        <a href="index.html">CAMPEONES</a>
+        <a href="index.html#tier-list">TIER LIST</a>
+      </nav>
 
-            </div>
+    </div>
 
-
-            <div class="build-meta">
-
-                <span>
-                    POSICIÓN
-
-                    <strong>
-                        ${escapeHTML(build.role)}
-                    </strong>
-                </span>
-
-            </div>
+  </header>
 
 
-            <div class="build-grid">
+  <!-- =========================
+       MAIN
+       ========================= -->
 
-                ${items}
-
-            </div>
+  <main class="champion-page">
 
 
-            <div class="runes">
+    <!-- HERO -->
 
-                <span class="eyebrow">
-                    RUNAS
-                </span>
+    <section class="champion-hero">
 
-                <p>
-                    ${escapeHTML(build.runes)}
-                </p>
+      <img
+        class="champion-hero-bg"
+        src="https://ddragon.leagueoflegends.com/cdn/15.18.1/img/champion/Aatrox.png"
+        alt="Aatrox"
+      >
 
-            </div>
+      <div class="champion-hero-content">
 
+        <div class="champion-role">
+          Fighter
         </div>
 
-    `;
-}
+        <h1 class="champion-name">
+          Aatrox
+        </h1>
+
+        <p class="champion-title">
+          La Espada de los Oscuros
+        </p>
+
+        <div class="champion-position">
+          TOP · Luchador
+        </div>
+
+      </div>
+
+    </section>
 
 
-/* =========================================================
-   HABILIDADES
-========================================================= */
+    <!-- PERFIL -->
 
-function renderAbilities(champion, version) {
+    <section class="section">
 
-    const passive = `
-        <div class="ability">
+      <div class="section-label">
+        Perfil
+      </div>
+
+      <h2 class="section-title">
+        Aatrox
+      </h2>
+
+      <p class="lore">
+        Aatrox y sus hermanos, otrora respetados defensores de Shurima
+        contra el Vacío, acabarían convirtiéndose en una amenaza aún mayor
+        para Runaterra. Ahora, atrapado en un arma mágica, busca recuperar
+        su libertad y destruir todo aquello que se interponga en su camino.
+      </p>
+
+    </section>
+
+
+    <!-- META -->
+
+    <section class="section">
+
+      <div class="section-label">
+        Meta
+      </div>
+
+      <h2 class="section-title">
+        Resumen
+      </h2>
+
+      <div class="info-grid">
+
+        <div class="info-card">
+          <span>Posición</span>
+          <strong>TOP</strong>
+        </div>
+
+        <div class="info-card">
+          <span>Clase</span>
+          <strong>Luchador</strong>
+        </div>
+
+        <div class="info-card">
+          <span>Dificultad</span>
+          <strong>Media</strong>
+        </div>
+
+        <div class="info-card">
+          <span>Estilo</span>
+          <strong>AD / Sustain</strong>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- BUILD -->
+
+    <section class="section">
+
+      <div class="section-label">
+        Build
+      </div>
+
+      <h2 class="section-title">
+        Build recomendada
+      </h2>
+
+      <p class="section-description">
+        Configuración recomendada para Aatrox en TOP.
+      </p>
+
+
+      <div class="build-container">
+
+        <div class="build-path">
+
+
+          <!-- ITEM 1 -->
+
+          <div class="item-card">
+
+            <div class="item-number">
+              01
+            </div>
 
             <img
-                src="${DD}/cdn/${version}/img/passive/${champion.passive.image.full}"
-                alt="${escapeHTML(champion.passive.name)}"
+              class="item-image"
+              src="https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/1055.png"
+              alt="Espada de Doran"
             >
 
-            <div>
-
-                <strong>
-                    PASIVA
-                </strong>
-
-                <h3>
-                    ${escapeHTML(champion.passive.name)}
-                </h3>
-
-                <p>
-                    ${escapeHTML(champion.passive.description)}
-                </p>
-
+            <div class="item-name">
+              Espada de Doran
             </div>
+
+            <div class="item-type">
+              Inicio
+            </div>
+
+          </div>
+
+
+          <!-- ITEM 2 -->
+
+          <div class="item-card">
+
+            <div class="item-number">
+              02
+            </div>
+
+            <img
+              class="item-image"
+              src="https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/6692.png"
+              alt="Eclipse"
+            >
+
+            <div class="item-name">
+              Eclipse
+            </div>
+
+            <div class="item-type">
+              Mítico / Daño
+            </div>
+
+          </div>
+
+
+          <!-- ITEM 3 -->
+
+          <div class="item-card">
+
+            <div class="item-number">
+              03
+            </div>
+
+            <img
+              class="item-image"
+              src="https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3053.png"
+              alt="Fuerza de la Trinidad"
+            >
+
+            <div class="item-name">
+              Sterak
+            </div>
+
+            <div class="item-type">
+              Vida / Daño
+            </div>
+
+          </div>
+
+
+          <!-- ITEM 4 -->
+
+          <div class="item-card">
+
+            <div class="item-number">
+              04
+            </div>
+
+            <img
+              class="item-image"
+              src="https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3071.png"
+              alt="Cuchilla Negra"
+            >
+
+            <div class="item-name">
+              Cuchilla Negra
+            </div>
+
+            <div class="item-type">
+              Daño / Vida
+            </div>
+
+          </div>
+
+
+          <!-- ITEM 5 -->
+
+          <div class="item-card">
+
+            <div class="item-number">
+              05
+            </div>
+
+            <img
+              class="item-image"
+              src="https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3748.png"
+              alt="Hidra de Titánica"
+            >
+
+            <div class="item-name">
+              Hidra de Titánica
+            </div>
+
+            <div class="item-type">
+              Vida / Daño
+            </div>
+
+          </div>
 
         </div>
-    `;
 
 
-    const spells = champion.spells.map(
-        (spell, index) => {
+        <!-- BOTAS -->
 
-            return `
-                <div class="ability">
+        <div class="boots-row">
 
-                    <img
-                        src="${DD}/cdn/${version}/img/spell/${spell.image.full}"
-                        alt="${escapeHTML(spell.name)}"
-                    >
+          <img
+            class="boots-image"
+            src="https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3047.png"
+            alt="Placas de Acero"
+          >
 
-                    <div>
+          <div class="boots-info">
 
-                        <strong>
-                            ${"QWER"[index]}
-                        </strong>
+            <strong>
+              Placas de Acero
+            </strong>
 
-                        <h3>
-                            ${escapeHTML(spell.name)}
-                        </h3>
+            <span>
+              Botas recomendadas contra daño físico.
+            </span>
 
-                        <p>
-                            ${escapeHTML(spell.description)}
-                        </p>
+          </div>
 
-                    </div>
+        </div>
 
-                </div>
-            `;
+      </div>
 
-        }
-    ).join("");
+    </section>
 
 
-    return passive + spells;
-}
+    <!-- RUNAS -->
 
+    <section class="section">
 
-/* =========================================================
-   PÁGINA
-========================================================= */
+      <div class="section-label">
+        Runas
+      </div>
 
-async function init() {
+      <h2 class="section-title">
+        Configuración
+      </h2>
 
-    try {
+      <div class="runes-grid">
 
-        const {
-            champion,
-            version
-        } = await getChampion();
+        <div class="rune-card">
+          <span>Principal</span>
+          <strong>Conquistador</strong>
+        </div>
 
+        <div class="rune-card">
+          <span>Secundaria</span>
+          <strong>Revestimiento de Huesos</strong>
+        </div>
 
-        const build =
-            builds[champion.name];
+        <div class="rune-card">
+          <span>Fragmento</span>
+          <strong>Velocidad de ataque</strong>
+        </div>
 
+      </div>
 
-        document.title =
-            `${champion.name} — Legends Archive`;
+    </section>
 
 
-        page.innerHTML = `
+  </main>
 
-            <!-- HERO PREMIUM -->
 
-            <section class="champion-hero">
+  <!-- =========================
+       FOOTER
+       ========================= -->
 
-                <img
-                    class="champion-hero-bg"
-                    src="${DD}/cdn/${version}/img/champion/splash/${champion.id}_0.jpg"
-                    alt=""
-                >
+  <footer>
 
-                <div class="champion-hero-content">
+    <div class="footer-title">
+      LEGENDS // ARCHIVE
+    </div>
 
-                    <span class="eyebrow">
-                        ${escapeHTML(
-                            champion.tags.join(" · ")
-                        )}
-                    </span>
+    <p>
+      Legends Archive isn't endorsed by Riot Games and doesn't reflect
+      the views or opinions of Riot Games or anyone officially involved
+      in producing or managing Riot Games properties.
+    </p>
 
-                    <h1>
-                        ${escapeHTML(champion.name)}
-                    </h1>
+  </footer>
 
-                    <p class="champion-title">
-                        ${escapeHTML(champion.title)}
-                    </p>
-
-                    <p class="champion-blurb">
-                        ${escapeHTML(champion.blurb)}
-                    </p>
-
-                </div>
-
-            </section>
-
-
-            <!-- PERFIL -->
-
-            <section class="profile-section">
-
-                <span class="eyebrow">
-                    PERFIL
-                </span>
-
-                <h2>
-                    ${escapeHTML(champion.name)}
-                </h2>
-
-                <p class="lore">
-                    ${escapeHTML(champion.lore)}
-                </p>
-
-
-                <div class="stats-row">
-
-                    <span>
-                        ATAQUE
-
-                        <b>
-                            ${champion.info.attack}
-                        </b>
-                    </span>
-
-
-                    <span>
-                        DEFENSA
-
-                        <b>
-                            ${champion.info.defense}
-                        </b>
-                    </span>
-
-
-                    <span>
-                        MAGIA
-
-                        <b>
-                            ${champion.info.magic}
-                        </b>
-                    </span>
-
-
-                    <span>
-                        DIFICULTAD
-
-                        <b>
-                            ${champion.info.difficulty}
-                        </b>
-                    </span>
-
-                </div>
-
-            </section>
-
-
-            <!-- META -->
-
-            <section class="profile-section">
-
-                <span class="eyebrow">
-                    META
-                </span>
-
-                <h2>
-                    Resumen
-                </h2>
-
-
-                <div class="stats-row">
-
-                    <span>
-                        PARCHE
-
-                        <b>
-                            ${version}
-                        </b>
-                    </span>
-
-
-                    <span>
-                        POSICIÓN
-
-                        <b>
-                            ${escapeHTML(
-                                build?.role ||
-                                champion.tags[0] ||
-                                "—"
-                            )}
-                        </b>
-                    </span>
-
-
-                    <span>
-                        WIN RATE
-
-                        <b>
-                            —
-                        </b>
-                    </span>
-
-
-                    <span>
-                        PICK RATE
-
-                        <b>
-                            —
-                        </b>
-                    </span>
-
-                </div>
-
-            </section>
-
-
-            <!-- BUILD -->
-
-            ${renderBuild(champion, version)}
-
-
-            <!-- HABILIDADES -->
-
-            <section class="build-section">
-
-                <div class="section-heading">
-
-                    <span class="eyebrow">
-                        HABILIDADES
-                    </span>
-
-                    <h2>
-                        Kit de ${escapeHTML(champion.name)}
-                    </h2>
-
-                </div>
-
-
-                <div class="abilities">
-
-                    ${renderAbilities(
-                        champion,
-                        version
-                    )}
-
-                </div>
-
-            </section>
-
-        `;
-
-
-    } catch (error) {
-
-        console.error(error);
-
-
-        page.innerHTML = `
-
-            <div class="error-box">
-
-                <h1>
-                    No se pudo cargar el campeón
-                </h1>
-
-                <p>
-                    ${escapeHTML(
-                        error.message
-                    )}
-                </p>
-
-                <a href="index.html">
-                    Volver a campeones
-                </a>
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-init();
+</body>
+</html>
