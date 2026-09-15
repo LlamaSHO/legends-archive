@@ -1,22 +1,43 @@
-// ============================================================
+// ==========================================================
 // LEGENDS ARCHIVE
-// CARGADOR COMPLETO DE CAMPEONES
-// ============================================================
+// LISTADO COMPLETO DE CAMPEONES
+// ==========================================================
 
 const DDRAGON = "https://ddragon.leagueoflegends.com";
 
-const championGrid = document.querySelector("#champion-grid");
-const searchInput = document.querySelector("#champion-search");
+
+// ----------------------------------------------------------
+// ENCONTRAR ELEMENTOS DE LA PÁGINA
+// ----------------------------------------------------------
+
+const championGrid =
+    document.querySelector("#champion-grid") ||
+    document.querySelector("#champions-grid") ||
+    document.querySelector("#champion-list") ||
+    document.querySelector(".champion-grid") ||
+    document.querySelector(".champions-grid") ||
+    document.querySelector(".champion-list");
+
+const searchInput =
+    document.querySelector("#champion-search") ||
+    document.querySelector("#search") ||
+    document.querySelector('input[type="search"]');
+
+
+// ----------------------------------------------------------
+// VARIABLES
+// ----------------------------------------------------------
 
 let champions = [];
-let currentFilter = "ALL";
+
+let currentFilter = "TODOS";
 
 
-// ============================================================
-// POSICIONES
-// ============================================================
+// ----------------------------------------------------------
+// POSICIONES PRINCIPALES
+// ----------------------------------------------------------
 
-const positions = {
+const championPositions = {
 
     Aatrox: "TOP",
     Ahri: "MID",
@@ -39,17 +60,20 @@ const positions = {
     Brand: "SUPPORT",
     Braum: "SUPPORT",
     Briar: "JUNGLE",
+
     Caitlyn: "ADC",
     Camille: "TOP",
     Cassiopeia: "MID",
+    Chogath: "TOP",
     ChoGath: "TOP",
     Corki: "ADC",
+
     Darius: "TOP",
     Diana: "JUNGLE",
     DrMundo: "TOP",
     Draven: "ADC",
 
-    Ekko: "JUNGLE",
+    Ekko: "MID",
     Elise: "JUNGLE",
     Evelynn: "JUNGLE",
     Ezreal: "ADC",
@@ -82,6 +106,7 @@ const positions = {
     Jinx: "ADC",
 
     Kaisa: "ADC",
+    KaiSa: "ADC",
     Kalista: "ADC",
     Karma: "SUPPORT",
     Karthus: "JUNGLE",
@@ -91,10 +116,10 @@ const positions = {
     Kayn: "JUNGLE",
     Kennen: "TOP",
     Khazix: "JUNGLE",
+    KhaZix: "JUNGLE",
     Kindred: "JUNGLE",
     Kled: "TOP",
     KogMaw: "ADC",
-    K'Sante: "TOP",
     KSante: "TOP",
 
     LeBlanc: "MID",
@@ -130,7 +155,7 @@ const positions = {
     Orianna: "MID",
     Ornn: "TOP",
 
-    Pantheon: "SUPPORT",
+    Pantheon: "TOP",
     Poppy: "TOP",
     Pyke: "SUPPORT",
 
@@ -168,7 +193,7 @@ const positions = {
     Syndra: "MID",
 
     TahmKench: "SUPPORT",
-    Taliyah: "JUNGLE",
+    Taliyah: "MID",
     Talon: "MID",
     Taric: "SUPPORT",
     Teemo: "TOP",
@@ -186,6 +211,7 @@ const positions = {
     Vayne: "ADC",
     Veigar: "MID",
     Velkoz: "SUPPORT",
+    VelKoz: "SUPPORT",
     Vex: "MID",
     Vi: "JUNGLE",
     Viego: "JUNGLE",
@@ -203,7 +229,7 @@ const positions = {
     Yasuo: "MID",
     Yone: "MID",
     Yorick: "TOP",
-    Yunara: "ADC",
+
     Yuumi: "SUPPORT",
 
     Zac: "JUNGLE",
@@ -217,46 +243,121 @@ const positions = {
 };
 
 
-// ============================================================
-// CARGAR TODOS LOS CAMPEONES
-// ============================================================
+// ----------------------------------------------------------
+// POSICIÓN AUTOMÁTICA DE RESPALDO
+// ----------------------------------------------------------
+
+function getPosition(champion) {
+
+    if (championPositions[champion.id]) {
+        return championPositions[champion.id];
+    }
+
+    if (championPositions[champion.name]) {
+        return championPositions[champion.name];
+    }
+
+    const tags = champion.tags || [];
+
+    if (tags.includes("Marksman")) {
+        return "ADC";
+    }
+
+    if (tags.includes("Support")) {
+        return "SUPPORT";
+    }
+
+    if (tags.includes("Mage")) {
+        return "MID";
+    }
+
+    if (tags.includes("Assassin")) {
+        return "MID";
+    }
+
+    if (tags.includes("Tank")) {
+        return "TOP";
+    }
+
+    return "TOP";
+}
+
+
+// ----------------------------------------------------------
+// CARGAR CAMPEONES
+// ----------------------------------------------------------
 
 async function loadChampions() {
 
     if (!championGrid) {
+
+        console.error(
+            "No se encontró el contenedor de campeones."
+        );
+
         return;
+
     }
+
 
     try {
 
-        const versionsResponse = await fetch(
+        const response = await fetch(
             `${DDRAGON}/api/versions.json`
         );
 
-        const versions = await versionsResponse.json();
+
+        if (!response.ok) {
+            throw new Error("No se pudo conectar con Data Dragon.");
+        }
+
+
+        const versions = await response.json();
 
         const version = versions[0];
 
-        const response = await fetch(
+
+        const championsResponse = await fetch(
             `${DDRAGON}/cdn/${version}/data/es_ES/champion.json`
         );
 
-        const data = await response.json();
+
+        if (!championsResponse.ok) {
+            throw new Error("No se pudieron cargar los campeones.");
+        }
+
+
+        const data = await championsResponse.json();
+
 
         champions = Object.values(data.data);
 
+
+        console.log(
+            `LEGENDS ARCHIVE: ${champions.length} campeones cargados.`
+        );
+
+
         renderChampions();
+
 
     } catch (error) {
 
-        console.error("Error cargando campeones:", error);
+        console.error(error);
+
 
         championGrid.innerHTML = `
-            <div class="error-card">
-                No se pudieron cargar los campeones.
-                <br>
-                Recarga la página.
+
+            <div class="loading-error">
+
+                <strong>No se pudieron cargar los campeones</strong>
+
+                <span>
+                    Comprueba tu conexión y recarga la página.
+                </span>
+
             </div>
+
         `;
 
     }
@@ -264,9 +365,47 @@ async function loadChampions() {
 }
 
 
-// ============================================================
-// RENDER
-// ============================================================
+// ----------------------------------------------------------
+// FILTRAR CAMPEONES
+// ----------------------------------------------------------
+
+function getFilteredChampions() {
+
+    const search = searchInput
+        ? searchInput.value.toLowerCase().trim()
+        : "";
+
+
+    return champions.filter(champion => {
+
+        const position = getPosition(champion);
+
+
+        const matchesSearch =
+            champion.name
+                .toLowerCase()
+                .includes(search);
+
+
+        const matchesFilter =
+            currentFilter === "TODOS" ||
+            currentFilter === "ALL" ||
+            position === currentFilter;
+
+
+        return (
+            matchesSearch &&
+            matchesFilter
+        );
+
+    });
+
+}
+
+
+// ----------------------------------------------------------
+// RENDER CAMPEONES
+// ----------------------------------------------------------
 
 function renderChampions() {
 
@@ -274,139 +413,175 @@ function renderChampions() {
         return;
     }
 
-    const search = searchInput
-        ? searchInput.value.toLowerCase().trim()
-        : "";
 
-    const filtered = champions.filter(champion => {
-
-        const name = champion.name.toLowerCase();
-
-        const position =
-            positions[champion.id] ||
-            positions[champion.name] ||
-            "";
-
-        const matchesSearch =
-            !search ||
-            name.includes(search);
-
-        const matchesPosition =
-            currentFilter === "ALL" ||
-            position === currentFilter;
-
-        return matchesSearch && matchesPosition;
-
-    });
+    const filtered =
+        getFilteredChampions();
 
 
-    championGrid.innerHTML = filtered.map(champion => {
+    if (filtered.length === 0) {
 
-        const position =
-            positions[champion.id] ||
-            positions[champion.name] ||
-            "MID";
+        championGrid.innerHTML = `
 
+            <div class="loading-error">
 
-        const image =
-            `${DDRAGON}/cdn/img/champion/splash/${champion.id}_0.jpg`;
+                No encontramos ningún campeón.
 
-
-        return `
-
-            <article class="champion-card">
-
-                <a
-                    href="champion.html?id=${encodeURIComponent(champion.id)}"
-                    class="champion-link"
-                >
-
-                    <div class="champion-image-wrapper">
-
-                        <img
-                            src="${image}"
-                            alt="${champion.name}"
-                            class="champion-image"
-                            loading="lazy"
-                        >
-
-                    </div>
-
-
-                    <div class="champion-card-content">
-
-                        <div class="champion-role">
-                            ${position}
-                        </div>
-
-                        <h3>
-                            ${champion.name}
-                        </h3>
-
-                        <p>
-                            ${champion.title}
-                        </p>
-
-                    </div>
-
-                </a>
-
-            </article>
+            </div>
 
         `;
 
-    }).join("");
+        return;
+
+    }
+
+
+    championGrid.innerHTML =
+        filtered.map(renderChampionCard).join("");
 
 }
 
 
-// ============================================================
-// FILTROS
-// ============================================================
+// ----------------------------------------------------------
+// TARJETA
+// ----------------------------------------------------------
 
-document.addEventListener("click", event => {
+function renderChampionCard(champion) {
 
-    const button = event.target.closest("[data-position]");
-
-    if (!button) {
-        return;
-    }
-
-    currentFilter =
-        button.dataset.position;
-
-    document
-        .querySelectorAll("[data-position]")
-        .forEach(btn => {
-
-            btn.classList.remove("active");
-
-        });
+    const position =
+        getPosition(champion);
 
 
-    button.classList.add("active");
-
-    renderChampions();
-
-});
+    const image =
+        `${DDRAGON}/cdn/img/champion/splash/${champion.id}_0.jpg`;
 
 
-// ============================================================
+    const tags =
+        (champion.tags || []).join(" · ");
+
+
+    return `
+
+        <article class="champion-card">
+
+            <a
+                href="champion.html?id=${encodeURIComponent(champion.id)}"
+                class="champion-link"
+            >
+
+                <div class="champion-image-wrapper">
+
+                    <img
+                        src="${image}"
+                        alt="${champion.name}"
+                        class="champion-image"
+                        loading="lazy"
+                    >
+
+                </div>
+
+
+                <div class="champion-card-content">
+
+                    <div class="champion-role">
+                        ${position}
+                    </div>
+
+
+                    <h3>
+                        ${champion.name}
+                    </h3>
+
+
+                    <p>
+                        ${champion.title}
+                    </p>
+
+
+                    <div class="champion-tags">
+                        ${tags}
+                    </div>
+
+                </div>
+
+            </a>
+
+        </article>
+
+    `;
+
+}
+
+
+// ----------------------------------------------------------
 // BUSCADOR
-// ============================================================
+// ----------------------------------------------------------
 
 if (searchInput) {
 
     searchInput.addEventListener(
         "input",
-        renderChampions
+        () => {
+
+            renderChampions();
+
+        }
     );
 
 }
 
 
-// ============================================================
-// INICIO
-// ============================================================
+// ----------------------------------------------------------
+// BOTONES DE POSICIÓN
+// ----------------------------------------------------------
+
+document.addEventListener(
+    "click",
+    event => {
+
+        const button =
+            event.target.closest(
+                "[data-position]"
+            );
+
+
+        if (!button) {
+            return;
+        }
+
+
+        event.preventDefault();
+
+
+        currentFilter =
+            button.dataset.position;
+
+
+        document
+            .querySelectorAll(
+                "[data-position]"
+            )
+            .forEach(btn => {
+
+                btn.classList.remove(
+                    "active"
+                );
+
+            });
+
+
+        button.classList.add(
+            "active"
+        );
+
+
+        renderChampions();
+
+    }
+);
+
+
+// ----------------------------------------------------------
+// INICIAR
+// ----------------------------------------------------------
 
 loadChampions();
