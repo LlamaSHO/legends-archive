@@ -1,80 +1,9 @@
-/* =========================================================
-   LEGENDS // ARCHIVE
-   CHAMPION DATABASE
-   ========================================================= */
-
 const DATA_DRAGON =
   "https://ddragon.leagueoflegends.com/cdn/16.18.1";
 
-const championContainer =
-  document.getElementById("champion-content");
-
 
 /* =========================================================
-   BUILDS
-   ========================================================= */
-
-const builds = {
-
-  fighter: [
-    ["1055", "Espada de Doran", "Inicio"],
-    ["6692", "Eclipse", "Daño"],
-    ["6610", "Cielo Desgarrado", "Daño"],
-    ["3053", "Sterak", "Supervivencia"],
-    ["3071", "Cuchilla Negra", "Daño"],
-    ["3047", "Placas de Acero", "Botas"]
-  ],
-
-  tank: [
-    ["1054", "Escudo de Doran", "Inicio"],
-    ["3068", "Corazón de Acero", "Vida"],
-    ["6662", "Guantelete de Hielo", "Defensa"],
-    ["2504", "Kaenic Rookern", "Resistencia"],
-    ["3742", "Cimitarra Pétrea", "Defensa"],
-    ["3047", "Placas de Acero", "Botas"]
-  ],
-
-  assassin: [
-    ["1055", "Espada de Doran", "Inicio"],
-    ["6692", "Eclipse", "Daño"],
-    ["3142", "Youmuu", "Letalidad"],
-    ["6693", "Arcoescudo", "Daño"],
-    ["3071", "Cuchilla Negra", "Daño"],
-    ["3158", "Botas de hechicero", "Botas"]
-  ],
-
-  mage: [
-    ["1056", "Anillo de Doran", "Inicio"],
-    ["6655", "Luden", "Poder de habilidad"],
-    ["4645", "Tormento de Liandry", "Poder de habilidad"],
-    ["3089", "Sombrero mortal de Rabadon", "AP"],
-    ["3135", "Bastón del Vacío", "Penetración"],
-    ["3020", "Botas de hechicero", "Botas"]
-  ],
-
-  marksman: [
-    ["1055", "Espada de Doran", "Inicio"],
-    ["6672", "Kraken", "Daño"],
-    ["3031", "Filo del Infinito", "Crítico"],
-    ["6673", "Arcoescudo Inmortal", "Supervivencia"],
-    ["3094", "Huracán de Runaan", "Velocidad"],
-    ["3006", "Grebas de Berserker", "Botas"]
-  ],
-
-  support: [
-    ["3850", "Atlas mundial", "Inicio"],
-    ["6617", "Regalo del Espectro", "Utilidad"],
-    ["3107", "Redención", "Curación"],
-    ["3190", "Medallón de los Solari", "Defensa"],
-    ["3504", "Ardent", "Utilidad"],
-    ["3117", "Botas de movilidad", "Botas"]
-  ]
-
-};
-
-
-/* =========================================================
-   POSICIONES / TIPOS
+   BASE DE DATOS DE POSICIONES
    ========================================================= */
 
 const championRoles = {
@@ -100,22 +29,26 @@ const championRoles = {
   Brand: "SUPPORT",
   Braum: "SUPPORT",
   Briar: "JUNGLE",
+
   Caitlyn: "ADC",
   Camille: "TOP",
   Cassiopeia: "MID",
   Chogath: "TOP",
   Corki: "MID",
+
   Darius: "TOP",
   Diana: "JUNGLE",
   Draven: "ADC",
   DrMundo: "TOP",
+
   Ekko: "JUNGLE",
   Elise: "JUNGLE",
   Evelynn: "JUNGLE",
   Ezreal: "ADC",
-  Fiddlesticks: "JUNGLE",
+
   Fiora: "TOP",
   Fizz: "MID",
+
   Galio: "MID",
   Gangplank: "TOP",
   Garen: "TOP",
@@ -123,18 +56,22 @@ const championRoles = {
   Gragas: "TOP",
   Graves: "JUNGLE",
   Gwen: "TOP",
+
   Hecarim: "JUNGLE",
   Heimerdinger: "TOP",
   Hwei: "MID",
+
   Illaoi: "TOP",
   Irelia: "TOP",
   Ivern: "JUNGLE",
+
   Janna: "SUPPORT",
   JarvanIV: "JUNGLE",
   Jax: "TOP",
   Jayce: "TOP",
   Jhin: "ADC",
   Jinx: "ADC",
+
   KSante: "TOP",
   Kalista: "ADC",
   Karma: "SUPPORT",
@@ -148,6 +85,7 @@ const championRoles = {
   Kindred: "JUNGLE",
   Kled: "TOP",
   KogMaw: "ADC",
+
   LeBlanc: "MID",
   LeeSin: "JUNGLE",
   Leona: "SUPPORT",
@@ -156,6 +94,7 @@ const championRoles = {
   Lucian: "ADC",
   Lulu: "SUPPORT",
   Lux: "SUPPORT",
+
   Malphite: "TOP",
   Malzahar: "MID",
   Maokai: "SUPPORT",
@@ -165,6 +104,7 @@ const championRoles = {
   MissFortune: "ADC",
   Mordekaiser: "TOP",
   Morgana: "SUPPORT",
+
   Naafiri: "MID",
   Nami: "SUPPORT",
   Nasus: "TOP",
@@ -174,14 +114,18 @@ const championRoles = {
   Nilah: "ADC",
   Nocturne: "JUNGLE",
   Nunu: "JUNGLE",
+
   Olaf: "TOP",
   Orianna: "MID",
   Ornn: "TOP",
+
   Pantheon: "TOP",
   Poppy: "TOP",
   Pyke: "SUPPORT",
+
   Qiyana: "MID",
   Quinn: "TOP",
+
   Rakan: "SUPPORT",
   Rammus: "JUNGLE",
   RekSai: "JUNGLE",
@@ -192,6 +136,7 @@ const championRoles = {
   Riven: "TOP",
   Rumble: "TOP",
   Ryze: "MID",
+
   Samira: "ADC",
   Sejuani: "JUNGLE",
   Senna: "SUPPORT",
@@ -210,6 +155,7 @@ const championRoles = {
   Swain: "SUPPORT",
   Sylas: "MID",
   Syndra: "MID",
+
   TahmKench: "SUPPORT",
   Taliyah: "JUNGLE",
   Talon: "MID",
@@ -221,8 +167,10 @@ const championRoles = {
   Tryndamere: "TOP",
   TwistedFate: "MID",
   Twitch: "ADC",
+
   Udyr: "JUNGLE",
   Urgot: "TOP",
+
   Varus: "ADC",
   Vayne: "ADC",
   Veigar: "MID",
@@ -233,16 +181,20 @@ const championRoles = {
   Viktor: "MID",
   Vladimir: "TOP",
   Volibear: "TOP",
+
   Warwick: "JUNGLE",
   Wukong: "JUNGLE",
+
   Xayah: "ADC",
   Xerath: "SUPPORT",
   XinZhao: "JUNGLE",
+
   Yasuo: "MID",
   Yone: "TOP",
   Yorick: "TOP",
-  Yunara: "ADC",
+
   Yuumi: "SUPPORT",
+
   Zac: "JUNGLE",
   Zed: "MID",
   Zeri: "ADC",
@@ -255,21 +207,91 @@ const championRoles = {
 
 
 /* =========================================================
-   DETERMINAR BUILD
+   BUILDS
+   ========================================================= */
+
+const builds = {
+
+  fighter: [
+    ["1055", "Espada de Doran"],
+    ["6692", "Eclipse"],
+    ["6610", "Cielo Desgarrado"],
+    ["3053", "Sterak"],
+    ["3071", "Cuchilla Negra"],
+    ["3047", "Placas de Acero"]
+  ],
+
+  tank: [
+    ["1054", "Escudo de Doran"],
+    ["3068", "Corazón de Acero"],
+    ["6662", "Guantelete de Hielo"],
+    ["2504", "Kaenic Rookern"],
+    ["3742", "Cimitarra Pétrea"],
+    ["3047", "Placas de Acero"]
+  ],
+
+  assassin: [
+    ["1055", "Espada de Doran"],
+    ["6692", "Eclipse"],
+    ["3142", "Youmuu"],
+    ["6693", "Arcoescudo"],
+    ["3071", "Cuchilla Negra"],
+    ["3158", "Botas de hechicero"]
+  ],
+
+  mage: [
+    ["1056", "Anillo de Doran"],
+    ["6655", "Luden"],
+    ["4645", "Tormento de Liandry"],
+    ["3089", "Sombrero de Rabadon"],
+    ["3135", "Bastón del Vacío"],
+    ["3020", "Botas de hechicero"]
+  ],
+
+  marksman: [
+    ["1055", "Espada de Doran"],
+    ["6672", "Kraken"],
+    ["3031", "Filo del Infinito"],
+    ["6673", "Arcoescudo"],
+    ["3094", "Huracán de Runaan"],
+    ["3006", "Grebas de Berserker"]
+  ],
+
+  support: [
+    ["3850", "Atlas mundial"],
+    ["6617", "Regalo del Espectro"],
+    ["3107", "Redención"],
+    ["3190", "Medallón de los Solari"],
+    ["3504", "Ardent"],
+    ["3117", "Botas de movilidad"]
+  ]
+
+};
+
+
+/* =========================================================
+   OBTENER BUILD
    ========================================================= */
 
 function getBuild(champion) {
 
-  const role = championRoles[champion.id];
+  const role =
+    championRoles[champion.id];
 
-  const tags = champion.tags || [];
+  const tags =
+    champion.tags || [];
+
+
+  if (role === "ADC") {
+    return builds.marksman;
+  }
+
+  if (role === "SUPPORT") {
+    return builds.support;
+  }
 
   if (tags.includes("Tank")) {
     return builds.tank;
-  }
-
-  if (tags.includes("Marksman")) {
-    return builds.marksman;
   }
 
   if (tags.includes("Assassin")) {
@@ -280,30 +302,35 @@ function getBuild(champion) {
     return builds.mage;
   }
 
-  if (tags.includes("Support")) {
-    return builds.support;
-  }
-
-  if (role === "ADC") {
+  if (tags.includes("Marksman")) {
     return builds.marksman;
   }
 
-  if (role === "SUPPORT") {
-    return builds.support;
-  }
-
   return builds.fighter;
+
 }
 
 
 /* =========================================================
-   CARGAR CAMPEÓN
+   PÁGINA DE CAMPEÓN
    ========================================================= */
 
 async function loadChampion() {
 
+  const container =
+    document.getElementById("champion-content");
+
+
+  if (!container) {
+    return;
+  }
+
+
   const params =
-    new URLSearchParams(window.location.search);
+    new URLSearchParams(
+      window.location.search
+    );
+
 
   const championId =
     params.get("champion");
@@ -311,7 +338,7 @@ async function loadChampion() {
 
   if (!championId) {
 
-    showError(
+    showChampionError(
       "No se ha seleccionado ningún campeón."
     );
 
@@ -327,30 +354,34 @@ async function loadChampion() {
 
 
     if (!response.ok) {
-
-      throw new Error(
-        "Campeón no encontrado"
-      );
-
+      throw new Error("Campeón no encontrado");
     }
 
 
-    const json =
+    const data =
       await response.json();
 
 
     const champion =
-      json.data[championId];
+      data.data[championId];
 
 
-    renderChampion(champion);
+    if (!champion) {
+      throw new Error("Campeón no encontrado");
+    }
+
+
+    renderChampion(
+      champion,
+      container
+    );
 
 
   } catch (error) {
 
     console.error(error);
 
-    showError(
+    showChampionError(
       "No se ha podido cargar el campeón."
     );
 
@@ -360,12 +391,15 @@ async function loadChampion() {
 
 
 /* =========================================================
-   RENDER CAMPEÓN
+   MOSTRAR CAMPEÓN
    ========================================================= */
 
-function renderChampion(champion) {
+function renderChampion(
+  champion,
+  container
+) {
 
-  const position =
+  const role =
     championRoles[champion.id] || "MID";
 
 
@@ -374,16 +408,16 @@ function renderChampion(champion) {
 
 
   const splash =
-    `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.id}_0.jpg`;
+    `${DATA_DRAGON}/img/champion/${champion.id}.png`;
 
 
-  championContainer.innerHTML = `
+  container.innerHTML = `
 
     <section class="champion-hero">
 
       <img
         class="champion-splash"
-        src="${splash}"
+        src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.id}_0.jpg"
         alt="${champion.name}"
       >
 
@@ -404,7 +438,11 @@ function renderChampion(champion) {
         </p>
 
         <div class="champion-position">
-          ${position}
+
+          <span>
+            ${role}
+          </span>
+
         </div>
 
       </div>
@@ -430,22 +468,30 @@ function renderChampion(champion) {
       <div class="champion-stats">
 
         <div>
-          <strong>${champion.info.attack}</strong>
+          <strong>
+            ${champion.info.attack}
+          </strong>
           <span>ATAQUE</span>
         </div>
 
         <div>
-          <strong>${champion.info.defense}</strong>
+          <strong>
+            ${champion.info.defense}
+          </strong>
           <span>DEFENSA</span>
         </div>
 
         <div>
-          <strong>${champion.info.magic}</strong>
+          <strong>
+            ${champion.info.magic}
+          </strong>
           <span>MAGIA</span>
         </div>
 
         <div>
-          <strong>${champion.info.difficulty}</strong>
+          <strong>
+            ${champion.info.difficulty}
+          </strong>
           <span>DIFICULTAD</span>
         </div>
 
@@ -465,8 +511,9 @@ function renderChampion(champion) {
       </h2>
 
       <p>
-        Configuración recomendada para
-        ${champion.name} en ${position}.
+        Build recomendada para
+        ${champion.name}
+        en ${role}.
       </p>
 
 
@@ -481,7 +528,6 @@ function renderChampion(champion) {
             </div>
 
             <img
-              class="item-image"
               src="${DATA_DRAGON}/img/item/${item[0]}.png"
               alt="${item[1]}"
             >
@@ -491,10 +537,6 @@ function renderChampion(champion) {
               <h3>
                 ${item[1]}
               </h3>
-
-              <span>
-                ${item[2]}
-              </span>
 
             </div>
 
@@ -526,7 +568,7 @@ function renderChampion(champion) {
 
         <div class="meta-card">
           <span>POSICIÓN</span>
-          <strong>${position}</strong>
+          <strong>${role}</strong>
         </div>
 
         <div class="meta-card">
@@ -556,14 +598,25 @@ function renderChampion(champion) {
    ERROR
    ========================================================= */
 
-function showError(message) {
+function showChampionError(message) {
 
-  championContainer.innerHTML = `
+  const container =
+    document.getElementById(
+      "champion-content"
+    );
+
+
+  if (!container) {
+    return;
+  }
+
+
+  container.innerHTML = `
 
     <div class="error-screen">
 
       <h1>
-        Oops
+        ERROR
       </h1>
 
       <p>
@@ -582,37 +635,21 @@ function showError(message) {
 
 
 /* =========================================================
-   INICIAR
+   LISTADO DE CAMPEONES — INDEX
    ========================================================= */
-
-loadChampion();
-/* =========================================================
-   INDEX // LISTADO DE CAMPEONES
-   ========================================================= */
-
-const championsGrid =
-  document.getElementById("champions-grid");
-
-const championSearch =
-  document.getElementById("champion-search");
-
-const championCount =
-  document.getElementById("champion-count");
-
-const roleButtons =
-  document.querySelectorAll(".role-filter");
-
-
-let allChampions = [];
-
-let selectedRole = "ALL";
-
 
 async function loadChampionList() {
 
-  if (!championsGrid) {
+  const grid =
+    document.getElementById(
+      "champions-grid"
+    );
+
+
+  if (!grid) {
     return;
   }
+
 
   try {
 
@@ -620,40 +657,49 @@ async function loadChampionList() {
       `${DATA_DRAGON}/data/es_ES/champion.json`
     );
 
+
     if (!response.ok) {
-      throw new Error("No se pudo cargar la lista");
+      throw new Error(
+        "No se pudo cargar la lista"
+      );
     }
 
-    const json =
+
+    const data =
       await response.json();
 
-    allChampions =
-      Object.values(json.data);
 
-    allChampions.sort((a, b) =>
-      a.name.localeCompare(
-        b.name,
-        "es"
-      )
+    let champions =
+      Object.values(data.data);
+
+
+    champions.sort(
+      (a, b) =>
+        a.name.localeCompare(
+          b.name,
+          "es"
+        )
     );
+
 
     renderChampionList(
-      allChampions
+      champions
     );
+
 
   } catch (error) {
 
     console.error(error);
 
-    championsGrid.innerHTML = `
+    grid.innerHTML = `
       <div class="error-screen">
 
         <h2>
-          No se pudieron cargar los campeones
+          Error cargando campeones
         </h2>
 
         <p>
-          Comprueba tu conexión y vuelve a intentarlo.
+          Comprueba tu conexión.
         </p>
 
       </div>
@@ -664,193 +710,77 @@ async function loadChampionList() {
 }
 
 
-/* =========================================================
-   RENDER LISTA
-   ========================================================= */
+function renderChampionList(
+  champions
+) {
 
-function renderChampionList(champions) {
+  const grid =
+    document.getElementById(
+      "champions-grid"
+    );
 
-  if (!championsGrid) {
+
+  if (!grid) {
     return;
   }
 
 
-  const filtered =
-    champions.filter(champion => {
+  grid.innerHTML =
+    champions.map(
+      champion => {
 
-      const search =
-        championSearch
-          ? championSearch.value
-              .toLowerCase()
-              .trim()
-          : "";
-
-
-      const matchesSearch =
-        champion.name
-          .toLowerCase()
-          .includes(search);
+        const role =
+          championRoles[
+            champion.id
+          ] || "MID";
 
 
-      const role =
-        championRoles[champion.id] || "MID";
+        return `
 
+          <a
+            href="champion.html?champion=${champion.id}"
+            class="champion-card"
+          >
 
-      const matchesRole =
-        selectedRole === "ALL" ||
-        role === selectedRole;
+            <div class="champion-card-image">
 
+              <img
+                src="${DATA_DRAGON}/img/champion/${champion.id}.png"
+                alt="${champion.name}"
+              >
 
-      return (
-        matchesSearch &&
-        matchesRole
-      );
+            </div>
 
-    });
+            <div class="champion-card-info">
 
+              <span class="champion-card-role">
+                ${role}
+              </span>
 
-  if (championCount) {
+              <h3>
+                ${champion.name}
+              </h3>
 
-    championCount.textContent =
-      `${filtered.length} CAMPEONES`;
+              <p>
+                ${champion.title}
+              </p>
 
-  }
+            </div>
 
+          </a>
 
-  if (!filtered.length) {
+        `;
 
-    championsGrid.innerHTML = `
-
-      <div class="no-results">
-
-        <h3>
-          No encontramos ese campeón
-        </h3>
-
-        <p>
-          Prueba con otro nombre o posición.
-        </p>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  championsGrid.innerHTML =
-    filtered.map(champion => {
-
-      const role =
-        championRoles[champion.id] || "MID";
-
-
-      const image =
-        `${DATA_DRAGON}/img/champion/${champion.id}.png`;
-
-
-      return `
-
-        <a
-          class="champion-card"
-          href="champion.html?champion=${champion.id}"
-        >
-
-          <div class="champion-card-image">
-
-            <img
-              src="${image}"
-              alt="${champion.name}"
-              loading="lazy"
-            >
-
-            <div class="champion-card-overlay"></div>
-
-          </div>
-
-
-          <div class="champion-card-info">
-
-            <span class="champion-card-role">
-              ${role}
-            </span>
-
-            <h3>
-              ${champion.name}
-            </h3>
-
-            <p>
-              ${champion.title}
-            </p>
-
-          </div>
-
-        </a>
-
-      `;
-
-    }).join("");
+      }
+    ).join("");
 
 }
 
 
 /* =========================================================
-   BUSCADOR
+   INICIAR
    ========================================================= */
 
-if (championSearch) {
-
-  championSearch.addEventListener(
-    "input",
-    () => {
-
-      renderChampionList(
-        allChampions
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   FILTROS
-   ========================================================= */
-
-roleButtons.forEach(button => {
-
-  button.addEventListener(
-    "click",
-    () => {
-
-      roleButtons.forEach(
-        btn =>
-          btn.classList.remove("active")
-      );
-
-
-      button.classList.add("active");
-
-
-      selectedRole =
-        button.dataset.role;
-
-
-      renderChampionList(
-        allChampions
-      );
-
-    }
-  );
-
-});
-
-
-/* =========================================================
-   INICIAR LISTADO
-   ========================================================= */
+loadChampion();
 
 loadChampionList();
