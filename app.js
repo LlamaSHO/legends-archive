@@ -1,138 +1,134 @@
-const DD = "https://ddragon.leagueoflegends.com";
+const DDRAGON = "https://ddragon.leagueoflegends.com";
 
-const page = document.querySelector("#page");
+const state = {
+  champions: [],
+  filtered: [],
+  role: "TODOS"
+};
 
-async function getData() {
-    const versions = await fetch(`${DD}/api/versions.json`)
-        .then(r => r.json());
-
-    const version = versions[0];
-
-    const champions = await fetch(
-        `${DD}/cdn/${version}/data/es_ES/champion.json`
-    ).then(r => r.json());
-
-    return {
-        version,
-        champions: champions.data
-    };
+async function getVersion() {
+  const response = await fetch(`${DDRAGON}/api/versions.json`);
+  const versions = await response.json();
+  return versions[0];
 }
 
-function createChampionCard(champion, version) {
+async function loadChampions() {
+  const version = await getVersion();
+
+  const response = await fetch(
+    `${DDRAGON}/cdn/${version}/data/es_ES/champion.json`
+  );
+
+  const data = await response.json();
+
+  state.champions = Object.values(data.data);
+  state.filtered = [...state.champions];
+
+  renderChampions();
+}
+
+function renderChampions() {
+  const container = document.querySelector("#champions");
+
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  if (state.filtered.length === 0) {
+    container.innerHTML = `
+      <div class="empty">
+        No se encontraron campeones.
+      </div>
+    `;
+    return;
+  }
+
+  state.filtered.forEach(champion => {
     const card = document.createElement("a");
 
     card.className = "champion-card";
     card.href = `champion.html?id=${champion.id}`;
 
     card.innerHTML = `
-        <img
-            src="${DD}/cdn/${version}/img/champion/${champion.image.full}"
-            alt="${champion.name}"
-        >
+      <img
+        src="${DDRAGON}/cdn/img/champion/loading/${champion.id}_0.jpg"
+        alt="${champion.name}"
+      >
 
-        <div class="champion-card-info">
-            <h3>${champion.name}</h3>
-            <p>${champion.title}</p>
+      <div class="champion-info">
+        <div class="champion-tags">
+          ${champion.tags.map(tag => `<span>${tag}</span>`).join("")}
         </div>
+
+        <h3>${champion.name}</h3>
+
+        <p>${champion.title}</p>
+      </div>
     `;
 
-    return card;
+    container.appendChild(card);
+  });
 }
 
-async function loadChampions() {
-    try {
-        page.innerHTML = `
-            <div class="loading">
-                Cargando campeones...
-            </div>
-        `;
+function filterChampions() {
+  const input = document.querySelector("#search");
 
-        const { version, champions } = await getData();
+  const search = input.value.toLowerCase().trim();
 
-        const championList = Object.values(champions);
+  state.filtered = state.champions.filter(champion => {
+    const matchesSearch =
+      champion.name.toLowerCase().includes(search);
 
-        championList.sort((a, b) =>
-            a.name.localeCompare(b.name, "es")
-        );
+    const matchesRole =
+      state.role === "TODOS" ||
+      champion.tags.includes(state.role);
 
-        page.innerHTML = `
-            <section class="champions-page">
+    return matchesSearch && matchesRole;
+  });
 
-                <div class="section-label">
-                    LEAGUE OF LEGENDS
-                </div>
+  renderChampions();
+}
 
-                <h1>CAMPEONES</h1>
+function setupSearch() {
+  const input = document.querySelector("#search");
 
-                <p class="description">
-                    Todos los campeones de League of Legends.
-                </p>
+  if (!input) return;
 
-                <div class="champion-controls">
+  input.addEventListener("input", filterChampions);
+}
 
-                    <input
-                        id="champion-search"
-                        type="text"
-                        placeholder="Buscar campeón..."
-                    >
+function setupFilters() {
+  const buttons = document.querySelectorAll("[data-role]");
 
-                    <span id="champion-count">
-                        ${championList.length} campeones
-                    </span>
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      state.role = button.dataset.role;
+      filterChampions();
+    });
+  });
+}
 
-                </div>
+async function init() {
+  setupSearch();
+  setupFilters();
 
-                <div id="champion-grid" class="champion-grid"></div>
+  try {
+    await loadChampions();
+  } catch (error) {
+    console.error(error);
 
-            </section>
-        `;
+    const container = document.querySelector("#champions");
 
-        const grid = document.querySelector("#champion-grid");
-        const search = document.querySelector("#champion-search");
-        const count = document.querySelector("#champion-count");
-
-        function render(list) {
-            grid.innerHTML = "";
-
-            list.forEach(champion => {
-                grid.appendChild(
-                    createChampionCard(champion, version)
-                );
-            });
-
-            count.textContent =
-                `${list.length} campeones`;
-        }
-
-        render(championList);
-
-        search.addEventListener("input", () => {
-            const text = search.value
-                .toLowerCase()
-                .trim();
-
-            const filtered = championList.filter(champion =>
-                champion.name
-                    .toLowerCase()
-                    .includes(text)
-            );
-
-            render(filtered);
-        });
-
-    } catch (error) {
-
-        console.error(error);
-
-        page.innerHTML = `
-            <div class="error">
-                <h2>No se pudieron cargar los campeones</h2>
-                <p>
-                    Comprueba tu conexión a Internet y vuelve a cargar la página.
-                </p>
-            </div>
-        `;
+    if (container) {
+      container.innerHTML = `
+        <div class="empty">
+          Error cargando los campeones.
+          <br>
+          Recarga la página.
+        </div>
+      `;
     }
+  }
 }
 
-loadChampions();
+document.addEventListener("DOMContentLoaded", init);
