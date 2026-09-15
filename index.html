@@ -1,31 +1,47 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Legends // Archive</title>
 
+  <meta
+    name="description"
+    content="Legends Archive — Campeones, builds, estadísticas y tier list de League of Legends."
+  >
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+  <!-- =========================
+       HEADER
+  ========================== -->
+
   <header class="site-header">
+
     <div class="header-inner">
 
       <a href="index.html" class="logo">
         LEGENDS <span>//</span> ARCHIVE
       </a>
 
-      <nav>
-        <a href="index.html">CAMPEONES</a>
+      <nav class="main-nav">
+        <a href="#campeones">CAMPEONES</a>
         <a href="#tier-list">TIER LIST</a>
       </nav>
 
     </div>
+
   </header>
 
+
+  <!-- =========================
+       MAIN
+  ========================== -->
 
   <main>
 
@@ -33,25 +49,36 @@
 
     <section class="hero">
 
-      <div class="eyebrow">
-        LEAGUE OF LEGENDS · META
+      <div class="hero-content">
+
+        <div class="eyebrow">
+          LEAGUE OF LEGENDS · META
+        </div>
+
+        <h1>
+          Juega mejor.
+          <br>
+          <em>Decide con datos.</em>
+        </h1>
+
+        <p class="hero-description">
+          Explora todos los campeones, sus posiciones,
+          builds recomendadas y nuestra tier list.
+        </p>
+
       </div>
-
-      <h1>
-        Juega mejor.<br>
-        <em>Decide con datos.</em>
-      </h1>
-
-      <p>
-        Explora todos los campeones, builds y nuestra tier list.
-      </p>
 
     </section>
 
 
-    <!-- CAMPEONES -->
+    <!-- =========================
+         CAMPEONES
+    ========================== -->
 
-    <section class="roster">
+    <section
+      id="campeones"
+      class="champions-section"
+    >
 
       <div class="section-heading">
 
@@ -68,9 +95,11 @@
 
       <!-- BUSCADOR -->
 
-      <div class="search-wrapper">
+      <div class="champion-search">
 
-        <span class="search-icon">⌕</span>
+        <span class="search-icon">
+          ⌕
+        </span>
 
         <input
           id="champion-search"
@@ -84,45 +113,89 @@
 
       <!-- FILTROS -->
 
-      <div class="filters">
+      <div
+        id="role-filters"
+        class="role-filters"
+      >
 
-        <button class="filter active" data-role="all">
+        <button
+          class="filter-button active"
+          data-role="all"
+        >
           TODOS
         </button>
 
-        <button class="filter" data-role="assassin">
+        <button
+          class="filter-button"
+          data-role="assassin"
+        >
           ASESINO
         </button>
 
-        <button class="filter" data-role="mage">
+        <button
+          class="filter-button"
+          data-role="mage"
+        >
           MAGO
         </button>
 
-        <button class="filter" data-role="fighter">
+        <button
+          class="filter-button"
+          data-role="fighter"
+        >
           LUCHADOR
         </button>
 
-        <button class="filter" data-role="marksman">
+        <button
+          class="filter-button"
+          data-role="marksman"
+        >
           TIRADOR
         </button>
 
-        <button class="filter" data-role="tank">
+        <button
+          class="filter-button"
+          data-role="tank"
+        >
           TANQUE
         </button>
 
-        <button class="filter" data-role="support">
+        <button
+          class="filter-button"
+          data-role="support"
+        >
           SOPORTE
         </button>
 
       </div>
 
 
-      <!-- GRID -->
+      <!--
 
-      <div id="champion-grid" class="champion-grid">
+        IMPORTANTE:
 
-        <div class="loading">
-          Cargando campeones...
+        app.js rellenará este contenedor.
+
+        Si JavaScript tarda en cargar,
+        mostramos un mensaje sencillo.
+
+      -->
+
+      <div
+        id="champion-grid"
+        class="champion-grid"
+      >
+
+        <div class="empty-state">
+
+          <div class="empty-state-title">
+            Cargando campeones...
+          </div>
+
+          <p>
+            Preparando el roster.
+          </p>
+
         </div>
 
       </div>
@@ -130,62 +203,150 @@
     </section>
 
 
-    <!-- TIER LIST -->
+    <!-- =========================
+         TIER LIST
+    ========================== -->
 
-    <section id="tier-list" class="tier-section">
+    <section
+      id="tier-list"
+      class="tier-section"
+    >
 
-      <div class="eyebrow">
-        META ACTUAL
+      <div class="section-heading">
+
+        <div class="eyebrow">
+          META ACTUAL
+        </div>
+
+        <h2>
+          Tier List
+        </h2>
+
+        <p>
+          Selección de campeones destacados
+          por posición.
+        </p>
+
       </div>
 
-      <h2>
-        Tier List
-      </h2>
 
-      <p>
-        Selección editorial de campeones destacados por posición.
-      </p>
+      <div
+        id="tier-list-container"
+        class="tier-list"
+      >
 
-      <div class="tier-grid">
+        <!-- TOP -->
 
-        <div class="tier-box">
-          <span class="tier-rank s">S</span>
-          <div>
-            <strong>Top</strong>
-            <small>Aatrox · Darius · Garen</small>
+        <div class="tier-card">
+
+          <div class="tier-rank">
+            S
           </div>
+
+          <div class="tier-info">
+
+            <strong>
+              Top
+            </strong>
+
+            <span>
+              Aatrox · Darius · Garen
+            </span>
+
+          </div>
+
         </div>
 
-        <div class="tier-box">
-          <span class="tier-rank s">S</span>
-          <div>
-            <strong>Jungle</strong>
-            <small>Lee Sin · Viego · Jarvan IV</small>
+
+        <!-- JUNGLE -->
+
+        <div class="tier-card">
+
+          <div class="tier-rank">
+            S
           </div>
+
+          <div class="tier-info">
+
+            <strong>
+              Jungle
+            </strong>
+
+            <span>
+              Lee Sin · Viego · Jarvan IV
+            </span>
+
+          </div>
+
         </div>
 
-        <div class="tier-box">
-          <span class="tier-rank s">S</span>
-          <div>
-            <strong>Mid</strong>
-            <small>Ahri · Orianna · Syndra</small>
+
+        <!-- MID -->
+
+        <div class="tier-card">
+
+          <div class="tier-rank">
+            S
           </div>
+
+          <div class="tier-info">
+
+            <strong>
+              Mid
+            </strong>
+
+            <span>
+              Ahri · Orianna · Syndra
+            </span>
+
+          </div>
+
         </div>
 
-        <div class="tier-box">
-          <span class="tier-rank s">S</span>
-          <div>
-            <strong>ADC</strong>
-            <small>Jinx · Kai'Sa · Ashe</small>
+
+        <!-- ADC -->
+
+        <div class="tier-card">
+
+          <div class="tier-rank">
+            S
           </div>
+
+          <div class="tier-info">
+
+            <strong>
+              ADC
+            </strong>
+
+            <span>
+              Jinx · Kai'Sa · Ashe
+            </span>
+
+          </div>
+
         </div>
 
-        <div class="tier-box">
-          <span class="tier-rank s">S</span>
-          <div>
-            <strong>Support</strong>
-            <small>Leona · Thresh · Lulu</small>
+
+        <!-- SUPPORT -->
+
+        <div class="tier-card">
+
+          <div class="tier-rank">
+            S
           </div>
+
+          <div class="tier-info">
+
+            <strong>
+              Support
+            </strong>
+
+            <span>
+              Leona · Thresh · Lulu
+            </span>
+
+          </div>
+
         </div>
 
       </div>
@@ -195,22 +356,41 @@
   </main>
 
 
-  <footer>
+  <!-- =========================
+       FOOTER
+  ========================== -->
 
-    <div class="footer-title">
-      LEGENDS // ARCHIVE
+  <footer class="site-footer">
+
+    <div class="footer-inner">
+
+      <div class="footer-title">
+        LEGENDS // ARCHIVE
+      </div>
+
+      <p>
+        Legends Archive isn't endorsed by Riot Games and doesn't
+        reflect the views or opinions of Riot Games or anyone
+        officially involved in producing or managing Riot Games
+        properties.
+      </p>
+
+      <p>
+        Riot Games and all associated properties are trademarks
+        or registered trademarks of Riot Games, Inc.
+      </p>
+
     </div>
-
-    <p>
-      Legends Archive isn't endorsed by Riot Games and doesn't reflect
-      the views or opinions of Riot Games or anyone officially involved
-      in producing or managing Riot Games properties.
-    </p>
 
   </footer>
 
 
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
   <script src="app.js"></script>
 
 </body>
+
 </html>
