@@ -12,24 +12,25 @@
 <body>
 
   <header class="site-header">
-    <div class="nav-container">
+    <div class="header-inner">
 
       <a href="index.html" class="logo">
         LEGENDS <span>//</span> ARCHIVE
       </a>
 
       <nav>
-        <a href="#champions-section">CAMPEONES</a>
-        <a href="#tier">TIER LIST</a>
+        <a href="index.html">CAMPEONES</a>
+        <a href="#tier-list">TIER LIST</a>
       </nav>
 
     </div>
   </header>
 
 
-  <main class="container">
+  <main>
 
     <!-- HERO -->
+
     <section class="hero">
 
       <div class="eyebrow">
@@ -45,88 +46,149 @@
         Explora todos los campeones, builds y nuestra tier list.
       </p>
 
-      <a href="#champions-section" class="hero-button">
-        Explorar campeones
-      </a>
-
     </section>
 
 
     <!-- CAMPEONES -->
-    <section id="champions-section" class="champions-section">
 
-      <div class="eyebrow">
-        ROSTER
+    <section class="roster">
+
+      <div class="section-heading">
+
+        <div class="eyebrow">
+          ROSTER
+        </div>
+
+        <h2>
+          Campeones
+        </h2>
+
       </div>
 
-      <h2>Campeones</h2>
 
-      <div class="search-box">
-        <span>⌕</span>
+      <!-- BUSCADOR -->
+
+      <div class="search-wrapper">
+
+        <span class="search-icon">⌕</span>
 
         <input
-          id="search"
-          type="text"
+          id="champion-search"
+          type="search"
           placeholder="Buscar campeón..."
           autocomplete="off"
         >
+
       </div>
 
 
+      <!-- FILTROS -->
+
       <div class="filters">
 
-        <button data-role="TODOS">
+        <button class="filter active" data-role="all">
           TODOS
         </button>
 
-        <button data-role="ASSASSIN">
+        <button class="filter" data-role="assassin">
           ASESINO
         </button>
 
-        <button data-role="MAGE">
+        <button class="filter" data-role="mage">
           MAGO
         </button>
 
-        <button data-role="FIGHTER">
+        <button class="filter" data-role="fighter">
           LUCHADOR
         </button>
 
-        <button data-role="MARKSMAN">
+        <button class="filter" data-role="marksman">
           TIRADOR
         </button>
 
-        <button data-role="TANK">
+        <button class="filter" data-role="tank">
           TANQUE
         </button>
 
-        <button data-role="SUPPORT">
+        <button class="filter" data-role="support">
           SOPORTE
         </button>
 
       </div>
 
 
-      <!-- AQUÍ APARECERÁN LOS 170+ CAMPEONES -->
-      <div id="champions" class="champion-grid">
+      <!-- GRID -->
+
+      <div id="champion-grid" class="champion-grid">
+
+        <div class="loading">
+          Cargando campeones...
+        </div>
+
       </div>
 
     </section>
 
 
     <!-- TIER LIST -->
-    <section id="tier" class="tier-section">
+
+    <section id="tier-list" class="tier-section">
 
       <div class="eyebrow">
         META ACTUAL
       </div>
 
-      <h2>Tier List</h2>
+      <h2>
+        Tier List
+      </h2>
 
       <p>
-        Tier list editorial de demostración.
-        Después añadiremos estadísticas agregadas reales
-        por parche, posición y rango.
+        Selección editorial de campeones destacados por posición.
       </p>
+
+      <div class="tier-grid">
+
+        <div class="tier-box">
+          <span class="tier-rank s">S</span>
+          <div>
+            <strong>Top</strong>
+            <small>Aatrox · Darius · Garen</small>
+          </div>
+        </div>
+
+        <div class="tier-box">
+          <span class="tier-rank s">S</span>
+          <div>
+            <strong>Jungle</strong>
+            <small>Lee Sin · Viego · Jarvan IV</small>
+          </div>
+        </div>
+
+        <div class="tier-box">
+          <span class="tier-rank s">S</span>
+          <div>
+            <strong>Mid</strong>
+            <small>Ahri · Orianna · Syndra</small>
+          </div>
+        </div>
+
+        <div class="tier-box">
+          <span class="tier-rank s">S</span>
+          <div>
+            <strong>ADC</strong>
+            <small>Jinx · Kai'Sa · Ashe</small>
+          </div>
+        </div>
+
+        <div class="tier-box">
+          <span class="tier-rank s">S</span>
+          <div>
+            <strong>Support</strong>
+            <small>Leona · Thresh · Lulu</small>
+          </div>
+        </div>
+
+      </div>
 
     </section>
 
@@ -148,7 +210,6 @@
   </footer>
 
 
-  <!-- IMPORTANTE: CARGAR app.js -->
   <script src="app.js"></script>
 
 </body>
