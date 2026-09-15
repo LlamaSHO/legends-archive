@@ -1,7 +1,7 @@
-/* =========================================
+/* =========================================================
    LEGENDS // ARCHIVE
-   ESTILOS PRINCIPALES
-   ========================================= */
+   ESTILO GENERAL
+   ========================================================= */
 
 * {
     box-sizing: border-box;
@@ -9,72 +9,34 @@
     padding: 0;
 }
 
-:root {
-    --bg: #070c14;
-    --bg-secondary: #0b111c;
-    --panel: #0d1420;
-    --panel-light: #111a28;
-    --border: #202b3a;
-    --border-gold: #4b4024;
-
-    --text: #f1f3f6;
-    --text-secondary: #9ba8bb;
-    --text-muted: #64748a;
-
-    --gold: #d8b75b;
-    --gold-light: #f0d47d;
-
-    --s-tier: #e8c96b;
-    --a-tier: #b9c4d2;
-    --b-tier: #8c9aaa;
-}
-
-
-/* =========================================
-   BODY
-   ========================================= */
-
 html {
     scroll-behavior: smooth;
 }
 
 body {
-    min-height: 100vh;
-
     background:
         radial-gradient(
             circle at 50% 0%,
-            rgba(29, 45, 68, 0.35),
-            transparent 45%
-        ),
-        var(--bg);
+            #172235 0%,
+            #0b111c 45%,
+            #070b12 100%
+        );
 
-    color: var(--text);
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    line-height: 1.5;
+    color: #e8edf5;
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
 }
-
-
-/* =========================================
-   LINKS
-   ========================================= */
 
 a {
     color: inherit;
     text-decoration: none;
 }
 
-
-/* =========================================
+/* =========================================================
    HEADER
-   ========================================= */
+   ========================================================= */
 
-.siteHeader {
+header {
     width: 100%;
     height: 72px;
 
@@ -82,41 +44,40 @@ a {
     align-items: center;
     justify-content: space-between;
 
-    padding: 0 7%;
+    padding: 0 6%;
 
-    background: rgba(5, 9, 15, 0.96);
+    background: rgba(5, 9, 16, 0.96);
 
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid #263449;
 
-    position: relative;
-    z-index: 10;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-.logo {
-    color: var(--gold-light);
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size: 20px;
-    font-weight: 700;
-
-    letter-spacing: 2px;
+.brand {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: #f0d58a;
 }
 
-.siteHeader nav {
+.brand span {
+    color: #728096;
+}
+
+nav {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 34px;
 }
 
-.siteHeader nav a {
-    color: var(--text-secondary);
+nav a {
+    color: #9ba7b8;
 
     font-size: 12px;
-    font-weight: 700;
+    font-weight: bold;
 
     letter-spacing: 1.5px;
 
@@ -125,92 +86,160 @@ a {
         transform 0.2s ease;
 }
 
-.siteHeader nav a:hover {
-    color: var(--gold-light);
+nav a:hover {
+    color: #f0d58a;
     transform: translateY(-1px);
 }
 
+/* =========================================================
+   CONTENEDOR
+   ========================================================= */
 
-/* =========================================
-   MAIN
-   ========================================= */
-
-main {
-    width: min(1100px, 90%);
-
+main,
+#page {
+    width: min(1200px, 92%);
     margin: 0 auto;
-
-    padding-bottom: 100px;
 }
 
-
-/* =========================================
-   HERO
-   ========================================= */
-
-.pageHero {
-    padding: 65px 0 40px;
+section {
+    padding-top: 48px;
+    padding-bottom: 70px;
 }
 
-.eyebrow {
-    color: var(--gold);
+/* =========================================================
+   TITULOS
+   ========================================================= */
+
+.section-label {
+    color: #e8c968;
 
     font-size: 11px;
-    font-weight: 800;
+    font-weight: bold;
 
     letter-spacing: 3px;
+
+    margin-bottom: 14px;
+}
+
+h1 {
+    font-family: Georgia, serif;
+
+    font-size: clamp(38px, 5vw, 62px);
+
+    line-height: 1;
+
+    color: #f3f5f8;
+
+    margin-bottom: 16px;
+}
+
+h2 {
+    font-family: Georgia, serif;
+
+    color: #f0d58a;
+
+    font-size: 30px;
 
     margin-bottom: 12px;
 }
 
-.pageHero h1 {
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size: 48px;
-    line-height: 1;
-
-    margin-bottom: 18px;
-
-    letter-spacing: 1px;
-}
-
-.pageHero > p:not(.eyebrow) {
-    color: var(--text-secondary);
+.description {
+    color: #8794a8;
 
     font-size: 15px;
+
+    line-height: 1.7;
 
     margin-bottom: 28px;
 }
 
+/* =========================================================
+   BUSCADOR
+   ========================================================= */
 
-/* =========================================
-   TIER CONTROLS
-   ========================================= */
-
-.tierControls {
+.champion-controls {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    align-items: center;
+    gap: 18px;
+
+    margin-bottom: 28px;
 }
 
-.tierControls button {
-    appearance: none;
+#champion-search {
+    width: 100%;
 
-    border: 1px solid var(--border);
+    height: 52px;
 
-    background: var(--panel);
-
-    color: var(--text-secondary);
-
-    padding: 10px 18px;
+    padding: 0 18px;
 
     border-radius: 6px;
 
+    border: 1px solid #2b3a50;
+
+    background: #0d1522;
+
+    color: #ffffff;
+
+    outline: none;
+
+    font-size: 14px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+#champion-search::placeholder {
+    color: #66758a;
+}
+
+#champion-search:focus {
+    border-color: #c9a95d;
+
+    background: #101a2a;
+
+    box-shadow:
+        0 0 0 3px rgba(201, 169, 93, 0.08);
+}
+
+#champion-count {
+    flex-shrink: 0;
+
+    color: #7d8ca2;
+
+    font-size: 12px;
+
+    white-space: nowrap;
+}
+
+/* =========================================================
+   FILTROS
+   ========================================================= */
+
+.role-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    margin-bottom: 30px;
+}
+
+.role-filters button,
+.champion-controls button,
+button {
+    border: 1px solid #34435a;
+
+    background: #111b2a;
+
+    color: #aab5c5;
+
+    padding: 9px 15px;
+
+    border-radius: 4px;
+
     font-size: 11px;
-    font-weight: 800;
+    font-weight: bold;
 
     letter-spacing: 1px;
 
@@ -223,557 +252,393 @@ main {
         transform 0.2s ease;
 }
 
-.tierControls button:hover {
-    color: var(--gold-light);
+.role-filters button:hover,
+.champion-controls button:hover,
+button:hover {
+    background: #1a2739;
 
-    border-color: var(--border-gold);
+    border-color: #c9a95d;
+
+    color: #f0d58a;
 
     transform: translateY(-1px);
 }
 
-.tierControls button.active {
-    background: var(--gold);
+.role-filters button.active {
+    background: #c9a95d;
 
-    border-color: var(--gold);
+    color: #080c13;
 
-    color: #111;
-
-    box-shadow:
-        0 4px 20px rgba(216, 183, 91, 0.15);
+    border-color: #c9a95d;
 }
 
+/* =========================================================
+   GRID DE CAMPEONES
+   ========================================================= */
 
-/* =========================================
-   TIER LIST
-   ========================================= */
+.champion-grid {
+    display: grid;
 
-.tierList {
-    display: flex;
-    flex-direction: column;
+    grid-template-columns: repeat(5, 1fr);
 
-    gap: 45px;
+    gap: 18px;
 }
 
+/* =========================================================
+   TARJETA DE CAMPEON
+   ========================================================= */
 
-/* =========================================
-   ROLE
-   ========================================= */
+.champion-card {
+    display: block;
 
-.tierRole {
+    overflow: hidden;
+
     background:
         linear-gradient(
-            135deg,
-            rgba(17, 26, 40, 0.9),
-            rgba(9, 14, 23, 0.95)
+            180deg,
+            #121d2d 0%,
+            #0c1421 100%
         );
 
-    border: 1px solid var(--border);
+    border: 1px solid #27364b;
 
-    border-radius: 12px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.15);
-}
-
-
-/* =========================================
-   ROLE HEADER
-   ========================================= */
-
-.tierRoleHeader {
-    min-height: 70px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0 24px;
-
-    background: rgba(255, 255, 255, 0.015);
-
-    border-bottom: 1px solid var(--border);
-}
-
-.tierRoleHeader h2 {
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size: 25px;
-
-    letter-spacing: 1px;
-
-    color: var(--text);
-}
-
-.tierRoleHeader span {
-    color: var(--text-muted);
-
-    font-size: 10px;
-    font-weight: 800;
-
-    letter-spacing: 1.5px;
-}
-
-
-/* =========================================
-   TIER ROW
-   ========================================= */
-
-.tierRow {
-    min-height: 125px;
-
-    display: grid;
-
-    grid-template-columns: 76px 1fr;
-
-    border-bottom: 1px solid var(--border);
-}
-
-.tierRow:last-child {
-    border-bottom: 0;
-}
-
-
-/* =========================================
-   TIER LETTER
-   ========================================= */
-
-.tierRank {
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size: 32px;
-    font-weight: 700;
-
-    border-right: 1px solid var(--border);
-
-    background:
-        rgba(255, 255, 255, 0.015);
-}
-
-
-/* Diferenciar tiers */
-
-.tierRow:nth-child(2) .tierRank {
-    color: var(--s-tier);
-}
-
-.tierRow:nth-child(3) .tierRank {
-    color: var(--a-tier);
-}
-
-.tierRow:nth-child(4) .tierRank {
-    color: var(--b-tier);
-}
-
-
-/* =========================================
-   CHAMPION CONTAINER
-   ========================================= */
-
-.tierChampions {
-    display: flex;
-
-    align-items: center;
-
-    flex-wrap: wrap;
-
-    gap: 14px;
-
-    padding: 18px 20px;
-}
-
-
-/* =========================================
-   CHAMPION CARD
-   ========================================= */
-
-.tierChampion {
-    width: 100px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    gap: 7px;
+    border-radius: 6px;
 
     transition:
-        transform 0.2s ease;
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
-.tierChampion:hover {
-    transform: translateY(-5px);
+.champion-card:hover {
+    transform: translateY(-6px);
+
+    border-color: #c9a95d;
+
+    box-shadow:
+        0 14px 35px rgba(0, 0, 0, 0.45),
+        0 0 25px rgba(201, 169, 93, 0.08);
 }
 
-
-/* =========================================
-   CHAMPION IMAGE
-   ========================================= */
-
-.tierChampion img {
+.champion-card img {
     display: block;
 
-    width: 76px;
-    height: 76px;
+    width: 100%;
+
+    aspect-ratio: 1 / 1.18;
 
     object-fit: cover;
 
-    border-radius: 8px;
-
-    border: 1px solid #303c4c;
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+    transition: transform 0.45s ease;
 }
 
-.tierChampion:hover img {
-    border-color: var(--gold);
-
-    box-shadow:
-        0 0 0 1px var(--gold),
-        0 8px 25px rgba(0, 0, 0, 0.35);
+.champion-card:hover img {
+    transform: scale(1.045);
 }
 
+.champion-card-info {
+    padding: 15px 15px 17px;
+}
 
-/* =========================================
-   CHAMPION NAME
-   ========================================= */
+.champion-card-info h3 {
+    color: #f3f4f6;
 
-.tierChampion span {
-    width: 100%;
+    font-family: Georgia, serif;
 
-    color: var(--text-secondary);
+    font-size: 20px;
+
+    margin-bottom: 7px;
+}
+
+.champion-card-info p {
+    color: #738197;
 
     font-size: 11px;
-    font-weight: 700;
 
-    text-align: center;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    line-height: 1.4;
 }
 
-.tierChampion:hover span {
-    color: var(--gold-light);
-}
+/* =========================================================
+   TAGS
+   ========================================================= */
 
+.champion-tag {
+    display: inline-block;
 
-/* =========================================
-   LOADING
-   ========================================= */
-
-.loading {
-    min-height: 250px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 10px;
-
-    color: var(--text-secondary);
-
-    text-align: center;
-}
-
-.loading h2 {
-    color: var(--text);
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size: 22px;
-}
-
-.loading p {
-    color: var(--text-muted);
-
-    font-size: 13px;
-}
-
-
-/* =========================================
-   CHAMPION GRID
-   Para la página principal
-   ========================================= */
-
-#grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(5, 1fr);
-
-    gap: 16px;
-}
-
-.championCard {
-    display: block;
-
-    overflow: hidden;
-
-    background: var(--panel);
-
-    border: 1px solid var(--border);
-
-    border-radius: 10px;
-
-    transition:
-        transform 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.championCard:hover {
-    transform: translateY(-5px);
-
-    border-color: var(--border-gold);
-
-    box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.3);
-}
-
-.championCard img {
-    width: 100%;
-
-    aspect-ratio: 1 / 1;
-
-    object-fit: cover;
-
-    display: block;
-}
-
-.championCardContent {
-    padding: 12px;
-}
-
-.championCardContent span {
-    color: var(--gold);
+    color: #d7b967;
 
     font-size: 9px;
-    font-weight: 700;
 
-    letter-spacing: 1px;
+    font-weight: bold;
+
+    letter-spacing: 1.5px;
 
     text-transform: uppercase;
+
+    margin-bottom: 7px;
 }
 
-.championCardContent h3 {
-    margin-top: 4px;
+/* =========================================================
+   LOADING
+   ========================================================= */
 
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+.loading {
+    min-height: 500px;
 
-    font-size: 18px;
-}
-
-.championCardContent p {
-    margin-top: 3px;
-
-    color: var(--text-muted);
-
-    font-size: 11px;
-}
-
-
-/* =========================================
-   BUSCADOR
-   ========================================= */
-
-.search {
     display: flex;
+
     align-items: center;
 
-    width: 100%;
+    justify-content: center;
 
-    margin-bottom: 25px;
-}
-
-.search input,
-#search {
-    width: 100%;
-
-    padding: 15px 18px;
-
-    background: var(--panel);
-
-    border: 1px solid var(--border);
-
-    border-radius: 8px;
-
-    outline: none;
-
-    color: var(--text);
+    color: #9aa7ba;
 
     font-size: 14px;
 
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+    letter-spacing: 1px;
 }
 
-.search input::placeholder,
-#search::placeholder {
-    color: var(--text-muted);
+.loading::after {
+    content: "";
+
+    width: 18px;
+    height: 18px;
+
+    margin-left: 12px;
+
+    border: 2px solid #34435a;
+
+    border-top-color: #d2b565;
+
+    border-radius: 50%;
+
+    animation: spin 0.8s linear infinite;
 }
 
-.search input:focus,
-#search:focus {
-    border-color: var(--gold);
-
-    box-shadow:
-        0 0 0 3px rgba(216, 183, 91, 0.08);
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
+/* =========================================================
+   ERROR
+   ========================================================= */
 
-/* =========================================
+.error {
+    margin-top: 80px;
+
+    padding: 35px;
+
+    background: #111925;
+
+    border: 1px solid #3a4658;
+
+    border-radius: 6px;
+
+    text-align: center;
+}
+
+.error h2 {
+    color: #e8edf5;
+
+    margin-bottom: 12px;
+}
+
+.error p {
+    color: #8794a8;
+
+    line-height: 1.6;
+}
+
+/* =========================================================
+   TIER LIST
+   ========================================================= */
+
+.tier-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
+
+    margin-top: 30px;
+}
+
+.tier-row {
+    display: grid;
+
+    grid-template-columns: 75px 1fr;
+
+    min-height: 110px;
+
+    background: #0e1725;
+
+    border: 1px solid #27364b;
+
+    border-radius: 6px;
+
+    overflow: hidden;
+}
+
+.tier-rank {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #151f2e;
+
+    color: #f0d58a;
+
+    font-family: Georgia, serif;
+
+    font-size: 32px;
+
+    font-weight: bold;
+}
+
+.tier-champions {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    padding: 15px;
+}
+
+.tier-champion {
+    width: 80px;
+
+    text-align: center;
+}
+
+.tier-champion img {
+    width: 64px;
+    height: 64px;
+
+    object-fit: cover;
+
+    border-radius: 4px;
+
+    border: 1px solid #34435a;
+}
+
+.tier-champion span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #aab5c5;
+
+    font-size: 10px;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+    width: min(1200px, 92%);
+
+    margin: 0 auto;
+
+    padding: 40px 0 55px;
+
+    border-top: 1px solid #263449;
+
+    color: #66758a;
+
+    font-size: 11px;
+
+    line-height: 1.7;
+}
+
+footer b {
+    color: #d8bc70;
+
+    letter-spacing: 2px;
+}
+
+/* =========================================================
    RESPONSIVE
-   ========================================= */
+   ========================================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1050px) {
 
-    main {
-        width: min(94%, 700px);
-    }
-
-    #grid {
-        grid-template-columns:
-            repeat(4, 1fr);
+    .champion-grid {
+        grid-template-columns: repeat(4, 1fr);
     }
 
 }
 
+@media (max-width: 800px) {
 
-@media (max-width: 700px) {
+    header {
+        height: auto;
 
-    .siteHeader {
-        height: 64px;
+        padding: 20px 5%;
 
-        padding: 0 5%;
+        flex-direction: column;
+
+        gap: 18px;
     }
 
-    .logo {
-        font-size: 16px;
+    nav {
+        gap: 20px;
     }
 
-    .siteHeader nav {
-        gap: 15px;
+    .champion-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 
-    .siteHeader nav a {
-        font-size: 10px;
+    .champion-controls {
+        flex-direction: column;
+
+        align-items: stretch;
     }
 
-    .pageHero {
-        padding-top: 45px;
+    #champion-count {
+        text-align: right;
     }
 
-    .pageHero h1 {
+}
+
+@media (max-width: 560px) {
+
+    main,
+    #page {
+        width: 94%;
+    }
+
+    section {
+        padding-top: 30px;
+    }
+
+    .champion-grid {
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 12px;
+    }
+
+    .champion-card-info {
+        padding: 11px;
+    }
+
+    .champion-card-info h3 {
+        font-size: 17px;
+    }
+
+    h1 {
         font-size: 38px;
     }
 
-    .tierRow {
-        grid-template-columns: 55px 1fr;
-    }
+    nav {
+        width: 100%;
 
-    .tierRank {
-        font-size: 25px;
-    }
-
-    .tierChampions {
-        gap: 10px;
-        padding: 14px;
-    }
-
-    .tierChampion {
-        width: 72px;
-    }
-
-    .tierChampion img {
-        width: 58px;
-        height: 58px;
-    }
-
-    .tierChampion span {
-        font-size: 10px;
-    }
-
-    #grid {
-        grid-template-columns:
-            repeat(3, 1fr);
-    }
-
-}
-
-
-@media (max-width: 450px) {
-
-    .siteHeader nav {
-        gap: 10px;
-    }
-
-    .siteHeader nav a {
-        font-size: 9px;
-        letter-spacing: 0.5px;
-    }
-
-    .pageHero h1 {
-        font-size: 32px;
-    }
-
-    .tierRoleHeader {
-        padding: 0 15px;
-    }
-
-    .tierRoleHeader h2 {
-        font-size: 20px;
-    }
-
-    .tierRoleHeader span {
-        font-size: 8px;
-    }
-
-    .tierRow {
-        grid-template-columns: 45px 1fr;
-    }
-
-    .tierRank {
-        font-size: 22px;
-    }
-
-    .tierChampion {
-        width: 65px;
-    }
-
-    .tierChampion img {
-        width: 52px;
-        height: 52px;
-    }
-
-    #grid {
-        grid-template-columns:
-            repeat(2, 1fr);
+        justify-content: center;
     }
 
 }
