@@ -1,6 +1,6 @@
-/* ================================
-   LEGENDS // ARCHIVE
-   ================================ */
+/* =========================================
+   LEGENDS // ARCHIVE — PREMIUM UI
+   ========================================= */
 
 * {
   box-sizing: border-box;
@@ -12,445 +12,588 @@ html {
 
 body {
   margin: 0;
-  background: #080d16;
-  color: #f3f5f8;
-  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at 50% -10%, #18243b 0%, #0b111c 45%, #070c14 100%);
+  color: #eef2f7;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  min-height: 100vh;
 }
 
-/* ================================
+/* =========================================
    HEADER
-   ================================ */
+   ========================================= */
 
-.site-header {
-  height: 68px;
-  border-bottom: 1px solid #263142;
-  background: #070b12;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.nav-container {
-  max-width: 1320px;
-  height: 100%;
-  margin: auto;
-  padding: 0 28px;
-
+header {
+  height: 66px;
+  padding: 0 6%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  background: rgba(6, 10, 17, 0.92);
+  border-bottom: 1px solid rgba(190, 157, 77, 0.22);
+
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  backdrop-filter: blur(14px);
 }
 
-.logo {
-  color: #f0d27a;
-  text-decoration: none;
-  font-family: Georgia, serif;
-  font-size: 25px;
-  font-weight: bold;
-  letter-spacing: 2px;
-}
-
-.logo span {
-  color: #758198;
-}
-
-nav {
-  display: flex;
-  gap: 35px;
-}
-
-nav a {
-  color: #9da8ba;
+header a {
+  color: #aeb9c9;
   text-decoration: none;
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 700;
   letter-spacing: 1.5px;
+  text-transform: uppercase;
+
+  transition: color 0.2s ease;
 }
 
-nav a:hover {
-  color: #f0d27a;
+header a:hover {
+  color: #e8c96d;
 }
 
-/* ================================
-   CONTENEDOR
-   ================================ */
-
-.container {
-  width: min(1320px, calc(100% - 56px));
-  margin: auto;
+.brand {
+  color: #f0d27b !important;
+  font-family: Georgia, serif;
+  font-size: 22px !important;
+  letter-spacing: 2px !important;
 }
 
-/* ================================
+/* =========================================
+   MAIN
+   ========================================= */
+
+main {
+  width: min(1100px, 92%);
+  margin: 0 auto;
+}
+
+/* =========================================
    HERO
-   ================================ */
+   ========================================= */
 
 .hero {
-  padding: 70px 0 90px;
+  padding: 75px 0 65px;
 }
 
-.eyebrow {
-  color: #e8c75f;
+.eyebrow,
+.hero .eyebrow {
+  color: #d6ae4e;
   font-size: 11px;
-  font-weight: bold;
+  font-weight: 800;
   letter-spacing: 3px;
+  text-transform: uppercase;
   margin-bottom: 14px;
 }
 
 .hero h1 {
   margin: 0;
-  font-family: Georgia, serif;
-  font-size: clamp(48px, 6vw, 82px);
+  max-width: 750px;
+
+  color: #f5f6f8;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(48px, 6vw, 76px);
   line-height: 0.98;
   letter-spacing: -2px;
 }
 
 .hero h1 em {
-  color: #f1f2f4;
+  color: #d8dce4;
 }
 
 .hero p {
-  max-width: 650px;
-  margin: 25px 0 18px;
-  color: #aab4c5;
-  font-size: 16px;
-  line-height: 1.6;
-}
-
-.hero-button {
-  display: inline-block;
-  color: #e8c75f;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-/* ================================
-   SECCIONES
-   ================================ */
-
-.champions-section,
-.tier-section {
-  padding: 30px 0 90px;
-}
-
-h2 {
-  margin: 0 0 20px;
-  color: #f0d27a;
-  font-family: Georgia, serif;
-  font-size: 36px;
-}
-
-/* ================================
-   BUSCADOR
-   ================================ */
-
-.search-box {
-  height: 52px;
-  border: 1px solid #273347;
-  border-radius: 8px;
-  background: #0c1320;
-
-  display: flex;
-  align-items: center;
-
-  padding: 0 16px;
-  margin-bottom: 18px;
-}
-
-.search-box span {
-  color: #8794a8;
-  font-size: 22px;
-  margin-right: 10px;
-}
-
-.search-box input {
-  width: 100%;
-  height: 100%;
-
-  border: 0;
-  outline: none;
-  background: transparent;
-
-  color: white;
+  color: #9daabd;
   font-size: 15px;
+  line-height: 1.7;
+  margin-top: 24px;
 }
 
-.search-box input::placeholder {
-  color: #6f7b8e;
+/* =========================================
+   SECTIONS
+   ========================================= */
+
+section {
+  margin-bottom: 65px;
 }
 
-/* ================================
-   FILTROS
-   ================================ */
+.section-label {
+  color: #d6ae4e;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+
+section h2 {
+  margin: 0 0 16px;
+
+  color: #f0d27b;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 30px;
+  letter-spacing: -0.5px;
+}
+
+/* =========================================
+   SEARCH AREA
+   ========================================= */
+
+.search {
+  position: relative;
+  margin: 18px 0 16px;
+}
+
+.search::before {
+  content: "⌕";
+
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-52%);
+
+  color: #d6ae4e;
+  font-size: 22px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.search input,
+#search {
+  width: 100%;
+  height: 52px;
+
+  padding: 0 18px 0 50px;
+
+  border: 1px solid rgba(111, 133, 164, 0.35);
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(20, 30, 46, 0.95),
+      rgba(10, 17, 28, 0.98)
+    );
+
+  color: #f1f4f8;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  outline: none;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.035),
+    0 8px 30px rgba(0,0,0,0.18);
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.search input::placeholder,
+#search::placeholder {
+  color: #718096;
+}
+
+.search input:hover,
+#search:hover {
+  border-color: rgba(214, 174, 78, 0.4);
+}
+
+.search input:focus,
+#search:focus {
+  border-color: rgba(214, 174, 78, 0.85);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(23, 34, 51, 1),
+      rgba(11, 18, 30, 1)
+    );
+
+  box-shadow:
+    0 0 0 3px rgba(214, 174, 78, 0.08),
+    0 12px 40px rgba(0,0,0,0.28);
+}
+
+/* =========================================
+   FILTER BUTTONS
+   ========================================= */
 
 .filters {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 30px;
+  margin-bottom: 28px;
 }
 
-.filters button {
-  border: 1px solid #314057;
-  border-radius: 6px;
+.filters button,
+button {
+  min-height: 36px;
+  padding: 0 15px;
 
-  background: #101a2a;
-  color: #aeb9ca;
+  border: 1px solid rgba(93, 119, 153, 0.4);
+  border-radius: 7px;
 
-  padding: 10px 16px;
+  background: rgba(15, 25, 39, 0.85);
 
-  font-size: 11px;
-  font-weight: bold;
-  letter-spacing: 1px;
+  color: #9eacc0;
+
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
 
   cursor: pointer;
+
+  transition:
+    all 0.2s ease;
 }
 
-.filters button:hover {
-  background: #172338;
-  color: #f0d27a;
-  border-color: #d1ad4c;
+.filters button:hover,
+button:hover {
+  color: #f0d27b;
+  border-color: rgba(214, 174, 78, 0.55);
+
+  background: rgba(30, 39, 55, 0.95);
+
+  transform: translateY(-1px);
 }
 
-/* ================================
-   GRID DE CAMPEONES
-   ================================ */
+.filters button.active,
+.filters button.selected {
+  color: #111822;
 
-.champion-grid {
+  border-color: #d6ae4e;
+  background: linear-gradient(
+    135deg,
+    #e8ca72,
+    #b88b2f
+  );
+
+  box-shadow:
+    0 5px 18px rgba(214, 174, 78, 0.16);
+}
+
+/* =========================================
+   CHAMPION GRID
+   ========================================= */
+
+#champions,
+.champions-grid,
+.grid {
   display: grid;
 
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(190px, 1fr)
-  );
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 
   gap: 18px;
 }
 
-/* ================================
-   TARJETA
-   ================================ */
+/* =========================================
+   CHAMPION CARD
+   ========================================= */
 
+.card,
 .champion-card {
-  display: block;
-
-  min-width: 0;
-
+  position: relative;
   overflow: hidden;
 
-  background: #0d1522;
-  border: 1px solid #253147;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(20, 31, 48, 0.98),
+      rgba(10, 17, 28, 0.98)
+    );
+
+  border: 1px solid rgba(93, 119, 153, 0.28);
   border-radius: 10px;
 
-  text-decoration: none;
-  color: white;
+  box-shadow:
+    0 10px 35px rgba(0,0,0,0.2);
 
   transition:
-    transform 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
+.card:hover,
 .champion-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
 
-  border-color: #d2ae50;
+  border-color: rgba(214, 174, 78, 0.65);
 
   box-shadow:
-    0 15px 35px rgba(0, 0, 0, 0.45);
+    0 18px 45px rgba(0,0,0,0.38),
+    0 0 0 1px rgba(214,174,78,0.08);
 }
 
-/* ================================
-   IMAGEN DEL CAMPEÓN
-   ================================ */
+.card::after,
+.champion-card::after {
+  content: "";
 
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+
+  height: 2px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(214,174,78,0.75),
+    transparent
+  );
+
+  opacity: 0;
+
+  transition: opacity 0.3s ease;
+}
+
+.card:hover::after,
+.champion-card:hover::after {
+  opacity: 1;
+}
+
+/* =========================================
+   CHAMPION IMAGE
+   ========================================= */
+
+.card img,
 .champion-card img {
   display: block;
 
   width: 100%;
-
-  /* ESTA ES LA PARTE IMPORTANTE */
   height: 245px;
 
   object-fit: cover;
-  object-position: top center;
 
-  transition: transform 0.35s ease;
+  transition:
+    transform 0.45s ease,
+    filter 0.45s ease;
 }
 
+.card:hover img,
 .champion-card:hover img {
-  transform: scale(1.04);
+  transform: scale(1.045);
+  filter: brightness(1.08) saturate(1.08);
 }
 
-/* ================================
-   INFORMACIÓN
-   ================================ */
+/* =========================================
+   CARD CONTENT
+   ========================================= */
 
-.champion-info {
-  padding: 15px 16px 18px;
+.card-content {
+  padding: 15px 16px 17px;
 }
 
-.champion-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
+.card .role,
+.champion-card .role {
+  display: block;
 
-  margin-bottom: 9px;
-}
-
-.champion-tags span {
-  color: #d6b84f;
+  color: #d6ae4e;
 
   font-size: 9px;
-  font-weight: bold;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
 
-  letter-spacing: 1px;
+  margin-bottom: 7px;
+}
+
+.card h3,
+.champion-card h3 {
+  margin: 0;
+
+  color: #f1f3f6;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px;
+}
+
+.card p,
+.champion-card p {
+  color: #7f8da2;
+
+  font-size: 11px;
+  line-height: 1.5;
+
+  margin: 5px 0 0;
+}
+
+/* =========================================
+   WINRATE
+   ========================================= */
+
+.winrate {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 14px;
+  padding-top: 12px;
+
+  border-top: 1px solid rgba(255,255,255,0.06);
+
+  color: #8f9caf;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
 }
 
-.champion-info h3 {
-  margin: 0;
-
-  font-family: Georgia, serif;
-
-  font-size: 22px;
-  line-height: 1.1;
+.winrate strong {
+  color: #d8bd70;
+  font-size: 14px;
 }
 
-.champion-info p {
-  margin: 6px 0 0;
-
-  color: #718097;
-
-  font-size: 12px;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* ================================
-   SIN RESULTADOS
-   ================================ */
-
-.empty {
-  grid-column: 1 / -1;
-
-  padding: 50px;
-
-  text-align: center;
-
-  border: 1px dashed #344157;
-
-  color: #8995a8;
-}
-
-/* ================================
+/* =========================================
    TIER LIST
-   ================================ */
+   ========================================= */
 
-.tier-section {
-  border-top: 1px solid #263142;
-}
+.tier-row {
+  display: grid;
+  grid-template-columns: 70px 1fr;
 
-.tier-section p {
-  color: #9aa6b8;
-  line-height: 1.6;
-}
-
-/* ================================
-   FOOTER
-   ================================ */
-
-footer {
-  max-width: 1320px;
-
-  margin: auto;
-
-  padding: 40px 28px 60px;
-
-  border-top: 1px solid #263142;
-
-  color: #657289;
-}
-
-.footer-title {
-  color: #e8c75f;
-
-  font-family: Georgia, serif;
-
-  font-size: 12px;
-  font-weight: bold;
-
-  letter-spacing: 2px;
+  min-height: 95px;
 
   margin-bottom: 12px;
+
+  border: 1px solid rgba(93, 119, 153, 0.28);
+  border-radius: 10px;
+
+  overflow: hidden;
+
+  background: rgba(13, 21, 33, 0.85);
 }
 
-footer p {
-  max-width: 1100px;
+.tier-rank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  margin: 0;
+  background: rgba(214,174,78,0.08);
+
+  color: #e1bf67;
+
+  font-family: Georgia, serif;
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.tier-champions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+
+  padding: 12px;
+}
+
+.tier-champion {
+  padding: 7px 11px;
+
+  border: 1px solid rgba(93,119,153,0.3);
+  border-radius: 6px;
+
+  background: rgba(24,34,50,0.8);
+
+  color: #b9c3d0;
 
   font-size: 11px;
-
-  line-height: 1.6;
 }
 
-/* ================================
+/* =========================================
+   FOOTER
+   ========================================= */
+
+footer {
+  margin-top: 80px;
+  padding: 35px 0 50px;
+
+  border-top: 1px solid rgba(93,119,153,0.22);
+
+  color: #65748a;
+
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+footer strong {
+  display: block;
+
+  color: #d6ae4e;
+
+  font-family: Georgia, serif;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+
+  margin-bottom: 8px;
+}
+
+/* =========================================
    RESPONSIVE
-   ================================ */
+   ========================================= */
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
+  #champions,
+  .champions-grid,
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
 
-  .container {
-    width: min(100% - 30px, 1320px);
+@media (max-width: 760px) {
+  header {
+    padding: 0 20px;
   }
 
-  .nav-container {
-    padding: 0 15px;
-  }
-
-  nav {
-    gap: 15px;
-  }
-
-  .logo {
-    font-size: 18px;
+  main {
+    width: calc(100% - 32px);
   }
 
   .hero {
-    padding: 50px 0 60px;
+    padding: 50px 0 45px;
   }
 
   .hero h1 {
     font-size: 48px;
   }
 
-  .champion-grid {
-    grid-template-columns: repeat(
-      2,
-      minmax(0, 1fr)
-    );
-
-    gap: 12px;
+  #champions,
+  .champions-grid,
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .card img,
   .champion-card img {
-    height: 220px;
+    height: 210px;
   }
 }
 
 @media (max-width: 480px) {
+  header {
+    height: auto;
+    min-height: 62px;
+    padding: 14px 16px;
 
-  nav {
-    display: none;
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .champion-grid {
+  .hero h1 {
+    font-size: 40px;
+  }
+
+  #champions,
+  .champions-grid,
+  .grid {
     grid-template-columns: 1fr;
-  }
-
-  .champion-card img {
-    height: 300px;
   }
 }
