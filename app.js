@@ -1,363 +1,110 @@
-/* =========================================================
-   LEGENDS // ARCHIVE
-   MAIN APPLICATION
-   ========================================================= */
+// ============================================================
+// LEGENDS ARCHIVE - CHAMPION PAGE
+// ============================================================
 
-const DDRAGON_BASE =
-  "https://ddragon.leagueoflegends.com";
+const detail = document.getElementById("champion-detail");
 
 
-let currentVersion = null;
-let champions = {};
-let items = {};
+// ------------------------------------------------------------
+// DATOS DE BUILDS
+// ------------------------------------------------------------
 
+const builds = {
 
-/* =========================================================
-   START
-   ========================================================= */
+  Aatrox: {
+    role: "TOP",
+    items: [
+      ["Espada de Doran", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/1055.png"],
+      ["Cuchilla Negra", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3071.png"],
+      ["Cortasendas", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/6692.png"],
+      ["Calibrador de Sterak", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3053.png"],
+      ["Baile de la Muerte", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/6333.png"],
+      ["Placas de Acero", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3047.png"]
+    ]
+  },
 
-document.addEventListener("DOMContentLoaded", () => {
+  Ahri: {
+    role: "MID",
+    items: [
+      ["Anillo de Doran", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/1056.png"],
+      ["Compañero de Luden", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/6655.png"],
+      ["Llamasombría", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/4645.png"],
+      ["Gorro Mortal de Rabadon", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3089.png"],
+      ["Bastón del Vacío", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3135.png"],
+      ["Botas de Hechicero", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3020.png"]
+    ]
+  },
 
-  if (document.getElementById("champion-grid")) {
-    initHome();
+  Akali: {
+    role: "MID",
+    items: [
+      ["Anillo de Doran", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/1056.png"],
+      ["Creación de Malignidad", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3118.png"],
+      ["Lich Bane", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3100.png"],
+      ["Llamasombría", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/4645.png"],
+      ["Gorro Mortal de Rabadon", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3089.png"],
+      ["Botas de Hechicero", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3020.png"]
+    ]
+  },
+
+  Akshan: {
+    role: "MID",
+    items: [
+      ["Espada de Doran", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/1055.png"],
+      ["Cañón de Fuego Rápido", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3094.png"],
+      ["Filo de la Noche", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3814.png"],
+      ["Filo Infinito", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3031.png"],
+      ["Recordatorio Mortal", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3036.png"],
+      ["Grebas del Berserker", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3006.png"]
+    ]
+  },
+
+  Alistar: {
+    role: "SUPPORT",
+    items: [
+      ["Escudo de Doran", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/1054.png"],
+      ["Medallón de los Solari de Hierro", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3190.png"],
+      ["Convergencia de Zeke", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3050.png"],
+      ["Promesa del Caballero", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3109.png"],
+      ["Protector de los Solari", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3190.png"],
+      ["Botas de Mercurio", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3111.png"]
+    ]
   }
 
-  if (document.getElementById("champion-detail")) {
-    initChampionPage();
-  }
+};
 
-});
 
+// ------------------------------------------------------------
+// OBTENER CAMPEÓN DE LA URL
+// ------------------------------------------------------------
 
-/* =========================================================
-   GET CURRENT RIOT VERSION
-   ========================================================= */
+function getChampionId() {
 
-async function getLatestVersion() {
+  const params = new URLSearchParams(window.location.search);
 
-  const response =
-    await fetch(
-      `${DDRAGON_BASE}/api/versions.json`
-    );
-
-  if (!response.ok) {
-    throw new Error("No se pudo obtener la versión.");
-  }
-
-  const versions =
-    await response.json();
-
-  return versions[0];
-}
-
-
-/* =========================================================
-   GET CHAMPIONS
-   ========================================================= */
-
-async function getChampions(version) {
-
-  const response =
-    await fetch(
-      `${DDRAGON_BASE}/cdn/${version}/data/es_ES/champion.json`
-    );
-
-  if (!response.ok) {
-    throw new Error("No se pudieron cargar los campeones.");
-  }
-
-  const data =
-    await response.json();
-
-  return data.data;
-}
-
-
-/* =========================================================
-   GET ITEMS
-   ========================================================= */
-
-async function getItems(version) {
-
-  const response =
-    await fetch(
-      `${DDRAGON_BASE}/cdn/${version}/data/es_ES/item.json`
-    );
-
-  if (!response.ok) {
-    throw new Error("No se pudieron cargar los objetos.");
-  }
-
-  const data =
-    await response.json();
-
-  return data.data;
-}
-
-
-/* =========================================================
-   HOME
-   ========================================================= */
-
-async function initHome() {
-
-  const grid =
-    document.getElementById("champion-grid");
-
-  try {
-
-    currentVersion =
-      await getLatestVersion();
-
-    champions =
-      await getChampions(currentVersion);
-
-    renderChampions(
-      Object.values(champions)
-    );
-
-    setupSearch();
-
-    setupFilters();
-
-  } catch (error) {
-
-    console.error(error);
-
-    grid.innerHTML = `
-      <div class="empty">
-        No se pudieron cargar los campeones.
-        <br>
-        Recarga la página e inténtalo de nuevo.
-      </div>
-    `;
-
-  }
-
-}
-
-
-/* =========================================================
-   RENDER CHAMPIONS
-   ========================================================= */
-
-function renderChampions(list) {
-
-  const grid =
-    document.getElementById("champion-grid");
-
-  if (!list.length) {
-
-    grid.innerHTML = `
-      <div class="empty">
-        No se encontraron campeones.
-      </div>
-    `;
-
-    return;
-  }
-
-
-  grid.innerHTML =
-    list
-      .map(champion => {
-
-        const roles =
-          champion.tags || [];
-
-        const roleText =
-          roles.join(" · ");
-
-        const image =
-          `${DDRAGON_BASE}/cdn/${currentVersion}/img/champion/${champion.image.full}`;
-
-
-        return `
-
-          <a
-            class="champion-card"
-            href="champion.html?champion=${encodeURIComponent(champion.id)}"
-            data-name="${champion.name.toLowerCase()}"
-            data-roles="${roles.map(r => r.toLowerCase()).join(" ")}"
-          >
-
-            <div class="champion-card-image">
-
-              <img
-                src="${image}"
-                alt="${champion.name}"
-                loading="lazy"
-              >
-
-            </div>
-
-
-            <div class="champion-card-body">
-
-              <div class="champion-role">
-                ${roleText}
-              </div>
-
-              <h3 class="champion-name">
-                ${champion.name}
-              </h3>
-
-              <div class="champion-title">
-                ${champion.title}
-              </div>
-
-            </div>
-
-          </a>
-
-        `;
-
-      })
-      .join("");
-
-}
-
-
-/* =========================================================
-   SEARCH
-   ========================================================= */
-
-function setupSearch() {
-
-  const input =
-    document.getElementById("champion-search");
-
-  input.addEventListener(
-    "input",
-    filterChampions
+  return (
+    params.get("id") ||
+    params.get("champion") ||
+    params.get("name")
   );
 
 }
 
 
-function filterChampions() {
+// ------------------------------------------------------------
+// CARGAR CAMPEÓN
+// ------------------------------------------------------------
 
-  const search =
-    document
-      .getElementById("champion-search")
-      .value
-      .toLowerCase()
-      .trim();
+async function loadChampion() {
 
-
-  const activeButton =
-    document.querySelector(
-      ".filter.active"
-    );
-
-  const role =
-    activeButton
-      ? activeButton.dataset.role
-      : "all";
-
-
-  const cards =
-    document.querySelectorAll(
-      ".champion-card"
-    );
-
-
-  cards.forEach(card => {
-
-    const name =
-      card.dataset.name || "";
-
-    const roles =
-      card.dataset.roles || "";
-
-
-    const matchesName =
-      !search ||
-      name.includes(search);
-
-
-    const matchesRole =
-      role === "all" ||
-      roles.includes(role);
-
-
-    card.style.display =
-      matchesName && matchesRole
-        ? ""
-        : "none";
-
-  });
-
-}
-
-
-/* =========================================================
-   FILTERS
-   ========================================================= */
-
-function setupFilters() {
-
-  const buttons =
-    document.querySelectorAll(
-      ".filter"
-    );
-
-
-  buttons.forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        buttons.forEach(btn =>
-          btn.classList.remove("active")
-        );
-
-        button.classList.add("active");
-
-        filterChampions();
-
-      }
-    );
-
-  });
-
-}
-
-
-/* =========================================================
-   CHAMPION PAGE
-   ========================================================= */
-
-async function initChampionPage() {
-
-  const container =
-    document.getElementById(
-      "champion-detail"
-    );
-
-
-  const params =
-    new URLSearchParams(
-      window.location.search
-    );
-
-
-  const championId =
-    params.get("champion");
-
+  const championId = getChampionId();
 
   if (!championId) {
 
-    container.innerHTML = `
-      <div class="empty">
-        Campeón no encontrado.
-        <br><br>
-        <a href="index.html">
-          ← Volver a campeones
-        </a>
-      </div>
-    `;
+    showError(
+      "No se ha indicado ningún campeón.",
+      "La URL debe tener ?id=aatrox"
+    );
 
     return;
   }
@@ -365,203 +112,322 @@ async function initChampionPage() {
 
   try {
 
-    currentVersion =
-      await getLatestVersion();
+    // Obtenemos la versión actual de Data Dragon
+    const versionsResponse = await fetch(
+      "https://ddragon.leagueoflegends.com/api/versions.json"
+    );
 
-    champions =
-      await getChampions(currentVersion);
+    if (!versionsResponse.ok) {
+      throw new Error("No se pudo obtener la versión de Data Dragon.");
+    }
 
-    items =
-      await getItems(currentVersion);
+    const versions = await versionsResponse.json();
 
-
-    const champion =
-      champions[championId];
+    const version = versions[0];
 
 
-    if (!champion) {
+    // Datos de todos los campeones
+    const championResponse = await fetch(
+      `https://ddragon.leagueoflegends.com/cdn/${version}/data/es_ES/champion/${championId}.json`
+    );
+
+
+    if (!championResponse.ok) {
 
       throw new Error(
-        "Campeón inexistente."
+        `No se encontró el campeón "${championId}".`
       );
 
     }
 
 
-    renderChampionPage(
-      champion
-    );
+    const championData = await championResponse.json();
 
+    const champion = championData.data[championId];
+
+
+    if (!champion) {
+
+      throw new Error(
+        `No existen datos para "${championId}".`
+      );
+
+    }
+
+
+    renderChampion(champion, version);
 
   } catch (error) {
 
     console.error(error);
 
-    container.innerHTML = `
-      <div class="empty">
-        No se pudo cargar este campeón.
-        <br><br>
-        <a href="index.html">
-          ← Volver a campeones
-        </a>
-      </div>
-    `;
+    showError(
+      "No se pudo cargar el campeón.",
+      error.message
+    );
 
   }
 
 }
 
 
-/* =========================================================
-   RENDER CHAMPION
-   ========================================================= */
+// ------------------------------------------------------------
+// MOSTRAR CAMPEÓN
+// ------------------------------------------------------------
 
-function renderChampionPage(champion) {
+function renderChampion(champion, version) {
 
-  const container =
-    document.getElementById(
-      "champion-detail"
-    );
+  const build = builds[champion.name] || createDefaultBuild(champion);
 
 
-  const image =
-    `${DDRAGON_BASE}/cdn/${currentVersion}/img/champion/${champion.image.full}`;
+  const splash = champion.splash
+    ? champion.splash
+    : `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.id}_0.jpg`;
 
 
-  const stats =
-    champion.stats;
+  const tags = champion.tags || [];
 
 
-  const build =
-    getBuildForChampion(
-      champion
-    );
+  detail.innerHTML = `
 
-
-  document.title =
-    `${champion.name} // Legends Archive`;
-
-
-  container.innerHTML = `
-
-    <div class="champion-hero">
+    <section class="champion-hero">
 
       <img
         class="champion-hero-image"
-        src="${image}"
+        src="${splash}"
         alt="${champion.name}"
       >
 
+      <div class="champion-hero-overlay"></div>
 
       <div class="champion-hero-content">
 
-        <div class="champion-hero-role">
-          ${(champion.tags || []).join(" · ")}
+        <div class="eyebrow">
+          ${tags.join(" · ")}
         </div>
 
-        <h1 class="champion-hero-name">
-          ${champion.name}
-        </h1>
+        <h1>${champion.name}</h1>
 
-        <div class="champion-hero-title">
+        <p class="champion-title">
           ${champion.title}
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <section class="champion-content">
+
+      <div class="champion-intro">
+
+        <div>
+
+          <div class="section-label">
+            PERFIL
+          </div>
+
+          <h2>${champion.name}</h2>
+
+          <p class="champion-description">
+            ${champion.lore || champion.blurb || ""}
+          </p>
+
+        </div>
+
+        <div class="champion-stats">
+
+          <div class="stat">
+            <span>ATAQUE</span>
+            <strong>${champion.info.attack}</strong>
+          </div>
+
+          <div class="stat">
+            <span>DEFENSA</span>
+            <strong>${champion.info.defense}</strong>
+          </div>
+
+          <div class="stat">
+            <span>MAGIA</span>
+            <strong>${champion.info.magic}</strong>
+          </div>
+
+          <div class="stat">
+            <span>DIFICULTAD</span>
+            <strong>${champion.info.difficulty}</strong>
+          </div>
+
         </div>
 
       </div>
 
-    </div>
+
+      <section class="meta-section">
+
+        <div class="section-label">
+          META
+        </div>
+
+        <h2>Resumen</h2>
+
+        <div class="meta-grid">
+
+          <div class="meta-card">
+            <span>PARCHE</span>
+            <strong>${version}</strong>
+          </div>
+
+          <div class="meta-card">
+            <span>POSICIÓN</span>
+            <strong>${build.role}</strong>
+          </div>
+
+          <div class="meta-card">
+            <span>WIN RATE</span>
+            <strong>—</strong>
+          </div>
+
+          <div class="meta-card">
+            <span>PICK RATE</span>
+            <strong>—</strong>
+          </div>
+
+        </div>
+
+      </section>
 
 
-    <section class="detail-section">
+      <section class="build-section">
 
-      <div class="eyebrow">
-        PERFIL
-      </div>
+        <div class="section-label">
+          BUILD
+        </div>
 
-      <h2>
-        ${champion.name}
-      </h2>
+        <h2>Build recomendada</h2>
 
-      <p>
-        ${champion.description}
-      </p>
+        <p class="build-description">
+          Configuración recomendada para ${champion.name}.
+        </p>
+
+        <div class="build-role">
+          POSICIÓN ${build.role}
+        </div>
 
 
-      <div class="stats-grid">
+        <div class="items-grid">
 
-        ${stat(
-          "VIDA",
-          Math.round(stats.hp)
-        )}
+          ${build.items.map((item, index) => `
 
-        ${stat(
-          "ATAQUE",
-          Math.round(stats.attackdamage)
-        )}
+            <div class="item-card">
 
-        ${stat(
-          "ARMADURA",
-          Math.round(stats.armor)
-        )}
+              <div class="item-number">
+                ${index + 1}
+              </div>
 
-        ${stat(
-          "RESISTENCIA MÁGICA",
-          Math.round(stats.spellblock)
-        )}
+              <img
+                src="${item[1]}"
+                alt="${item[0]}"
+                class="item-image"
+              >
 
-      </div>
+              <div class="item-name">
+                ${item[0]}
+              </div>
+
+            </div>
+
+          `).join("")}
+
+        </div>
+
+      </section>
 
     </section>
 
-
-    <section class="detail-section">
-
-      <div class="eyebrow">
-        BUILD
-      </div>
-
-      <h2>
-        Build recomendada
-      </h2>
-
-      <p>
-        Configuración recomendada para
-        ${champion.name}.
-      </p>
-
-
-      <div class="build-grid">
-
-        ${build
-          .map(item => buildItem(item))
-          .join("")}
-
-      </div>
-
-    </section>
-
   `;
 
 }
 
 
-/* =========================================================
-   STAT
-   ========================================================= */
+// ------------------------------------------------------------
+// BUILD PARA CAMPEONES QUE TODAVÍA NO HEMOS CONFIGURADO
+// ------------------------------------------------------------
 
-function stat(label, value) {
+function createDefaultBuild(champion) {
 
-  return `
+  const role = champion.tags?.includes("Support")
+    ? "SUPPORT"
+    : champion.tags?.includes("Marksman")
+      ? "ADC"
+      : champion.tags?.includes("Mage")
+        ? "MID"
+        : "TOP";
 
-    <div class="stat">
 
-      <div class="stat-label">
-        ${label}
+  return {
+
+    role: role,
+
+    items: [
+
+      [
+        "Objeto inicial",
+        "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/1055.png"
+      ],
+
+      [
+        "Objeto recomendado",
+        "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3071.png"
+      ],
+
+      [
+        "Objeto recomendado",
+        "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3053.png"
+      ],
+
+      [
+        "Objeto recomendado",
+        "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/6333.png"
+      ],
+
+      [
+        "Objeto recomendado",
+        "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3089.png"
+      ],
+
+      [
+        "Botas",
+        "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3047.png"
+      ]
+
+    ]
+
+  };
+
+}
+
+
+// ------------------------------------------------------------
+// ERROR
+// ------------------------------------------------------------
+
+function showError(title, message) {
+
+  detail.innerHTML = `
+
+    <div class="error-card">
+
+      <div class="section-label">
+        ERROR
       </div>
 
-      <div class="stat-value">
-        ${value}
-      </div>
+      <h1>${title}</h1>
+
+      <p>${message}</p>
+
+      <a href="index.html" class="back-button">
+        ← Volver a campeones
+      </a>
 
     </div>
 
@@ -570,193 +436,8 @@ function stat(label, value) {
 }
 
 
-/* =========================================================
-   BUILD SYSTEM
-   ========================================================= */
+// ------------------------------------------------------------
+// INICIAR
+// ------------------------------------------------------------
 
-/*
-   Estas builds son diferentes según el tipo de campeón.
-   Después podemos sustituirlas por builds competitivas
-   reales sin tocar el diseño.
-*/
-
-const BUILD_POOLS = {
-
-  Fighter: [
-    6692,
-    3071,
-    6333,
-    3053,
-    3111,
-    3143
-  ],
-
-  Mage: [
-    6655,
-    4645,
-    3089,
-    3135,
-    3157,
-    3020
-  ],
-
-  Assassin: [
-    6692,
-    3142,
-    3814,
-    6694,
-    3111,
-    3071
-  ],
-
-  Marksman: [
-    6672,
-    3031,
-    3094,
-    3036,
-    3508,
-    3006
-  ],
-
-  Tank: [
-    3068,
-    3075,
-    3110,
-    3143,
-    2504,
-    3047
-  ],
-
-  Support: [
-    3109,
-    3190,
-    6617,
-    3110,
-    3158,
-    3222
-  ]
-
-};
-
-
-/* =========================================================
-   GET BUILD
-   ========================================================= */
-
-function getBuildForChampion(champion) {
-
-  const tags =
-    champion.tags || [];
-
-
-  let primary =
-    tags[0] || "Fighter";
-
-
-  if (
-    tags.includes("Assassin") &&
-    tags.includes("Mage")
-  ) {
-
-    primary = "Mage";
-
-  }
-
-
-  if (
-    tags.includes("Marksman")
-  ) {
-
-    primary = "Marksman";
-
-  }
-
-
-  if (
-    tags.includes("Support")
-  ) {
-
-    primary = "Support";
-
-  }
-
-
-  if (
-    tags.includes("Tank") &&
-    !tags.includes("Marksman")
-  ) {
-
-    primary = "Tank";
-
-  }
-
-
-  const pool =
-    BUILD_POOLS[primary] ||
-    BUILD_POOLS.Fighter;
-
-
-  /*
-    Rotamos la build según el ID del campeón.
-    De esta forma no todos aparecen exactamente
-    con los mismos seis objetos.
-  */
-
-  const seed =
-    champion.key
-      ? parseInt(champion.key, 10)
-      : champion.id.length;
-
-
-  const rotation =
-    seed % pool.length;
-
-
-  const rotated =
-    [
-      ...pool.slice(rotation),
-      ...pool.slice(0, rotation)
-    ];
-
-
-  return rotated
-    .slice(0, 6)
-    .map(id => items[String(id)])
-    .filter(Boolean);
-
-}
-
-
-/* =========================================================
-   BUILD ITEM
-   ========================================================= */
-
-function buildItem(item) {
-
-  const image =
-    `${DDRAGON_BASE}/cdn/${currentVersion}/img/item/${item.image.full}`;
-
-
-  return `
-
-    <div class="build-item">
-
-      <img
-        src="${image}"
-        alt="${item.name}"
-        loading="lazy"
-      >
-
-      <strong>
-        ${item.name}
-      </strong>
-
-      <span>
-        Objeto recomendado
-      </span>
-
-    </div>
-
-  `;
-
-}
+loadChampion();
