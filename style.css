@@ -658,3 +658,575 @@ main.container {
 .champion-hero::after {
   z-index: 1 !important;
 }
+/* =========================================================
+   INDEX / ROSTER — PREMIUM
+   ========================================================= */
+
+.hero {
+  min-height: 420px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 50px;
+  padding: 70px 0 55px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(48px, 6vw, 78px);
+  line-height: .95;
+  letter-spacing: -2px;
+}
+
+.hero h1 em {
+  color: #f1d477;
+  font-style: italic;
+}
+
+.hero .lead {
+  max-width: 600px;
+  margin: 24px 0 10px;
+  color: #aeb9ca;
+  font-size: 16px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 8px;
+  padding: 12px 18px;
+
+  border: 1px solid rgba(232, 201, 107, .25);
+  border-radius: 9px;
+
+  color: #e8c96b;
+  background: rgba(232, 201, 107, .04);
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+
+  transition: .2s ease;
+}
+
+.btn:hover {
+  background: rgba(232, 201, 107, .10);
+  border-color: rgba(232, 201, 107, .55);
+  transform: translateY(-2px);
+}
+
+.featured {
+  min-height: 300px;
+
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.08);
+
+  background-size: cover;
+  background-position: center;
+
+  overflow: hidden;
+  position: relative;
+
+  box-shadow: 0 25px 70px rgba(0,0,0,.45);
+}
+
+.featured::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5,9,16,.95),
+      rgba(5,9,16,.30)
+    );
+}
+
+.featured a {
+  position: absolute;
+  z-index: 2;
+
+  left: 30px;
+  bottom: 28px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.featured small {
+  color: #e8c96b;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.featured h2 {
+  margin: 7px 0 3px;
+
+  color: white;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 42px;
+}
+
+.featured span {
+  color: #b8c3d3;
+}
+
+
+/* =========================================================
+   ROSTER
+   ========================================================= */
+
+#champions {
+  margin-top: 35px;
+}
+
+.head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.head h2 {
+  margin: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 34px;
+
+  color: #f1d477;
+}
+
+#count {
+  color: #718096;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.controls {
+  margin-top: 24px;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 100%;
+  height: 52px;
+
+  padding: 0 16px;
+
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 11px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(20,31,48,.90),
+      rgba(8,14,24,.96)
+    );
+
+  color: #e8c96b;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.025),
+    0 12px 30px rgba(0,0,0,.18);
+
+  transition: .2s ease;
+}
+
+.search:focus-within {
+  border-color: rgba(232,201,107,.42);
+
+  box-shadow:
+    0 0 0 3px rgba(232,201,107,.05),
+    0 15px 35px rgba(0,0,0,.22);
+}
+
+.search input {
+  width: 100%;
+  height: 100%;
+
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+
+  color: #eef2f7;
+
+  font-size: 14px;
+}
+
+.search input::placeholder {
+  color: #68778c;
+}
+
+
+/* =========================================================
+   FILTERS
+   ========================================================= */
+
+#filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  margin-top: 12px;
+}
+
+#filters button {
+  padding: 9px 15px;
+
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 8px;
+
+  background: rgba(255,255,255,.025);
+
+  color: #8f9caf;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+
+  cursor: pointer;
+
+  transition: .2s ease;
+}
+
+#filters button:hover,
+#filters button.active {
+  color: #e8c96b;
+
+  border-color: rgba(232,201,107,.35);
+
+  background: rgba(232,201,107,.07);
+}
+
+
+/* =========================================================
+   CHAMPION GRID
+   ========================================================= */
+
+.grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, minmax(0, 1fr));
+
+  gap: 16px;
+
+  margin-top: 24px;
+}
+
+.card {
+  display: block;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(20,31,48,.95),
+      rgba(9,15,25,.98)
+    );
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.20);
+
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    box-shadow .2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+
+  border-color: rgba(232,201,107,.32);
+
+  box-shadow:
+    0 20px 45px rgba(0,0,0,.35);
+}
+
+.card > img {
+  display: block;
+
+  width: 100%;
+  height: 245px;
+
+  max-width: none;
+
+  object-fit: cover;
+  object-position: center;
+
+  transition: transform .35s ease;
+}
+
+.card:hover > img {
+  transform: scale(1.035);
+}
+
+.card > div {
+  min-height: 105px;
+  padding: 14px;
+}
+
+.card i {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #e8c96b;
+
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 800;
+
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.card strong {
+  display: block;
+
+  color: #f4f5f7;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px;
+}
+
+.card small {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #8290a4;
+
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   TIER LIST
+   ========================================================= */
+
+.panel {
+  margin-top: 80px;
+  padding: 34px;
+
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 16px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(20,31,48,.88),
+      rgba(10,16,27,.94)
+    );
+}
+
+.note {
+  margin: 8px 0 25px;
+
+  color: #8996a9;
+  font-size: 14px;
+}
+
+.tiers {
+  display: grid;
+  gap: 14px;
+}
+
+.tiers > div {
+  padding: 18px;
+
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 12px;
+
+  background: rgba(255,255,255,.018);
+}
+
+.tiers h3 {
+  margin: 0 0 13px;
+
+  color: #e8c96b;
+
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.tiers h3 span {
+  margin-left: 8px;
+
+  color: #8794a8;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.tiers section {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 12px;
+}
+
+.tiers section a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 8px;
+
+  border: 1px solid rgba(255,255,255,.05);
+  border-radius: 8px;
+
+  color: #dce2ea;
+
+  background: rgba(255,255,255,.018);
+
+  font-size: 12px;
+
+  transition: .2s ease;
+}
+
+.tiers section a:hover {
+  border-color: rgba(232,201,107,.25);
+  color: #e8c96b;
+}
+
+.tiers section img {
+  width: 42px;
+  height: 42px;
+
+  max-width: none;
+
+  object-fit: cover;
+
+  border-radius: 6px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+  width: min(1100px, calc(100% - 40px));
+
+  margin: 80px auto 0;
+  padding: 30px 0 45px;
+
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+
+footer b {
+  color: #e8c96b;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 13px;
+
+  letter-spacing: 2px;
+}
+
+footer p {
+  max-width: 900px;
+
+  margin: 10px 0 0;
+
+  color: #66758a;
+
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   RESPONSIVE INDEX
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+  .grid {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+  }
+
+}
+
+@media (max-width: 800px) {
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 45px;
+  }
+
+  .featured {
+    min-height: 260px;
+  }
+
+  .grid {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+  .tiers section {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .hero h1 {
+    font-size: 48px;
+  }
+
+  .grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .card > img {
+    height: 220px;
+  }
+
+  .panel {
+    padding: 22px;
+  }
+
+}
+
+@media (max-width: 420px) {
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card > img {
+    height: 300px;
+  }
+
+  .tiers section {
+    grid-template-columns: 1fr;
+  }
+
+}
