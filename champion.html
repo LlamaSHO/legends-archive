@@ -1,165 +1,66 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
   <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Legends // Archive</title>
+  <title>Champion // Legends Archive</title>
 
   <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
   <header class="site-header">
-    <div class="nav-wrap">
 
-      <a href="index.html" class="brand">
+    <div class="header-inner">
+
+      <a href="index.html" class="logo">
         LEGENDS <span>//</span> ARCHIVE
       </a>
 
-      <nav class="nav">
+      <nav>
         <a href="index.html">CAMPEONES</a>
-        <a href="index.html#tier">TIER LIST</a>
+        <a href="index.html#tier-list">TIER LIST</a>
       </nav>
 
     </div>
+
   </header>
 
 
-  <main>
+  <main class="champion-page">
 
-    <!-- HERO DEL CAMPEÓN -->
-    <section id="championHero" class="champion-hero">
+    <div id="champion-detail">
 
-      <div class="champion-hero-bg"></div>
-
-      <div class="champion-hero-content">
-
-        <div id="championRole" class="eyebrow">
-          CARGANDO...
-        </div>
-
-        <h1 id="championName">
-          Cargando...
-        </h1>
-
-        <p id="championTitle" class="champion-title"></p>
-
-        <p id="championDescription" class="champion-description"></p>
-
+      <div class="loading">
+        Cargando campeón...
       </div>
 
-    </section>
-
-
-    <!-- CONTENIDO -->
-    <section class="page-container">
-
-      <!-- PERFIL -->
-      <section class="content-section">
-
-        <div class="section-label">
-          PERFIL
-        </div>
-
-        <h2 id="profileName">
-          Cargando...
-        </h2>
-
-        <p id="profileDescription" class="profile-text"></p>
-
-        <div id="stats" class="stats-grid"></div>
-
-      </section>
-
-
-      <!-- META -->
-      <section class="content-section">
-
-        <div class="section-label">
-          META
-        </div>
-
-        <h2>Resumen</h2>
-
-        <div class="meta-card">
-
-          <div class="meta-item">
-            <span>PARCHE</span>
-            <strong id="patch">16.18.1</strong>
-          </div>
-
-          <div class="meta-item">
-            <span>POSICIÓN</span>
-            <strong id="position">TOP</strong>
-          </div>
-
-          <div class="meta-item">
-            <span>WIN RATE</span>
-            <strong id="winrate">—</strong>
-          </div>
-
-          <div class="meta-item">
-            <span>PICK RATE</span>
-            <strong id="pickrate">—</strong>
-          </div>
-
-        </div>
-
-        <p class="muted">
-          Las estadísticas competitivas se añadirán mediante nuestro sistema de datos.
-        </p>
-
-      </section>
-
-
-      <!-- BUILD -->
-      <section class="content-section">
-
-        <div class="section-label">
-          BUILD
-        </div>
-
-        <h2>Build recomendada</h2>
-
-        <p class="muted">
-          Configuración recomendada para este campeón.
-        </p>
-
-        <div class="build-position">
-          POSICIÓN <strong id="buildPosition">TOP</strong>
-        </div>
-
-        <div id="buildItems" class="items-grid"></div>
-
-      </section>
-
-    </section>
+    </div>
 
   </main>
 
 
-  <footer class="site-footer">
+  <footer>
 
-    <div class="footer-inner">
-
-      <strong>
-        LEGENDS // ARCHIVE
-      </strong>
-
-      <p>
-        Legends Archive isn't endorsed by Riot Games and doesn't reflect
-        the views or opinions of Riot Games or anyone officially involved
-        in producing or managing Riot Games properties.
-      </p>
-
+    <div class="footer-title">
+      LEGENDS // ARCHIVE
     </div>
+
+    <p>
+      Legends Archive isn't endorsed by Riot Games and doesn't reflect
+      the views or opinions of Riot Games or anyone officially involved
+      in producing or managing Riot Games properties.
+    </p>
 
   </footer>
 
 
-  <script src="champion.js"></script>
+  <script src="app.js"></script>
 
 </body>
 </html>
