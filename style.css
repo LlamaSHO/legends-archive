@@ -1201,3 +1201,180 @@ footer p {
   }
 
 }
+/* =========================================================
+   BUILD ITEMS
+========================================================= */
+
+.build-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+  max-width: 900px;
+}
+
+.build-item {
+  position: relative;
+
+  min-height: 150px;
+
+  padding: 14px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(15, 28, 46, 0.96),
+      rgba(7, 15, 27, 0.98)
+    );
+
+  border: 1px solid #22344d;
+  border-radius: 10px;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.18);
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.build-item:hover {
+  transform: translateY(-4px);
+
+  border-color: #c9a85c;
+
+  box-shadow:
+    0 14px 35px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(201, 168, 92, 0.08);
+}
+
+
+/* NUMERO */
+
+.build-number {
+  position: absolute;
+
+  top: 9px;
+  left: 10px;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1px;
+
+  color: #c9a85c;
+}
+
+
+/* CONTENEDOR IMAGEN */
+
+.build-image-wrap {
+  width: 64px;
+  height: 64px;
+
+  margin-top: 10px;
+
+  overflow: hidden;
+
+  border-radius: 8px;
+
+  border: 1px solid #354861;
+
+  background: #07101c;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 5px 15px rgba(0, 0, 0, 0.35);
+}
+
+
+/* IMAGEN DEL OBJETO */
+
+.build-image {
+  display: block;
+
+  width: 64px;
+  height: 64px;
+
+  max-width: 64px;
+  max-height: 64px;
+
+  object-fit: cover;
+
+  image-rendering: auto;
+}
+
+
+/* INFORMACION */
+
+.build-info {
+  width: 100%;
+
+  margin-top: 10px;
+
+  text-align: center;
+}
+
+.build-info strong {
+  display: block;
+
+  color: #f3f5f8;
+
+  font-size: 12px;
+  line-height: 1.25;
+
+  font-weight: 700;
+}
+
+.build-info span {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #71839d;
+
+  font-size: 9px;
+  line-height: 1.2;
+}
+
+
+/* ESTADO VACIO */
+
+.build-empty {
+  padding: 30px;
+
+  color: #71839d;
+
+  border: 1px solid #22344d;
+  border-radius: 10px;
+
+  background: #091321;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .build-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .build-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
