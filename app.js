@@ -1,443 +1,412 @@
 // ============================================================
-// LEGENDS ARCHIVE - CHAMPION PAGE
+// LEGENDS ARCHIVE
+// CARGADOR COMPLETO DE CAMPEONES
 // ============================================================
 
-const detail = document.getElementById("champion-detail");
+const DDRAGON = "https://ddragon.leagueoflegends.com";
+
+const championGrid = document.querySelector("#champion-grid");
+const searchInput = document.querySelector("#champion-search");
+
+let champions = [];
+let currentFilter = "ALL";
 
 
-// ------------------------------------------------------------
-// DATOS DE BUILDS
-// ------------------------------------------------------------
+// ============================================================
+// POSICIONES
+// ============================================================
 
-const builds = {
+const positions = {
 
-  Aatrox: {
-    role: "TOP",
-    items: [
-      ["Espada de Doran", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/1055.png"],
-      ["Cuchilla Negra", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3071.png"],
-      ["Cortasendas", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/6692.png"],
-      ["Calibrador de Sterak", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3053.png"],
-      ["Baile de la Muerte", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/6333.png"],
-      ["Placas de Acero", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3047.png"]
-    ]
-  },
+    Aatrox: "TOP",
+    Ahri: "MID",
+    Akali: "MID",
+    Akshan: "MID",
+    Alistar: "SUPPORT",
+    Ambessa: "TOP",
+    Amumu: "JUNGLE",
+    Anivia: "MID",
+    Annie: "MID",
+    Aphelios: "ADC",
+    Ashe: "ADC",
+    AurelionSol: "MID",
+    Aurora: "MID",
+    Azir: "MID",
 
-  Ahri: {
-    role: "MID",
-    items: [
-      ["Anillo de Doran", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/1056.png"],
-      ["Compañero de Luden", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/6655.png"],
-      ["Llamasombría", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/4645.png"],
-      ["Gorro Mortal de Rabadon", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3089.png"],
-      ["Bastón del Vacío", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3135.png"],
-      ["Botas de Hechicero", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3020.png"]
-    ]
-  },
+    Bard: "SUPPORT",
+    Belveth: "JUNGLE",
+    Blitzcrank: "SUPPORT",
+    Brand: "SUPPORT",
+    Braum: "SUPPORT",
+    Briar: "JUNGLE",
+    Caitlyn: "ADC",
+    Camille: "TOP",
+    Cassiopeia: "MID",
+    ChoGath: "TOP",
+    Corki: "ADC",
+    Darius: "TOP",
+    Diana: "JUNGLE",
+    DrMundo: "TOP",
+    Draven: "ADC",
 
-  Akali: {
-    role: "MID",
-    items: [
-      ["Anillo de Doran", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/1056.png"],
-      ["Creación de Malignidad", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3118.png"],
-      ["Lich Bane", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3100.png"],
-      ["Llamasombría", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/4645.png"],
-      ["Gorro Mortal de Rabadon", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3089.png"],
-      ["Botas de Hechicero", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3020.png"]
-    ]
-  },
+    Ekko: "JUNGLE",
+    Elise: "JUNGLE",
+    Evelynn: "JUNGLE",
+    Ezreal: "ADC",
 
-  Akshan: {
-    role: "MID",
-    items: [
-      ["Espada de Doran", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/1055.png"],
-      ["Cañón de Fuego Rápido", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3094.png"],
-      ["Filo de la Noche", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3814.png"],
-      ["Filo Infinito", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3031.png"],
-      ["Recordatorio Mortal", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3036.png"],
-      ["Grebas del Berserker", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3006.png"]
-    ]
-  },
+    Fiddlesticks: "JUNGLE",
+    Fiora: "TOP",
+    Fizz: "MID",
 
-  Alistar: {
-    role: "SUPPORT",
-    items: [
-      ["Escudo de Doran", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/1054.png"],
-      ["Medallón de los Solari de Hierro", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3190.png"],
-      ["Convergencia de Zeke", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3050.png"],
-      ["Promesa del Caballero", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3109.png"],
-      ["Protector de los Solari", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3190.png"],
-      ["Botas de Mercurio", "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3111.png"]
-    ]
-  }
+    Galio: "MID",
+    Gangplank: "TOP",
+    Garen: "TOP",
+    Gnar: "TOP",
+    Gragas: "TOP",
+    Graves: "JUNGLE",
+    Gwen: "TOP",
+
+    Hecarim: "JUNGLE",
+    Heimerdinger: "MID",
+    Hwei: "MID",
+
+    Illaoi: "TOP",
+    Irelia: "TOP",
+    Ivern: "JUNGLE",
+
+    Janna: "SUPPORT",
+    JarvanIV: "JUNGLE",
+    Jax: "TOP",
+    Jayce: "TOP",
+    Jhin: "ADC",
+    Jinx: "ADC",
+
+    Kaisa: "ADC",
+    Kalista: "ADC",
+    Karma: "SUPPORT",
+    Karthus: "JUNGLE",
+    Kassadin: "MID",
+    Katarina: "MID",
+    Kayle: "TOP",
+    Kayn: "JUNGLE",
+    Kennen: "TOP",
+    Khazix: "JUNGLE",
+    Kindred: "JUNGLE",
+    Kled: "TOP",
+    KogMaw: "ADC",
+    K'Sante: "TOP",
+    KSante: "TOP",
+
+    LeBlanc: "MID",
+    LeeSin: "JUNGLE",
+    Leona: "SUPPORT",
+    Lillia: "JUNGLE",
+    Lissandra: "MID",
+    Lucian: "ADC",
+    Lulu: "SUPPORT",
+    Lux: "SUPPORT",
+
+    Malphite: "TOP",
+    Malzahar: "MID",
+    Maokai: "SUPPORT",
+    MasterYi: "JUNGLE",
+    Mel: "MID",
+    Milio: "SUPPORT",
+    MissFortune: "ADC",
+    Mordekaiser: "TOP",
+    Morgana: "SUPPORT",
+
+    Naafiri: "MID",
+    Nami: "SUPPORT",
+    Nasus: "TOP",
+    Nautilus: "SUPPORT",
+    Neeko: "SUPPORT",
+    Nidalee: "JUNGLE",
+    Nilah: "ADC",
+    Nocturne: "JUNGLE",
+    Nunu: "JUNGLE",
+
+    Olaf: "TOP",
+    Orianna: "MID",
+    Ornn: "TOP",
+
+    Pantheon: "SUPPORT",
+    Poppy: "TOP",
+    Pyke: "SUPPORT",
+
+    Qiyana: "MID",
+    Quinn: "TOP",
+
+    Rakan: "SUPPORT",
+    Rammus: "JUNGLE",
+    RekSai: "JUNGLE",
+    Rell: "SUPPORT",
+    Renata: "SUPPORT",
+    Renekton: "TOP",
+    Rengar: "JUNGLE",
+    Riven: "TOP",
+    Rumble: "TOP",
+    Ryze: "MID",
+
+    Samira: "ADC",
+    Sejuani: "JUNGLE",
+    Senna: "SUPPORT",
+    Seraphine: "SUPPORT",
+    Sett: "TOP",
+    Shaco: "JUNGLE",
+    Shen: "TOP",
+    Shyvana: "JUNGLE",
+    Singed: "TOP",
+    Sion: "TOP",
+    Sivir: "ADC",
+    Skarner: "JUNGLE",
+    Smolder: "ADC",
+    Sona: "SUPPORT",
+    Soraka: "SUPPORT",
+    Swain: "SUPPORT",
+    Sylas: "MID",
+    Syndra: "MID",
+
+    TahmKench: "SUPPORT",
+    Taliyah: "JUNGLE",
+    Talon: "MID",
+    Taric: "SUPPORT",
+    Teemo: "TOP",
+    Thresh: "SUPPORT",
+    Tristana: "ADC",
+    Trundle: "JUNGLE",
+    Tryndamere: "TOP",
+    TwistedFate: "MID",
+    Twitch: "ADC",
+
+    Udyr: "JUNGLE",
+    Urgot: "TOP",
+
+    Varus: "ADC",
+    Vayne: "ADC",
+    Veigar: "MID",
+    Velkoz: "SUPPORT",
+    Vex: "MID",
+    Vi: "JUNGLE",
+    Viego: "JUNGLE",
+    Viktor: "MID",
+    Vladimir: "TOP",
+    Volibear: "TOP",
+
+    Warwick: "JUNGLE",
+    Wukong: "JUNGLE",
+
+    Xayah: "ADC",
+    Xerath: "SUPPORT",
+    XinZhao: "JUNGLE",
+
+    Yasuo: "MID",
+    Yone: "MID",
+    Yorick: "TOP",
+    Yunara: "ADC",
+    Yuumi: "SUPPORT",
+
+    Zac: "JUNGLE",
+    Zed: "MID",
+    Zeri: "ADC",
+    Ziggs: "ADC",
+    Zilean: "SUPPORT",
+    Zoe: "MID",
+    Zyra: "SUPPORT"
 
 };
 
 
-// ------------------------------------------------------------
-// OBTENER CAMPEÓN DE LA URL
-// ------------------------------------------------------------
+// ============================================================
+// CARGAR TODOS LOS CAMPEONES
+// ============================================================
 
-function getChampionId() {
+async function loadChampions() {
 
-  const params = new URLSearchParams(window.location.search);
-
-  return (
-    params.get("id") ||
-    params.get("champion") ||
-    params.get("name")
-  );
-
-}
-
-
-// ------------------------------------------------------------
-// CARGAR CAMPEÓN
-// ------------------------------------------------------------
-
-async function loadChampion() {
-
-  const championId = getChampionId();
-
-  if (!championId) {
-
-    showError(
-      "No se ha indicado ningún campeón.",
-      "La URL debe tener ?id=aatrox"
-    );
-
-    return;
-  }
-
-
-  try {
-
-    // Obtenemos la versión actual de Data Dragon
-    const versionsResponse = await fetch(
-      "https://ddragon.leagueoflegends.com/api/versions.json"
-    );
-
-    if (!versionsResponse.ok) {
-      throw new Error("No se pudo obtener la versión de Data Dragon.");
+    if (!championGrid) {
+        return;
     }
 
-    const versions = await versionsResponse.json();
+    try {
 
-    const version = versions[0];
+        const versionsResponse = await fetch(
+            `${DDRAGON}/api/versions.json`
+        );
 
+        const versions = await versionsResponse.json();
 
-    // Datos de todos los campeones
-    const championResponse = await fetch(
-      `https://ddragon.leagueoflegends.com/cdn/${version}/data/es_ES/champion/${championId}.json`
-    );
+        const version = versions[0];
 
+        const response = await fetch(
+            `${DDRAGON}/cdn/${version}/data/es_ES/champion.json`
+        );
 
-    if (!championResponse.ok) {
+        const data = await response.json();
 
-      throw new Error(
-        `No se encontró el campeón "${championId}".`
-      );
+        champions = Object.values(data.data);
 
-    }
+        renderChampions();
 
+    } catch (error) {
 
-    const championData = await championResponse.json();
+        console.error("Error cargando campeones:", error);
 
-    const champion = championData.data[championId];
-
-
-    if (!champion) {
-
-      throw new Error(
-        `No existen datos para "${championId}".`
-      );
-
-    }
-
-
-    renderChampion(champion, version);
-
-  } catch (error) {
-
-    console.error(error);
-
-    showError(
-      "No se pudo cargar el campeón.",
-      error.message
-    );
-
-  }
-
-}
-
-
-// ------------------------------------------------------------
-// MOSTRAR CAMPEÓN
-// ------------------------------------------------------------
-
-function renderChampion(champion, version) {
-
-  const build = builds[champion.name] || createDefaultBuild(champion);
-
-
-  const splash = champion.splash
-    ? champion.splash
-    : `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion.id}_0.jpg`;
-
-
-  const tags = champion.tags || [];
-
-
-  detail.innerHTML = `
-
-    <section class="champion-hero">
-
-      <img
-        class="champion-hero-image"
-        src="${splash}"
-        alt="${champion.name}"
-      >
-
-      <div class="champion-hero-overlay"></div>
-
-      <div class="champion-hero-content">
-
-        <div class="eyebrow">
-          ${tags.join(" · ")}
-        </div>
-
-        <h1>${champion.name}</h1>
-
-        <p class="champion-title">
-          ${champion.title}
-        </p>
-
-      </div>
-
-    </section>
-
-
-    <section class="champion-content">
-
-      <div class="champion-intro">
-
-        <div>
-
-          <div class="section-label">
-            PERFIL
-          </div>
-
-          <h2>${champion.name}</h2>
-
-          <p class="champion-description">
-            ${champion.lore || champion.blurb || ""}
-          </p>
-
-        </div>
-
-        <div class="champion-stats">
-
-          <div class="stat">
-            <span>ATAQUE</span>
-            <strong>${champion.info.attack}</strong>
-          </div>
-
-          <div class="stat">
-            <span>DEFENSA</span>
-            <strong>${champion.info.defense}</strong>
-          </div>
-
-          <div class="stat">
-            <span>MAGIA</span>
-            <strong>${champion.info.magic}</strong>
-          </div>
-
-          <div class="stat">
-            <span>DIFICULTAD</span>
-            <strong>${champion.info.difficulty}</strong>
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <section class="meta-section">
-
-        <div class="section-label">
-          META
-        </div>
-
-        <h2>Resumen</h2>
-
-        <div class="meta-grid">
-
-          <div class="meta-card">
-            <span>PARCHE</span>
-            <strong>${version}</strong>
-          </div>
-
-          <div class="meta-card">
-            <span>POSICIÓN</span>
-            <strong>${build.role}</strong>
-          </div>
-
-          <div class="meta-card">
-            <span>WIN RATE</span>
-            <strong>—</strong>
-          </div>
-
-          <div class="meta-card">
-            <span>PICK RATE</span>
-            <strong>—</strong>
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <section class="build-section">
-
-        <div class="section-label">
-          BUILD
-        </div>
-
-        <h2>Build recomendada</h2>
-
-        <p class="build-description">
-          Configuración recomendada para ${champion.name}.
-        </p>
-
-        <div class="build-role">
-          POSICIÓN ${build.role}
-        </div>
-
-
-        <div class="items-grid">
-
-          ${build.items.map((item, index) => `
-
-            <div class="item-card">
-
-              <div class="item-number">
-                ${index + 1}
-              </div>
-
-              <img
-                src="${item[1]}"
-                alt="${item[0]}"
-                class="item-image"
-              >
-
-              <div class="item-name">
-                ${item[0]}
-              </div>
-
+        championGrid.innerHTML = `
+            <div class="error-card">
+                No se pudieron cargar los campeones.
+                <br>
+                Recarga la página.
             </div>
+        `;
 
-          `).join("")}
-
-        </div>
-
-      </section>
-
-    </section>
-
-  `;
+    }
 
 }
 
 
-// ------------------------------------------------------------
-// BUILD PARA CAMPEONES QUE TODAVÍA NO HEMOS CONFIGURADO
-// ------------------------------------------------------------
+// ============================================================
+// RENDER
+// ============================================================
 
-function createDefaultBuild(champion) {
+function renderChampions() {
 
-  const role = champion.tags?.includes("Support")
-    ? "SUPPORT"
-    : champion.tags?.includes("Marksman")
-      ? "ADC"
-      : champion.tags?.includes("Mage")
-        ? "MID"
-        : "TOP";
+    if (!championGrid) {
+        return;
+    }
+
+    const search = searchInput
+        ? searchInput.value.toLowerCase().trim()
+        : "";
+
+    const filtered = champions.filter(champion => {
+
+        const name = champion.name.toLowerCase();
+
+        const position =
+            positions[champion.id] ||
+            positions[champion.name] ||
+            "";
+
+        const matchesSearch =
+            !search ||
+            name.includes(search);
+
+        const matchesPosition =
+            currentFilter === "ALL" ||
+            position === currentFilter;
+
+        return matchesSearch && matchesPosition;
+
+    });
 
 
-  return {
+    championGrid.innerHTML = filtered.map(champion => {
 
-    role: role,
+        const position =
+            positions[champion.id] ||
+            positions[champion.name] ||
+            "MID";
 
-    items: [
 
-      [
-        "Objeto inicial",
-        "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/1055.png"
-      ],
+        const image =
+            `${DDRAGON}/cdn/img/champion/splash/${champion.id}_0.jpg`;
 
-      [
-        "Objeto recomendado",
-        "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3071.png"
-      ],
 
-      [
-        "Objeto recomendado",
-        "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3053.png"
-      ],
+        return `
 
-      [
-        "Objeto recomendado",
-        "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/6333.png"
-      ],
+            <article class="champion-card">
 
-      [
-        "Objeto recomendado",
-        "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3089.png"
-      ],
+                <a
+                    href="champion.html?id=${encodeURIComponent(champion.id)}"
+                    class="champion-link"
+                >
 
-      [
-        "Botas",
-        "https://ddragon.leagueoflegends.com/cdn/15.18.1/img/item/3047.png"
-      ]
+                    <div class="champion-image-wrapper">
 
-    ]
+                        <img
+                            src="${image}"
+                            alt="${champion.name}"
+                            class="champion-image"
+                            loading="lazy"
+                        >
 
-  };
+                    </div>
+
+
+                    <div class="champion-card-content">
+
+                        <div class="champion-role">
+                            ${position}
+                        </div>
+
+                        <h3>
+                            ${champion.name}
+                        </h3>
+
+                        <p>
+                            ${champion.title}
+                        </p>
+
+                    </div>
+
+                </a>
+
+            </article>
+
+        `;
+
+    }).join("");
 
 }
 
 
-// ------------------------------------------------------------
-// ERROR
-// ------------------------------------------------------------
+// ============================================================
+// FILTROS
+// ============================================================
 
-function showError(title, message) {
+document.addEventListener("click", event => {
 
-  detail.innerHTML = `
+    const button = event.target.closest("[data-position]");
 
-    <div class="error-card">
+    if (!button) {
+        return;
+    }
 
-      <div class="section-label">
-        ERROR
-      </div>
+    currentFilter =
+        button.dataset.position;
 
-      <h1>${title}</h1>
+    document
+        .querySelectorAll("[data-position]")
+        .forEach(btn => {
 
-      <p>${message}</p>
+            btn.classList.remove("active");
 
-      <a href="index.html" class="back-button">
-        ← Volver a campeones
-      </a>
+        });
 
-    </div>
 
-  `;
+    button.classList.add("active");
+
+    renderChampions();
+
+});
+
+
+// ============================================================
+// BUSCADOR
+// ============================================================
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "input",
+        renderChampions
+    );
 
 }
 
 
-// ------------------------------------------------------------
-// INICIAR
-// ------------------------------------------------------------
+// ============================================================
+// INICIO
+// ============================================================
 
-loadChampion();
+loadChampions();
