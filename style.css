@@ -597,3 +597,46 @@ footer strong {
     grid-template-columns: 1fr;
   }
 }
+/* =========================
+   FIX: ENLACES DE CAMPEONES
+   ========================= */
+
+.champion-card,
+.champion-card a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.champion-card a:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+.champion-card h3 a,
+.champion-card .name a,
+.champion-card .role a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.champion-card h3 a:visited,
+.champion-card .name a:visited,
+.champion-card .role a:visited {
+    color: inherit;
+}
+
+.champion-card img {
+    display: block;
+}
+/* Quitar completamente el aspecto de enlace */
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: none;
+}
