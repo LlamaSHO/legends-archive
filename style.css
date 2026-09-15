@@ -1,28 +1,33 @@
 /* =========================================================
    LEGENDS // ARCHIVE
-   PREMIUM DARK THEME
+   PREMIUM UI
    ========================================================= */
 
 :root {
+
   --bg: #070c14;
-  --bg-soft: #0b1220;
-  --panel: #0d1625;
-  --panel-hover: #111e31;
-  --border: #22334b;
+  --bg-2: #0b1320;
+  --panel: #0d1726;
+  --panel-2: #101c2d;
+
+  --border: #22334a;
   --border-light: #30445f;
 
   --text: #f1f3f7;
-  --muted: #8d9bb0;
-  --gold: #d8b76a;
-  --gold-light: #f0d58b;
+  --muted: #8d9aab;
+  --muted-2: #66758b;
 
-  --radius: 10px;
+  --gold: #d8b76a;
+  --gold-light: #f1d98e;
+
   --container: 1080px;
+
 }
 
-/* =========================
+
+/* =========================================================
    RESET
-   ========================= */
+   ========================================================= */
 
 * {
   box-sizing: border-box;
@@ -33,31 +38,38 @@ html {
 }
 
 body {
+
   margin: 0;
+
   background:
     radial-gradient(
-      circle at 50% 0%,
-      rgba(30, 48, 76, 0.28),
+      circle at 50% -10%,
+      rgba(34, 52, 82, 0.45),
       transparent 42%
     ),
-    var(--bg);
-  color: var(--text);
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.5;
-}
+    linear-gradient(
+      180deg,
+      #0a101b 0%,
+      #070c14 100%
+    );
 
-img {
-  display: block;
-  max-width: 100%;
+  color: var(--text);
+
+  font-family:
+    Inter,
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  line-height: 1.5;
+
 }
 
 a {
-  color: inherit;
   text-decoration: none;
+  color: inherit;
 }
 
-/* IMPORTANTE:
-   evita que los enlaces vuelvan a aparecer morados/subrayados */
 a:visited {
   color: inherit;
 }
@@ -67,872 +79,1125 @@ input {
   font: inherit;
 }
 
-/* =========================
-   HEADER
-   ========================= */
 
-header {
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.site-header {
+
   height: 68px;
-  width: 100%;
-  background: rgba(6, 10, 17, 0.96);
+
+  background:
+    rgba(5, 9, 16, 0.94);
+
   border-bottom: 1px solid var(--border);
 
+  position: sticky;
+  top: 0;
+
+  z-index: 100;
+
+  backdrop-filter: blur(14px);
+
+}
+
+.header-inner {
+
+  width:
+    min(
+      var(--container),
+      calc(100% - 40px)
+    );
+
+  height: 100%;
+
+  margin: auto;
+
   display: flex;
+
   align-items: center;
-}
 
-header .container,
-.navbar,
-nav {
-  width: 100%;
-}
-
-header > *,
-.navbar > * {
-  max-width: var(--container);
-}
-
-header .container,
-.navbar {
-  margin: 0 auto;
-}
-
-header a:first-child {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: var(--gold);
-}
-
-/* =========================
-   NAVEGACIÓN
-   ========================= */
-
-nav {
-  display: flex;
-  align-items: center;
   justify-content: space-between;
+
+}
+
+
+.logo {
+
+  color: var(--gold);
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 21px;
+
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+}
+
+.logo span {
+  color: #718097;
+  margin: 0 4px;
+}
+
+
+nav {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 30px;
+
 }
 
 nav a {
-  color: #9aa7ba;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-  margin-left: 28px;
-  transition: color 0.2s ease;
+
+  color: #8795a9;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+
+  transition: color .2s ease;
+
 }
 
 nav a:hover {
   color: var(--gold-light);
 }
 
-/* =========================
-   CONTENEDOR PRINCIPAL
-   ========================= */
 
-main,
-.container,
-.page,
-.content {
-  width: min(var(--container), calc(100% - 40px));
-  margin-left: auto;
-  margin-right: auto;
-}
+/* =========================================================
+   MAIN
+   ========================================================= */
 
-/* Si main contiene directamente el contenido */
 main {
-  padding-top: 64px;
-  padding-bottom: 80px;
+
+  width:
+    min(
+      var(--container),
+      calc(100% - 40px)
+    );
+
+  margin: auto;
+
 }
 
-/* =========================
+
+/* =========================================================
    HERO
-   ========================= */
+   ========================================================= */
 
 .hero {
-  padding: 20px 0 70px;
+
+  padding-top: 75px;
+
+  padding-bottom: 65px;
+
+}
+
+.eyebrow {
+
+  color: var(--gold);
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+  letter-spacing: 3px;
+
+  text-transform: uppercase;
+
 }
 
 .hero h1 {
-  max-width: 800px;
-  margin: 8px 0 18px;
 
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(48px, 6vw, 72px);
-  line-height: 0.98;
-  letter-spacing: -2px;
-  color: #f4f5f8;
+  margin: 12px 0 20px;
+
+  max-width: 800px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: clamp(52px, 7vw, 78px);
+
+  line-height: .96;
+
+  letter-spacing: -3px;
+
+  color: #f3f4f7;
+
 }
 
 .hero h1 em {
-  color: #f4f5f8;
+  font-style: italic;
 }
 
 .hero p {
-  color: #b4bfce;
-  font-size: 16px;
-  max-width: 650px;
+
+  margin: 0;
+
+  color: #9daabd;
+
+  font-size: 15px;
+
 }
 
-.eyebrow,
-.label,
-section > .eyebrow {
-  color: var(--gold);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
 
-/* =========================
-   SECCIONES
-   ========================= */
+/* =========================================================
+   SECTIONS
+   ========================================================= */
 
 section {
-  margin-top: 55px;
+  margin-bottom: 75px;
 }
 
-section h2 {
-  margin: 5px 0 20px;
+.section-heading h2,
+.tier-section h2 {
 
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 34px;
-  line-height: 1.1;
+  margin: 8px 0 20px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   color: var(--gold-light);
+
+  font-size: 34px;
+
+  line-height: 1;
+
 }
 
-section p {
-  color: #aeb9c9;
-}
 
-/* =========================
-   BUSCADOR
-   ========================= */
+/* =========================================================
+   SEARCH
+   ========================================================= */
 
-.search,
-.search-box,
-.search-container {
-  width: 100%;
+.search-wrapper {
+
   position: relative;
-  margin: 0 0 14px;
-}
-
-.search input,
-.search-box input,
-.search-container input,
-input[type="search"] {
-  display: block;
 
   width: 100%;
+
+  margin-bottom: 12px;
+
+}
+
+.search-icon {
+
+  position: absolute;
+
+  left: 18px;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  color: var(--gold);
+
+  font-size: 20px;
+
+  z-index: 2;
+
+  pointer-events: none;
+
+}
+
+#champion-search {
+
+  width: 100%;
+
   height: 52px;
 
-  padding: 0 18px 0 48px;
-
-  border: 1px solid var(--border-light);
-  border-radius: 9px;
+  padding:
+    0 18px 0 48px;
 
   background:
     linear-gradient(
       180deg,
-      rgba(18, 30, 47, 0.95),
-      rgba(9, 17, 29, 0.95)
+      #101b2b,
+      #0b1422
     );
 
-  color: #eef2f7;
-  font-size: 14px;
+  border: 1px solid var(--border-light);
+
+  border-radius: 9px;
 
   outline: none;
 
+  color: #edf1f6;
+
+  font-size: 13px;
+
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.025),
-    0 8px 25px rgba(0,0,0,0.15);
+    0 10px 30px rgba(0,0,0,.15);
 
   transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    border-color .2s ease,
+    box-shadow .2s ease;
+
 }
 
-.search input::placeholder,
-.search-box input::placeholder,
-.search-container input::placeholder,
-input[type="search"]::placeholder {
-  color: #64748b;
+#champion-search::placeholder {
+  color: #66758b;
 }
 
-.search input:focus,
-.search-box input:focus,
-.search-container input:focus,
-input[type="search"]:focus {
-  border-color: #a7894e;
+#champion-search:focus {
+
+  border-color: #a98b4f;
 
   box-shadow:
-    0 0 0 3px rgba(216,183,106,0.08),
-    0 8px 30px rgba(0,0,0,0.2);
+    0 0 0 3px rgba(216,183,106,.08),
+    0 12px 30px rgba(0,0,0,.22);
+
 }
 
-/* Icono de búsqueda */
-.search::before,
-.search-box::before,
-.search-container::before {
-  content: "⌕";
 
-  position: absolute;
-  left: 18px;
-  top: 50%;
+/* =========================================================
+   FILTERS
+   ========================================================= */
 
-  transform: translateY(-52%);
+.filters {
 
-  color: var(--gold);
-  font-size: 19px;
-
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* =========================
-   FILTROS
-   ========================= */
-
-.filters,
-.filter-buttons,
-.role-filters {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
 
-  margin: 10px 0 26px;
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-bottom: 25px;
+
 }
 
-.filters button,
-.filter-buttons button,
-.role-filters button,
-.filters a,
-.filter-buttons a,
-.role-filters a {
-  border: 1px solid var(--border-light);
+.filter {
+
+  border: 1px solid var(--border);
+
+  background: #0c1625;
+
+  color: #8998ad;
+
+  padding:
+    9px 14px;
+
   border-radius: 7px;
 
-  padding: 9px 15px;
+  font-size: 9px;
 
-  background: #0c1727;
-  color: #aebbd0;
+  font-weight: 900;
 
-  font-size: 10px;
-  font-weight: 800;
   letter-spacing: 1.2px;
-  text-transform: uppercase;
 
   cursor: pointer;
 
   transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease,
-    transform 0.2s ease;
+    .2s ease;
+
 }
 
-.filters button:hover,
-.filter-buttons button:hover,
-.role-filters button:hover,
-.filters a:hover,
-.filter-buttons a:hover,
-.role-filters a:hover {
-  background: #152338;
-  border-color: #a7894e;
+.filter:hover {
+
   color: var(--gold-light);
-  transform: translateY(-1px);
+
+  border-color: #6d5d3c;
+
+  background: #111f32;
+
 }
 
-/* =========================
-   GRID DE CAMPEONES
-   ========================= */
+.filter.active {
 
-.champion-grid,
-.champions-grid,
-.roster-grid,
-.cards-grid {
+  color: #10151d;
+
+  background: var(--gold);
+
+  border-color: var(--gold);
+
+}
+
+
+/* =========================================================
+   CHAMPION GRID
+   ========================================================= */
+
+.champion-grid {
+
   display: grid;
 
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns:
+    repeat(5, minmax(0, 1fr));
 
-  gap: 18px;
+  gap: 16px;
 
-  width: 100%;
 }
 
-/* =========================
-   CARD DE CAMPEÓN
-   ========================= */
 
-.champion-card,
-.champion,
-.card {
+/* =========================================================
+   CHAMPION CARD
+   ========================================================= */
+
+.champion-card {
+
   min-width: 0;
 
   overflow: hidden;
 
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-
   background:
     linear-gradient(
       180deg,
-      #101b2c 0%,
-      #0a1321 100%
+      #101b2b,
+      #0b1422
     );
 
+  border:
+    1px solid var(--border);
+
+  border-radius: 9px;
+
   box-shadow:
-    0 10px 25px rgba(0,0,0,0.18);
+    0 10px 25px rgba(0,0,0,.18);
 
   transition:
-    transform 0.25s ease,
-    border-color 0.25s ease,
-    box-shadow 0.25s ease;
+    transform .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+
 }
 
-.champion-card:hover,
-.champion:hover,
-.card:hover {
-  transform: translateY(-4px);
+.champion-card:hover {
 
-  border-color: #52627a;
+  transform:
+    translateY(-4px);
+
+  border-color:
+    #53647d;
 
   box-shadow:
-    0 16px 35px rgba(0,0,0,0.32);
+    0 18px 38px rgba(0,0,0,.3);
+
 }
 
-/* =========================
-   IMÁGENES DE LAS CARDS
-   ========================= */
 
-/*
-   MUY IMPORTANTE:
-   Aquí limitamos las imágenes para que NUNCA
-   vuelvan a ocupar toda la pantalla.
-*/
+.champion-card-image {
 
-.champion-card img,
-.champion img,
-.card img {
   width: 100%;
 
-  height: 250px;
+  height: 235px;
+
+  overflow: hidden;
+
+  background: #111a28;
+
+}
+
+.champion-card-image img {
+
+  width: 100%;
+
+  height: 100%;
+
+  display: block;
 
   object-fit: cover;
+
   object-position: center;
 
-  border: 0;
+  transition:
+    transform .4s ease;
 
-  transition: transform 0.35s ease;
 }
 
-.champion-card:hover img,
-.champion:hover img,
-.card:hover img {
-  transform: scale(1.035);
+.champion-card:hover
+.champion-card-image img {
+
+  transform:
+    scale(1.045);
+
 }
 
-/* =========================
-   CONTENIDO DE CARD
-   ========================= */
 
-.champion-card .card-body,
-.champion-card .content,
-.champion .card-body,
-.card .card-body {
-  padding: 14px 14px 16px;
+.champion-card-body {
+
+  padding:
+    13px 14px 15px;
+
 }
 
-.champion-card .role,
-.champion .role,
-.card .role {
-  margin-bottom: 5px;
+.champion-role {
 
   color: var(--gold);
 
   font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
+
+  font-weight: 900;
+
+  letter-spacing: 1.2px;
+
   text-transform: uppercase;
+
+  margin-bottom: 4px;
+
 }
 
-.champion-card h3,
-.champion h3,
-.card h3 {
+.champion-name {
+
   margin: 0;
 
-  font-family: Georgia, "Times New Roman", serif;
+  color: #f0f2f5;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   font-size: 21px;
+
   line-height: 1.1;
 
-  color: #f0f2f5;
 }
 
-.champion-card p,
-.champion .description,
-.card p {
-  margin: 6px 0 0;
+.champion-title {
 
-  color: #75859b;
+  margin-top: 5px;
 
-  font-size: 11px;
+  color: #738299;
+
+  font-size: 10px;
+
 }
 
-/* =========================
-   LINKS DENTRO DE LAS CARDS
-   ========================= */
 
-.champion-card a,
-.champion a,
-.card a {
-  color: inherit;
-  text-decoration: none;
+/* =========================================================
+   TIER LIST
+   ========================================================= */
+
+.tier-section {
+
+  padding-top: 15px;
+
 }
 
-.champion-card a:hover,
-.champion a:hover,
-.card a:hover {
-  color: inherit;
+.tier-section > p {
+
+  color: #8d9bad;
+
+  margin-top: -8px;
+
 }
 
-/* =========================
-   PÁGINA DEL CAMPEÓN
-   ========================= */
+.tier-grid {
 
-.champion-page,
-.champion-detail,
-.champion-profile {
-  width: min(1180px, calc(100% - 40px));
-  margin: 0 auto;
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, minmax(0, 1fr));
+
+  gap: 12px;
+
+  margin-top: 25px;
+
+}
+
+.tier-box {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 15px;
+
+  background: #0c1625;
+
+  border: 1px solid var(--border);
+
+  border-radius: 8px;
+
+}
+
+.tier-rank {
+
+  width: 34px;
+
+  height: 34px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 7px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-weight: 700;
+
+  font-size: 18px;
+
+}
+
+.tier-rank.s {
+
+  color: var(--gold-light);
+
+  background:
+    rgba(216,183,106,.12);
+
+  border:
+    1px solid rgba(216,183,106,.3);
+
+}
+
+.tier-box strong {
+
+  display: block;
+
+  color: #e9edf2;
+
+  font-size: 12px;
+
+}
+
+.tier-box small {
+
+  display: block;
+
+  margin-top: 2px;
+
+  color: #68788e;
+
+  font-size: 9px;
+
+}
+
+
+/* =========================================================
+   CHAMPION PAGE
+   ========================================================= */
+
+.champion-page {
+
+  padding-top: 40px;
+
   padding-bottom: 80px;
+
 }
 
-/* Hero del campeón */
 .champion-hero {
+
   position: relative;
 
-  min-height: 420px;
-
-  margin-bottom: 50px;
+  height: 440px;
 
   overflow: hidden;
 
   border-radius: 12px;
+
   border: 1px solid var(--border);
 
-  background: #0b1320;
+  background: #0a111d;
+
 }
 
-.champion-hero img {
+.champion-hero-image {
+
   width: 100%;
-  height: 420px;
+
+  height: 100%;
 
   object-fit: cover;
+
   object-position: center;
 
-  opacity: 0.72;
+  display: block;
+
 }
 
 .champion-hero::after {
+
   content: "";
 
   position: absolute;
+
   inset: 0;
 
   background:
     linear-gradient(
       90deg,
-      rgba(5,9,15,0.95) 0%,
-      rgba(5,9,15,0.68) 42%,
-      rgba(5,9,15,0.1) 100%
+      rgba(4,8,14,.96),
+      rgba(4,8,14,.62) 45%,
+      rgba(4,8,14,.05)
     ),
     linear-gradient(
       0deg,
-      rgba(5,9,15,0.85) 0%,
+      rgba(4,8,14,.9),
       transparent 55%
     );
 
-  pointer-events: none;
 }
 
 .champion-hero-content {
+
   position: absolute;
 
   z-index: 2;
 
-  left: 45px;
+  left: 42px;
+
   bottom: 40px;
 
   max-width: 650px;
+
 }
 
-.champion-hero h1 {
-  margin: 8px 0;
-
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 64px;
-
-  color: #f5f5f5;
-}
-
-.champion-hero p {
-  color: #c1cad7;
-}
-
-/* =========================
-   PERFIL
-   ========================= */
-
-.profile-section {
-  margin-top: 40px;
-
-  padding: 30px;
-
-  border: 1px solid var(--border);
-  border-radius: 10px;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(15,26,42,0.9),
-      rgba(9,16,27,0.9)
-    );
-}
-
-.profile-section h2 {
-  margin-top: 0;
-}
-
-/* =========================
-   ESTADÍSTICAS
-   ========================= */
-
-.stats-grid {
-  display: grid;
-
-  grid-template-columns: repeat(4, 1fr);
-
-  gap: 12px;
-
-  margin: 25px 0;
-}
-
-.stat,
-.stat-card {
-  padding: 18px;
-
-  border: 1px solid var(--border);
-  border-radius: 8px;
-
-  background: #0c1726;
-}
-
-.stat-label {
-  display: block;
-
-  margin-bottom: 4px;
-
-  color: #718198;
-
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-
-.stat-value {
-  color: #f2f4f7;
-
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 25px;
-  font-weight: 700;
-}
-
-/* =========================
-   BUILD
-   ========================= */
-
-.build-grid {
-  display: grid;
-
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-
-  gap: 14px;
-
-  margin-top: 20px;
-}
-
-.item-card {
-  padding: 10px;
-
-  border: 1px solid var(--border);
-  border-radius: 8px;
-
-  background: #0c1726;
-
-  text-align: center;
-}
-
-.item-card img {
-  width: 64px;
-  height: 64px;
-
-  margin: 0 auto 8px;
-
-  object-fit: cover;
-
-  border-radius: 6px;
-}
-
-.item-card strong {
-  display: block;
-
-  color: #e8ebef;
-
-  font-size: 11px;
-}
-
-.item-card span {
-  display: block;
-
-  margin-top: 3px;
-
-  color: #718198;
-
-  font-size: 9px;
-}
-
-/* =========================
-   TIER LIST
-   ========================= */
-
-.tier-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.tier-row {
-  display: grid;
-
-  grid-template-columns: 70px 1fr;
-
-  min-height: 130px;
-
-  border: 1px solid var(--border);
-  border-radius: 10px;
-
-  overflow: hidden;
-
-  background: #0c1726;
-}
-
-.tier-rank {
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  color: var(--gold-light);
-
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 28px;
-  font-weight: 700;
-
-  background: #111d2e;
-
-  border-right: 1px solid var(--border);
-}
-
-.tier-champions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-
-  padding: 12px;
-}
-
-.tier-champion {
-  width: 100px;
-
-  overflow: hidden;
-
-  border-radius: 7px;
-
-  border: 1px solid var(--border);
-}
-
-.tier-champion img {
-  width: 100%;
-  height: 85px;
-
-  object-fit: cover;
-}
-
-.tier-champion span {
-  display: block;
-
-  padding: 5px;
-
-  color: #dfe4eb;
-
-  font-size: 10px;
-  text-align: center;
-}
-
-/* =========================
-   FOOTER
-   ========================= */
-
-footer {
-  width: min(var(--container), calc(100% - 40px));
-
-  margin: 70px auto 0;
-  padding: 30px 0;
-
-  border-top: 1px solid var(--border);
-
-  color: #65758c;
-
-  font-size: 10px;
-}
-
-footer strong,
-footer h3 {
-  display: block;
-
-  margin-bottom: 8px;
+.champion-hero-role {
 
   color: var(--gold);
 
   font-size: 10px;
-  letter-spacing: 2px;
+
+  font-weight: 900;
+
+  letter-spacing: 3px;
+
   text-transform: uppercase;
+
 }
 
-/* =========================
-   RESPONSIVE
-   ========================= */
+.champion-hero-name {
 
-@media (max-width: 1000px) {
-  .champion-grid,
-  .champions-grid,
-  .roster-grid,
-  .cards-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 7px 0;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 66px;
+
+  line-height: .95;
+
+  color: #f3f4f7;
+
+}
+
+.champion-hero-title {
+
+  color: #aeb9c8;
+
+  font-size: 14px;
+
+}
+
+
+/* =========================================================
+   CONTENT PANELS
+   ========================================================= */
+
+.detail-section {
+
+  margin-top: 28px;
+
+  padding: 28px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #0e1929,
+      #0b1422
+    );
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 10px;
+
+}
+
+.detail-section h2 {
+
+  margin: 5px 0 15px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 30px;
+
+  color: var(--gold-light);
+
+}
+
+.detail-section p {
+
+  color: #aab5c5;
+
+  font-size: 13px;
+
+  line-height: 1.75;
+
+}
+
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.stats-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 10px;
+
+  margin-top: 20px;
+
+}
+
+.stat {
+
+  padding: 16px;
+
+  background: #0a1422;
+
+  border: 1px solid var(--border);
+
+  border-radius: 8px;
+
+}
+
+.stat-label {
+
+  color: #68788e;
+
+  font-size: 9px;
+
+  font-weight: 900;
+
+  letter-spacing: 1.2px;
+
+  text-transform: uppercase;
+
+}
+
+.stat-value {
+
+  margin-top: 4px;
+
+  color: #f0f2f5;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 24px;
+
+  font-weight: 700;
+
+}
+
+
+/* =========================================================
+   BUILD
+   ========================================================= */
+
+.build-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(6, minmax(0, 1fr));
+
+  gap: 12px;
+
+  margin-top: 20px;
+
+}
+
+.build-item {
+
+  padding: 12px;
+
+  text-align: center;
+
+  background: #0a1422;
+
+  border: 1px solid var(--border);
+
+  border-radius: 8px;
+
+}
+
+.build-item img {
+
+  width: 64px;
+
+  height: 64px;
+
+  margin: 0 auto 9px;
+
+  object-fit: cover;
+
+  border-radius: 7px;
+
+}
+
+.build-item strong {
+
+  display: block;
+
+  color: #e8ebef;
+
+  font-size: 10px;
+
+}
+
+.build-item span {
+
+  display: block;
+
+  margin-top: 3px;
+
+  color: #64748b;
+
+  font-size: 9px;
+
+}
+
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+.loading {
+
+  grid-column:
+    1 / -1;
+
+  min-height: 180px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  color: #75859a;
+
+  font-size: 13px;
+
+}
+
+
+/* =========================================================
+   EMPTY
+   ========================================================= */
+
+.empty {
+
+  grid-column:
+    1 / -1;
+
+  padding: 50px;
+
+  text-align: center;
+
+  color: #75859a;
+
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+
+  width:
+    min(
+      var(--container),
+      calc(100% - 40px)
+    );
+
+  margin: 20px auto 0;
+
+  padding:
+    30px 0 45px;
+
+  border-top:
+    1px solid var(--border);
+
+}
+
+.footer-title {
+
+  color: var(--gold);
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+  letter-spacing: 2px;
+
+}
+
+footer p {
+
+  max-width: 950px;
+
+  color: #596a81;
+
+  font-size: 9px;
+
+  line-height: 1.7;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1050px) {
+
+  .champion-grid {
+
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+
+  }
+
+  .tier-grid {
+
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+  }
+
+}
+
+
+@media (max-width: 800px) {
+
+  .champion-grid {
+
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
   }
 
   .build-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
   }
+
+  .stats-grid {
+
+    grid-template-columns:
+      repeat(2, 1fr);
+
+  }
+
+  .champion-hero-name {
+
+    font-size: 50px;
+
+  }
+
 }
 
-@media (max-width: 760px) {
 
-  header {
-    height: auto;
-    min-height: 62px;
+@media (max-width: 600px) {
+
+  .header-inner {
+
+    width:
+      calc(100% - 24px);
+
   }
 
   nav {
-    padding: 14px 0;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+
+    gap: 12px;
+
   }
 
   nav a {
-    margin-left: 0;
-    margin-right: 20px;
+
+    font-size: 9px;
+
   }
 
   main {
-    padding-top: 35px;
+
+    width:
+      calc(100% - 24px);
+
   }
 
-  .hero h1 {
-    font-size: 46px;
+  .champion-grid {
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+
   }
 
-  .champion-grid,
-  .champions-grid,
-  .roster-grid,
-  .cards-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .champion-card-image {
+
+    height: 210px;
+
   }
 
-  .champion-card img,
-  .champion img,
-  .card img {
-    height: 220px;
-  }
+  .tier-grid {
 
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+    grid-template-columns:
+      1fr;
 
-  .build-grid {
-    grid-template-columns: repeat(3, 1fr);
   }
 
   .champion-hero {
-    min-height: 350px;
-  }
 
-  .champion-hero img {
-    height: 350px;
+    height: 360px;
+
   }
 
   .champion-hero-content {
+
     left: 25px;
+
     bottom: 25px;
+
   }
 
-  .champion-hero h1 {
-    font-size: 46px;
-  }
-}
+  .champion-hero-name {
 
-@media (max-width: 480px) {
+    font-size: 43px;
 
-  main,
-  .container,
-  .page,
-  .content,
-  .champion-page,
-  .champion-detail,
-  .champion-profile {
-    width: calc(100% - 24px);
   }
 
-  .champion-grid,
-  .champions-grid,
-  .roster-grid,
-  .cards-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-
-  .champion-card img,
-  .champion img,
-  .card img {
-    height: 180px;
-  }
-
-  .champion-card h3,
-  .champion h3,
-  .card h3 {
-    font-size: 18px;
-  }
-
-  .build-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .stats-grid {
-    grid-template-columns: 1fr 1fr;
-  }
 }
